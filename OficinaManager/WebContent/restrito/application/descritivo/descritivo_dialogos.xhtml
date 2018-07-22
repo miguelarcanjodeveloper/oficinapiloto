@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	
+	<!-- dialogo para adicionar motores -->
+		<h:form id="addGrupo">
+		<p:dialog header="Selecione um ou mais grupo de peças." 
+				  widgetVar="grupoDialog" 
+				  modal="true" 
+				  showEffect="fade" 
+				  hideEffect="fade" 
+				  resizable="false">
+				<p:dataTable id="tabGrupo" var="g"
+					value="#{depBean.grupoList}"
+					selection="#{depBean.grupoAdd}" rowKey="#{g.id_grupo}"
+					emptyMessage="Não existe grupo de peças cadastrados!"
+					style="margin-bottom:0"
+					>
+					<f:facet name="header">
+            			Checkbox
+        			</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Id">
+						<h:outputText value="#{g.id_grupo}" />
+					</p:column>
+					<p:column headerText="Grupo">
+						<h:outputText value="#{g.grupo}" />
+					</p:column>														
+					<f:facet name="footer">
+						<p:commandButton process="tabGrupo"
+							update=":cadastro" icon="ui-icon-search" value="Ok"
+							oncomplete="grupoDialog.hide()" />
+					</f:facet>
+				</p:dataTable>		
+        	</p:dialog>
+		</h:form>
+	<!-- ///fim do dialogo para adicionar motores/// -->	
+		
+		
+		
+	<!-- ++++++++++++++++++++++++dialogo de confirmação++++++++++++++++++++++++++ -->
+								<p:confirmDialog message="Confirma a exclusão permanente do departamento?" 												
+												showEffect="bounce"
+												hideEffect="explode" 
+												header="Atenção"
+											    severity="info" 
+											    widgetVar="msgdia"											   
+											    >
+									<div style="position: 0 auto;" align="center">										
+										<p id="texto" style="color: red; font:italic; font-size: 15px;" > Confirma a exclusão permanente do departamento selecionado?</p>
+									</div>
+									
+									<p:commandButton value="Sim" 
+									                 update="@all :cadastro :listaPesquisa :result"
+												     oncomplete="msgdia.hide()" 
+												     actionListener="#{depBean.excluir}" >		     
+									</p:commandButton>											
+									<p:commandButton value="Não" onclick="msgdia.hide()" type="button" />									
+								</p:confirmDialog>
+	
+</ui:composition>
+</html>

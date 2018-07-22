@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec ="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	
+		<h:form id="menu">
+			<table width="100%">
+				<tr>					
+					<td align="left">
+					<p:megaMenu>
+						<p:menuitem action="home" value="Home" icon="ui-icon-casa" />						
+						<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+							<p:menuitem action="/admin/principal" value="Administrativo" icon="ui-icon-check" />
+							<p:menuitem action="manu" value="Manutenção" icon="ui-icon-manu"/>
+						</sec:ifAnyGranted>	
+						<p:menuitem value="Sair" 						
+								onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+								icon="ui-icon-sair" />																						
+						</p:megaMenu>
+					</td>
+				</tr>
+			</table>
+		</h:form>
+	
+</ui:composition>
+</html>

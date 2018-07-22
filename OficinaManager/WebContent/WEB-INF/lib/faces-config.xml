@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+	
+    <!-- classes de conversões -->
+	<converter> 
+		<converter-id>grupoCon</converter-id> 
+		<converter-class>gpa.web.converter.GrupoConverter</converter-class> 
+	</converter> 
+	<converter> 
+		<converter-id>divisaoCon</converter-id> 
+		<converter-class>gpa.web.converter.DivisaoConverter</converter-class> 
+	</converter> 
+	<converter> 
+		<converter-id>montadoraCon</converter-id> 
+		<converter-class>gpa.web.converter.MontadoraConverter</converter-class> 
+	</converter>
+	<converter> 
+		<converter-id>versoesCon</converter-id> 
+		<converter-class>gpa.web.converter.VersaoConverter</converter-class> 
+	</converter>
+	<converter> 
+		<converter-id>departamentoCon</converter-id> 
+		<converter-class>gpa.web.converter.DepartamentoConverter</converter-class> 
+	</converter>     
+    <!-- fim de conversões -->
+    
+    
+	<managed-bean>
+		<managed-bean-name>contextoBean</managed-bean-name>
+		<managed-bean-class>gpa.web.ContextoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<!-- navegação do menu -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/restrito/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>manu</from-outcome>
+			<to-view-id>/templates/manutencao.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>gpa</from-outcome>
+			<to-view-id>/publico/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>montadora</from-outcome>
+			<to-view-id>/restrito/veiculo/montadoras/montadora.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>divisao</from-outcome>
+			<to-view-id>/restrito/veiculo/montadoras/divisao/divisao.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>grupo</from-outcome>
+			<to-view-id>/restrito/veiculo/montadoras/grupo/grupo.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>motor</from-outcome>
+			<to-view-id>/restrito/veiculo/modelo/motor/motor.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>versao</from-outcome>
+			<to-view-id>/restrito/veiculo/modelo/versao/versao.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>modelo</from-outcome>
+			<to-view-id>/restrito/veiculo/modelo/modelo.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>grupoPeca</from-outcome>
+			<to-view-id>/restrito/application/grupo/grupo.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>departamento</from-outcome>
+			<to-view-id>/restrito/application/departamento/departamento.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>descritivo</from-outcome>
+			<to-view-id>/restrito/application/descritivo/descritivo.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- FIM DE NAVEGAÇÃO DO MENU -->
+	
+	<!-- Configura mensagens para aparecer na tela ou aplicação -->
+	<application>
+	   <resource-bundle>
+    		<base-name>gpa.config.diretorios</base-name>
+    	<var>msg</var>
+   	</resource-bundle>
+	</application>
+
+	<!-- habilita o menu, com vários check-box -->
+	<component>
+		<component-type>org.primefaces.component.SelectOneMenu</component-type>
+		<component-class>org.primefaces.component.selectonemenu.SelectOneMenu</component-class>
+	</component>
+
+</faces-config>

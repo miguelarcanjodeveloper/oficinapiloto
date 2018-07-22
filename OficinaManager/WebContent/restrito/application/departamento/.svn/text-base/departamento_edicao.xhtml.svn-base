@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:panelGrid columns="1" width="100%">			
+		<p:panel header="Cadastro de Departamento"
+					toggleable="true" toggleSpeed="100">
+			<h:form id="cadastro">		
+				<h:messages />
+				<h:inputHidden value="#{depBean.departamento.id_departamento}" />				
+				<h:panelGrid frame="box" columns="3"  styleClass="topAligned">								
+					<h:outputLabel value="Departamento" for="dep" />			
+					<h:inputText id="dep" label="Departamento" value="#{depBean.departamento.titulo}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe Título de departamento." onkeyup="up(this)">
+						<f:validateLength minimum="2" maximum="30" />
+					</h:inputText>															           			    													
+					
+    				<p:dataTable id="grupoLista"
+    							 var ="g"
+    							 value="#{depBean.departamento.grupo}"
+    							 emptyMessage="Adicione um ou mais Grupo de peças.">
+ 						<f:facet name="header">
+        					<p:commandButton id="toggler" 
+        				    value="Add Grupo de peças" 
+        					oncomplete="PF('grupoDialog').show()" 
+        					style="float:center" 
+        					icon="ui-icon-search" />        					
+    					</f:facet>    							 
+    					<p:column headerText="Grupo de peças atrelados">    								
+    						<h:outputText value="#{g.grupo}" />        	    				
+    	    			</p:column>     							 					
+	    			</p:dataTable>	
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid frame="box" columns="1">
+					<h:panelGroup>
+    					<p:fileUpload fileUploadListener="#{depBean.handleFileUpload}"     				
+    								process="@this" 
+    								invalidSizeMessage="Imagem muito grande"
+									invalidFileMessage="Tipo de imagem não suportado"
+            						mode="advanced"  
+            						update="messages,im, img"  
+            						auto="true"  
+            						label="Add: Imagem" cancelLabel="Cancelar" sizeLimit="400000"  
+            						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"    
+            						required="true"
+            						requiredMessage="Insira um logo."        		
+            					/>
+            		            			            		    		    			
+    					<h:graphicImage 
+    								id="img"
+    								url="#{depBean.departamento.imagem.caminho}"    							
+									width="210" height="150" 
+    								alt="Adicione uma imagem."    			
+    						/>
+					</h:panelGroup>
+				</h:panelGrid>    				   								
+											   										 
+    			<h:inputHidden id="im" value="#{depBean.departamento.imagem.id_imagem}" required="true" requiredMessage="Insira uma imagem de logo" />    			
+    			<p:growl id="messages" showDetail="true" />  
+    			   							
+			<br/>
+				<p:commandButton process="@this" update=":cadastro" action="#{depBean.novo}" value="Novo" />						 			
+				<p:commandButton process="@all" update=":cadastro :listaPesquisa" action="#{depBean.salvar}" value="Salvar" />
+			</h:form>					        														
+		</p:panel>
+	</h:panelGrid>
+</ui:composition>
+</html>

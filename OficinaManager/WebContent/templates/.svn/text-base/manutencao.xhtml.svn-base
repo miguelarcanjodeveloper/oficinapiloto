@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"	
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="shortcut icon" type="image/x-icon" 
+		href="#{facesContext.externalContext.requestContextPath}/resources/imagens/favicons.ico" />
+    <title><ui:insert name="titulo_barra">Gestão de Auto Peças</ui:insert></title>
+    <h:outputStylesheet library="css" name="estilo.css" />
+    <h:outputStylesheet library="css" name="primeFaces.css" />
+    <h:outputScript library="js" name="js.js"/>         
+</h:head>
+
+<h:body>
+
+<div id="container">
+	<div id="titulo">
+		<ui:insert name="titulo">
+			Gestão <br />
+			De <br /> 
+			Auto Peças
+		</ui:insert>
+	</div>
+	
+	<div id="logotipo">
+		<h:graphicImage library="imagens" name="carro.png"/>
+	</div>
+	
+	<div id="barra_menu_manutencao">
+		<ui:insert name="barra_menu_manutencao">
+			<ui:include src="/restrito/menu_manutencao.xhtml">oi</ui:include>
+		</ui:insert>
+	</div>	
+ 	
+ 	<div id="corpo">
+ 		<ui:insert name="corpo"/>
+ 	</div>
+	
+	<div id="rodape">
+		<ui:insert name="rodape">
+			<ui:include src="/publico/rodape.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	
+</div>
+
+</h:body>
+
+</html>

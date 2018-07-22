@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:panelGrid columns="1" width="100%">			
+		<p:panel header="Cadastro de Descritivos"
+					toggleable="true" toggleSpeed="100">
+			<h:form id="cadastro">		
+				<h:messages />
+				<h:inputHidden value="#{descBean.descritivo.id_descritivo}" />				
+				<h:panelGrid frame="box" columns="2"  styleClass="topAligned">								
+					<h:outputLabel value="Descritivo" for="dep" />			
+					<h:inputText id="dep" label="Descritivo" value="#{descBean.descritivo.descritivo}" size="30"
+			 			maxlength="80" required="true" requiredMessage="Informe um Descritivo." onkeyup="up(this)">
+						<f:validateLength minimum="2" maximum="80" />
+					</h:inputText>															           			    													
+					<h:outputLabel value="Departamento:" for="depa" />									
+						<p:selectOneMenu id="depa" label="Departamento" 
+										 value="#{descBean.descritivo.departamento}"  
+										 converter="departamentoCon">
+							<f:selectItems value="#{descBean.departamentoList}" var="depa"  
+										   itemValue="#{depa.titulo}"  
+										   itemLabel="#{depa.titulo}" />														  				
+						</p:selectOneMenu>
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid frame="box" columns="2" styleClass="topAligned">
+					
+    					<p:fileUpload fileUploadListener="#{descBean.handleFileUpload}"     				
+    								process="@this" 
+    								invalidSizeMessage="Imagem muito grande"
+									invalidFileMessage="Tipo de imagem não suportado"
+            						mode="advanced"  
+            						update="messages,im, img"  
+            						auto="true"  
+            						label="Add: Imagem" cancelLabel="Cancelar" sizeLimit="400000"  
+            						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"    
+            						required="true"
+            						requiredMessage="Insira uma imagem."        		
+            					/>
+            		            			            		    		    			
+    					<h:graphicImage 
+    								id="img"
+    								url="#{descBean.descritivo.imagem.caminho}"    							
+									width="80" height="90" 
+    								alt="Adicione uma imagem."    			
+    						/>
+					
+				</h:panelGrid>    				   								
+											   										 
+    			<h:inputHidden id="im" value="#{descBean.descritivo.imagem.id_imagem}" required="true" requiredMessage="Insira uma imagem" />    			
+    			<p:growl id="messages" showDetail="true" />  
+    			   							
+			<br/>
+				<p:commandButton process="@this" update=":cadastro" action="#{descBean.novo}" value="Novo" />						 			
+				<p:commandButton process="@all" update=":cadastro :listaPesquisa" action="#{descBean.salvar}" value="Salvar" />
+			</h:form>					        														
+		</p:panel>
+	</h:panelGrid>
+</ui:composition>
+</html>

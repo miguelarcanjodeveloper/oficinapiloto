@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/templates/interna.xhtml">
+	<ui:define name="corpo">		
+		<h:form id="help-panel">
+		<p:overlayPanel id="imgPanel" 
+						for=":pesquisa:help" 
+						showEffect="blind" 
+						hideEffect="explode" 
+						 
+						hideEvent="mousedown"
+                        dismissable="false"
+                        dynamic="true" 
+                        showCloseIcon="true"
+                        style="width:250px;">
+        	<h:outputText 
+        	value="Uma busca pode ser realizada 
+        	digitando o nome do modelo.." style="font-size:20px;" />
+    	</p:overlayPanel>
+		</h:form>
+			
+			<h:panelGrid columns="2" width="100%">			
+				<p:panel header="Cadastro de modelos dos veículos"
+					toggleable="true" toggleSpeed="100">
+					
+					<h:form id="pesquisa">
+					<p:fieldset legend="Localizar modelo" toggleable="true" toggleSpeed="500">
+						<h:inputText id="ps" value="#{testeBean.modeloPesquisa}"  onkeyup="up(this)"/>
+						<!-- funciona digitando o id do modelo
+						<p:commandButton value="Buscar" update=":cadastro :imagem" action="#{testeBean.retorno}"/>
+						 -->
+						
+						<p:commandButton value="Buscar" update=":listaPesquisa" oncomplete="PF('busca').show()"/>
+						<h:graphicImage id="help" library="imagens" name="help-26.png"/>							
+					</p:fieldset>
+					</h:form>
+					
+					<br/>
+
+					<!-- grupo montadora, modelo, ano inicio, ano fim -->
+		<h:form id="cadastro">
+			<h:messages />
+			<h:inputHidden value="#{testeBean.modelo.id_modelo}" />				
+			
+					<h:panelGrid columns="4" cellspacing="8" frame="border">
+						<h:outputLabel value="Montadora: " for="montadora" />
+						<h:panelGroup>
+							<h:inputText id="montadora" 
+									 value="#{testeBean.modelo.montadora.sigla}" 
+									 label="Montadora" 
+									 readonly="true"									 
+									 required="true"
+									 requiredMessage="É obrigatorio selecionar uma montadora!" />
+							
+							<p:commandLink  title="Clique para adicionar uma montadora" onclick="diaMont.show()">
+								<h:graphicImage library="imagens" name="search.png"/>
+							</p:commandLink>						
+						</h:panelGroup>
+						<h:outputLabel value="Modelo:" for="modelo" />			
+						<h:inputText id="modelo" label="Modelo" value="#{testeBean.modelo.modelo}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe o nome de um modelo." onkeyup="up(this)">
+							<f:validateLength minimum="1" maximum="10" />
+						</h:inputText>	
+						<h:outputLabel value="Início de fabricação " for="inicio" />
+						<p:inputMask id="inicio" required="true" 
+											 requiredMessage="É obrigatorio um ano inicial de fabricação, com 4 dígitos ex:1994 !" 
+										 	 value="#{testeBean.modelo.anoInicio}"
+										 	 mask="9999"										 	 
+										 	 maxlength="4"
+										 	 style="background:white;"										 	 
+										 	 >
+							<f:validateLength minimum="4" maximum="4" />	 
+						</p:inputMask>
+											
+						<h:outputLabel value="Término de fabricação " for="fim" />
+						<p:inputMask id="fim" required="true" 
+											 requiredMessage="É obrigatorio escolher o ano final de fabricação!" 
+										 	 value="#{testeBean.modelo.anoFim}"
+										 	 mask="9999"
+										 	 maxlength="4"
+										 	 style="background:white;"
+										 	 />																	 	 
+										
+					</h:panelGrid>
+					<!-- fim de montadora, modelo, ano inicio, ano fim -->
+					<br/>
+					
+					
+					<h:panelGrid frame="box" columns="2" width="100%" cellpadding="5" >						
+    					
+						<!-- inicio tabela de motores -->	
+						<h:panelGroup>
+    						<p:commandButton update=":addMotor" 
+    										 value="Add Motores" 
+    										 label="Add Motores" 
+    										 oncomplete="PF('motorDialog').show()" 
+    										 title="Adicionar Motores"/>
+    						<p:dataTable id="motorLista" var="m" 
+    									 value="#{testeBean.modelo.motorList}"    
+    									 emptyMessage="Adicione um ou mais motores."
+    									 >
+    							<p:column headerText="Potência">    								
+    								<h:outputText value="#{m.torque}" />        	    				
+    	    					</p:column> 
+    	    					<p:column headerText="Família">    								    								
+        	    					<h:outputText value="#{m.motorNome}" />
+    	    					</p:column>       					
+	    					</p:dataTable>
+						</h:panelGroup>				
+    					<!-- fim de tabela de motores -->
+    					<h:panelGroup>
+    						<p:commandButton update=":addVersao"  
+    										 value="Add / Exclui Versões" 
+    										 label="Add Versões" 
+    										 oncomplete="PF('versaoDialog').show()" 
+    										 title="Adicionar Versões"/>  
+    										               					
+    						<p:dataTable id="versaoLista" var="v" 
+    									 value="#{testeBean.modelo.versaoList}"  
+    									 emptyMessage="Adicione uma ou mais versão."
+    									 >
+    							<p:column headerText="MODELO">    								
+    								<h:outputText value="#{testeBean.modelo.modelo}" />
+    							</p:column>
+    							<p:column headerText="VERSÃO">
+        	    					<h:outputText value="#{v.versaoSigla}" />
+    	    					</p:column>
+	    					</p:dataTable>
+    					</h:panelGroup>	
+					</h:panelGrid>					
+									
+    				<br/>
+    				
+    				<!-- grupo de botões -->		    				
+    				<h:panelGrid frame="box" columns="2" cellpadding="5">
+						<p:commandButton process="@this" update="cadastro" action="#{testeBean.novo}" value="Novo" />						 			
+						<p:commandButton process="@all" update="cadastro" action="#{testeBean.salvar}" value="Salvar" />	
+    				</h:panelGrid>	    				
+    				<!-- fim de grupo de botões -->		    															           			    														
+		</h:form>
+		
+		
+		<!-- grupo de imagem -->
+					<h:form id="imagem">
+					<h:panelGrid columns="1" frame="box" cellpadding="5" >					
+						<h:panelGrid columns="1">
+    							<p:fileUpload fileUploadListener="#{testeBean.handleFileUpload}"     				
+    								process="@this" 
+    								invalidSizeMessage="Imagem muito grande"
+									invalidFileMessage="Tipo de imagem não suportado"
+            						mode="advanced"  
+            						update="messages, img"  
+            						auto="true"  
+            						label="Add: Imagem" cancelLabel="Cancelar" sizeLimit="500000"  
+            						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"    
+            						required="true"
+            						requiredMessage="Insira uma imagem."        		
+            					/>
+            		            			            		    		    			
+    							<h:graphicImage 
+    								id="img"
+    								url="#{testeBean.modelo.imagem.caminho}"    							
+									width="580" height="300" 
+    								alt="Adicione uma foto do veículo"    			
+    							/>
+    							 			
+    							<p:growl id="messages" showDetail="true" />     							
+    						</h:panelGrid> 
+					</h:panelGrid>
+					
+					</h:form>
+					<!-- fim de grupo de imagem -->	
+					<!-- tabela de versões -->	
+
+						<!-- fim da tabela de versões -->	
+				</p:panel>
+			</h:panelGrid>
+	
+	
+	
+	
+		<!-- dialogo para adicionar versões -->
+		<h:form id="addVersao">
+		<p:dialog header="Selecione uma ou mais versões." widgetVar="versaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dataTable id="checkboxDT" var="car"
+					value="#{testeBean.versaoList}"
+					selection="#{testeBean.versaoAdd}" rowKey="#{car.id_versao}"
+					emptyMessage="Esta montadora não possui versões cadastrada!"
+					style="margin-bottom:0"
+					>
+					<f:facet name="header">
+            			Checkbox
+        			</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Id">
+						<h:outputText value="#{car.id_versao}" />
+					</p:column>
+					<p:column headerText="Sigla da versão">
+						<h:outputText value="#{car.versaoSigla}" />
+					</p:column>										
+					<f:facet name="footer">
+						<p:commandButton  process="checkboxDT"
+							update=":cadastro:versaoLista" icon="ui-icon-search" value="Ok"
+							oncomplete="versaoDialog.hide()" >
+							
+							</p:commandButton>
+					</f:facet>
+				</p:dataTable>		
+        	</p:dialog>
+		</h:form>
+		<!-- fim do dialogo para adicionar versões -->
+		
+		<!-- dialogo para adicionar motores -->
+		<h:form id="addMotor">
+		<p:dialog header="Selecione um ou mais motores." widgetVar="motorDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dataTable id="tabMotor" var="m"
+					value="#{testeBean.motorList}"
+					selection="#{testeBean.motorAdd}" rowKey="#{m.id_motor}"
+					emptyMessage="Esta montadora não possui motores cadastrados!"
+					style="margin-bottom:0"
+					>
+					<f:facet name="header">
+            			Checkbox
+        			</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Id">
+						<h:outputText value="#{m.id_motor}" />
+					</p:column>
+					<p:column headerText="Potência">
+						<h:outputText value="#{m.torque}" />
+					</p:column>
+					<p:column headerText="Família">
+						<h:outputText value="#{m.motorNome}" />
+					</p:column>										
+					<f:facet name="footer">
+						<p:commandButton process="tabMotor"
+							update=":cadastro:motorLista" icon="ui-icon-search" value="Ok"
+							oncomplete="motorDialog.hide()" />
+					</f:facet>
+				</p:dataTable>		
+        	</p:dialog>
+		</h:form>
+		<!-- fim do dialogo para adicionar motores -->	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<h:form id="listaPesquisa">
+		<p:dialog header="Lista de carros encontrados" widgetVar="busca" modal="true">
+			<h:panelGrid columns="1" width="100%">
+				<p:panel 
+					toggleable="true" 
+					toggleSpeed="10" 
+					header="Listagem" 
+					closeSpeed="15"
+					collapsed="false" 
+					style="align:left">
+					<h:panelGrid  style="margin: 0 auto align:center;" >													
+							<p:dataTable value="#{testeBean.carregarLista}" var="modelo" 
+										cellspacing="10" 
+										rendered="#{!empty testeBean.carregarLista}"
+										cellpadding="5" 
+										style="text-align:left; display:block;" 																				
+										rowIndexVar="index"
+										paginator="true"										
+										rowKey="#{modelo.id_modelo}"							
+										rows="5"
+										rowsPerPageTemplate="5,10,15,20"
+										pageLinks="5"							
+										scrollable="false"
+										>
+								<f:facet name="header">
+            						Checkbox
+        						</f:facet>								
+								<p:column headerText="Código" >								
+									<h:outputText value="#{modelo.id_modelo}" />
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Modelo</f:facet>
+									<h:outputText value="#{modelo.modelo}"/>
+								</p:column>
+								<p:column>
+									<f:facet name="header">Montadora</f:facet>
+									<h:outputText value="#{modelo.montadora.sigla}"/>
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Editar</f:facet>
+									<p:commandLink  action="#{testeBean.retorno(modelo.id_modelo)}" update=":cadastro :imagem">
+										<h:graphicImage title="editar" library="imagens" name="edit_p.png"/>
+										<p:ajax process="@this" update=":cadastro" 
+											oncomplete="busca.hide()"/>																	
+										<f:setPropertyActionListener target="#{testeBean.modelo}" value="#{modelo}"/>
+									</p:commandLink>
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Excluir</f:facet>
+									<p:commandLink action="#{testeBean.retorno(modelo.id_modelo)}" 
+									update=":cadastro :imagem :dialogoExcluir" oncomplete="showMsg('Confirme a ação.')">
+										<h:graphicImage title="excluir" library="imagens" name="excluir2_p.png"/>																											
+										<f:setPropertyActionListener target="#{testeBean.modelo}" value="#{modelo}"/>
+									</p:commandLink>
+								</p:column>								
+							</p:dataTable>																					
+					</h:panelGrid>															
+				</p:panel>
+			</h:panelGrid>	
+		</p:dialog>
+	</h:form>
+ 
+ 
+ 	<!-- dialogo de confirmação de exclusão -->
+ 	<h:form id="dialogoExcluir">
+ 		<p:dialog modal="true"
+ 			  message="Confirma a exclusão permanente do modelo:"
+ 			  widgetVar="msgdia"
+ 			  header="Confirmação"
+ 			  resizable="false">
+ 			  <div style="position: 0 auto;" align="center">										
+				 
+				<p id="texto" style=" font:italic; font-size: 12px;" > 
+				Modelo selecionado?
+				</p>
+ 				<p:outputLabel value="Confirma excluir o modelo #{testeBean.modelo.modelo}?" style="color: red; font:italic; font-size: 15px;"/>				
+			 	<br/><br/>
+			 	<p:commandButton value="Sim" action="#{testeBean.excluir}" update=":cadastro :imagem" oncomplete="msgdia.hide(); busca.hide();"/>
+			 	<p:commandButton value="Não" onclick="msgdia.hide();"/>
+			  </div>
+ 		</p:dialog>
+ 	</h:form>
+		
+		
+		
+		
+		
+		
+	<!-- dialogo para adicionar montadora -->	
+		
+		<h:form id="dialogoMontadora">
+ 			<p:dialog modal="true"
+ 			  message="selecione uma montadora:"
+ 			  widgetVar="diaMont"
+ 			  >
+ 			  <div style="position: 0 auto;" align="center">										
+				<p:dataTable value="#{testeBean.montadoraList}" var="mont" 
+										cellspacing="10" 
+										rendered="#{!empty testeBean.montadoraList}"
+										cellpadding="5" 
+										style="text-align:left; display:block;" 																				
+										rowIndexVar="index"
+										paginator="true"										
+										filteredValue="#{testeBean.filteredMont}"							
+										rows="5"
+										rowsPerPageTemplate="5,10,15,20"
+										pageLinks="5"							
+										scrollable="false"
+										>
+								
+								<p:column headerText="Código" >								
+									<h:outputText value="#{mont.id_montadora}" />
+								</p:column>	
+								<p:column filterBy="#{mont.sigla}">
+									<f:facet name="header">Montadora</f:facet>
+									<h:outputText value="#{mont.sigla}"/>
+								</p:column>								
+								<p:column>
+									<f:facet name="header">Selecionar</f:facet>
+									<p:commandLink  
+									update=":cadastro :imagem" oncomplete="diaMont.hide()" process="@this">
+										<h:graphicImage title="editar" library="imagens" name="add.png"/>																										
+										<f:setPropertyActionListener target="#{testeBean.modelo.montadora}" value="#{mont}"/>
+									</p:commandLink>
+								</p:column>	
+															
+							</p:dataTable>
+			  </div>
+ 				
+ 			</p:dialog>
+ 		</h:form>
+		
+		
+	
+		
+		
+	</ui:define>
+	</ui:composition>
+</html>

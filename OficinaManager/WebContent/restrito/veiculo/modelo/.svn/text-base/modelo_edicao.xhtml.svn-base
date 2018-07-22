@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+		
+		<h:form id="help-panel">
+		<p:overlayPanel id="imgPanel" 
+						for=":pesquisa:help" 
+						showEffect="blind" 
+						hideEffect="explode" 
+						 
+						hideEvent="mousedown"
+                        dismissable="false"
+                        dynamic="true" 
+                        showCloseIcon="true"
+                        style="width:250px;">
+        	<h:outputText 
+        	value="Uma busca pode ser realizada 
+        	digitando o nome do modelo ou parte do nome." style="font-size:20px;" />
+    	</p:overlayPanel>
+		</h:form>
+		
+			<h:panelGrid columns="2" width="100%">			
+				<p:panel header="Cadastro de modelos dos veículos"
+					toggleable="true" toggleSpeed="100">
+					
+					<h:form id="pesquisa">
+					<p:fieldset legend="Localizar modelo" toggleable="true" toggleSpeed="500">
+						<h:inputText id="ps" value="#{modeloBean.modeloPesquisa}"  onkeyup="up(this)"/>
+						<!-- funciona digitando o id do modelo
+						<p:commandButton value="Buscar" update=":cadastro :imagem" action="#{modeloBean.retorno}"/>
+						 -->
+						
+						<p:commandButton value="Buscar" update=":listaPesquisa" oncomplete="PF('busca').show()"/>
+						<h:graphicImage id="help" library="imagens" name="help-26.png"/>							
+					</p:fieldset>
+					</h:form>
+					
+					<br/>
+
+					<!-- grupo montadora, modelo, ano inicio, ano fim -->
+		<h:form id="cadastro">
+			<h:messages />
+			<h:inputHidden value="#{modeloBean.modelo.id_modelo}" />				
+			
+					<h:panelGrid columns="4" cellspacing="8" frame="border">
+						<h:outputLabel value="Montadora: " for="montadora" />
+						<h:panelGroup>
+							<h:inputText id="montadora" 
+									 value="#{modeloBean.modelo.montadora.sigla}" 
+									 label="Montadora" 
+									 readonly="true"									 
+									 required="true"
+									 requiredMessage="É obrigatorio selecionar uma montadora!" />
+							
+							<p:commandLink  title="Clique para adicionar uma montadora" onclick="diaMont.show()">
+								<h:graphicImage library="imagens" name="search.png"/>
+							</p:commandLink>						
+						</h:panelGroup>
+						<h:outputLabel value="Modelo:" for="modelo" />			
+						<h:inputText id="modelo" label="Modelo" value="#{modeloBean.modelo.modelo}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe o nome de um modelo." onkeyup="up(this)">
+							<f:validateLength minimum="1" maximum="10" />
+						</h:inputText>	
+						<h:outputLabel value="Início de fabricação " for="inicio" />
+						<p:inputMask id="inicio" required="true" 
+											 requiredMessage="É obrigatorio um ano inicial de fabricação, com 4 dígitos ex:1994 !" 
+										 	 value="#{modeloBean.modelo.anoInicio}"
+										 	 mask="9999"										 	 
+										 	 maxlength="4"
+										 	 style="background:white;"										 	 
+										 	 >
+							<f:validateLength minimum="4" maximum="4" />	 
+						</p:inputMask>
+											
+						<h:outputLabel value="Término de fabricação " for="fim" />
+						<p:inputMask id="fim" required="true" 
+											 requiredMessage="É obrigatorio escolher o ano final de fabricação!" 
+										 	 value="#{modeloBean.modelo.anoFim}"
+										 	 mask="9999"
+										 	 maxlength="4"
+										 	 style="background:white;"
+										 	 />																	 	 
+										
+					</h:panelGrid>
+					<!-- fim de montadora, modelo, ano inicio, ano fim -->
+					<br/>
+					
+					
+					<h:panelGrid frame="box" columns="2" width="100%" cellpadding="5" styleClass="topAligned">						
+    					
+						<!-- inicio tabela de motores -->	
+						<h:panelGroup>						
+    						<p:dataTable id="motorLista" var="m" 
+    									 value="#{modeloBean.modelo.motorList}"    
+    									 emptyMessage="Adicione um ou mais motores."
+    									 >
+    							<f:facet name="header">
+        							<p:commandButton 
+        									update=":addMotor" 
+    										 value="Add Motores" 
+    										 label="Add Motores" 
+    										 oncomplete="PF('motorDialog').show()" 
+    										 title="Adicionar Motores"
+        									 style="float:center" 
+        									 icon="ui-icon-search" />        					
+    							</f:facet>
+    							<p:column headerText="Potência">    								
+    								<h:outputText value="#{m.torque}" />        	    				
+    	    					</p:column> 
+    	    					<p:column headerText="Família">    								    								
+        	    					<h:outputText value="#{m.motorNome}" />
+    	    					</p:column>       					
+	    					</p:dataTable>
+						</h:panelGroup>				
+    					<!-- fim de tabela de motores -->
+    					<h:panelGroup>    						     										               					
+    						<p:dataTable id="versaoLista" var="v" 
+    									 value="#{modeloBean.modelo.versaoList}"  
+    									 emptyMessage="Adicione uma ou mais versão."
+    									 >
+    						    <f:facet name="header">
+        							<p:commandButton 
+        									update=":addVersao" 
+    										 value="Add / Exclui Versões" 
+    										 label="Add Versões" 
+    										 oncomplete="PF('versaoDialog').show()" 
+    										 title="Adicionar Versões"
+        									 icon="ui-icon-search" />        					
+    							</f:facet>
+    							<p:column headerText="MODELO">    								
+    								<h:outputText value="#{modeloBean.modelo.modelo}" />
+    							</p:column>
+    							<p:column headerText="VERSÃO">
+        	    					<h:outputText value="#{v.versaoSigla}" />
+    	    					</p:column>
+	    					</p:dataTable>
+    					</h:panelGroup>	
+					</h:panelGrid>					
+									
+    				<br/>
+    				
+    				<!-- grupo de botões (novo e salvar)-->		    				
+    				<h:panelGrid frame="box" columns="2" cellpadding="5">
+						<p:commandButton process="@this" update="cadastro" action="#{modeloBean.novo}" value="Novo" />						 			
+						<p:commandButton process="@all" update="cadastro" action="#{modeloBean.salvar}" value="Salvar" />	
+    				</h:panelGrid>	    				
+    				<!-- fim de grupo de botões -->		    															           			    														
+		</h:form>
+		
+		
+		<!-- grupo de imagem -->
+					<h:form id="imagem">
+					<h:panelGrid columns="1" frame="box" cellpadding="5" >					
+						<h:panelGrid columns="1">
+    							<p:fileUpload fileUploadListener="#{modeloBean.handleFileUpload}"     				
+    								process="@this" 
+    								invalidSizeMessage="Imagem muito grande"
+									invalidFileMessage="Tipo de imagem não suportado"
+            						mode="advanced"  
+            						update="messages, img"  
+            						auto="true"  
+            						label="Add: Imagem" cancelLabel="Cancelar" sizeLimit="500000"  
+            						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"    
+            						required="true"
+            						requiredMessage="Insira uma imagem."        		
+            					/>
+            		            			            		    		    			
+    							<h:graphicImage 
+    								id="img"
+    								url="#{modeloBean.modelo.imagem.caminho}"    							
+									width="580" height="300" 
+    								alt="Adicione uma foto do veículo"    			
+    							/>
+    							 			
+    							<p:growl id="messages" showDetail="true" />     							
+    						</h:panelGrid> 
+					</h:panelGrid>
+					
+					</h:form>
+					<!-- fim de grupo de imagem -->	
+									
+				</p:panel>
+			</h:panelGrid>	
+			
+							        	
+</ui:composition>
+</html>

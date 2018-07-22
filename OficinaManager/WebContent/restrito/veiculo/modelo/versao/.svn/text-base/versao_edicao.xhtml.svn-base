@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages />
+			<h:inputHidden value="#{versaoBean.versao.id_versao}" />				
+			<h:panelGrid columns="1" width="100%">			
+				<p:panel header="Cadastro de versões das montadoras"
+					toggleable="true" toggleSpeed="100">
+					<h:panelGrid columns="4" cellspacing="8">
+						<h:outputLabel value="Montadora: " for="montadora" />
+						<p:selectOneMenu id="montadora" required="true" 
+											 requiredMessage="É obrigatorio escolher uma montadora!" 
+										 	 value="#{versaoBean.versao.montadora}">
+							<f:selectItems value="#{versaoBean.montadoras}" var="monta" itemValue="#{monta}"  itemLabel="#{monta.sigla}" />
+							<f:converter converterId="montadoraCon"/>
+						</p:selectOneMenu>
+						<h:outputLabel value="Verão:" for="versao" />			
+						<h:inputText id="versao" label="Versão" value="#{versaoBean.versao.versaoSigla}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe uma Versão." onkeyup="up(this)">
+							<f:validateLength minimum="1" maximum="10" />
+						</h:inputText>															           			    															
+						<p:commandButton process="@this" update="cadastro" action="#{versaoBean.novo}" value="Novo" />						 			
+						<p:commandButton process="@form" update="cadastro, :listagem" action="#{versaoBean.salvar}" value="Salvar" />
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</ui:composition>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+<div class="center_content">
+	
+	<h:panelGrid columns="1" width="100%">
+		<p:panel 
+		toggleable="true" 
+		toggleSpeed="10" 
+		header="Listagem" 
+		closeSpeed="15"
+		collapsed="false" 
+		style="align:left">
+		<p:growl id="result" />
+			<h:panelGrid  style="margin: 0 auto align:center;" >
+				<h:panelGroup style="align:left">
+					<h:form id="listagem">
+						<p:dataTable value="#{grupoBean.grupoList}" var="grupo" 
+							cellspacing="10" 
+							rendered="#{!empty grupoBean.grupoList}"
+							cellpadding="5" 
+							style="text-align:left; display:block;" 																				
+							rowIndexVar="index"
+							paginator="true"							
+							rows="5"
+							rowsPerPageTemplate="5,10,15,20"
+							pageLinks="5"							
+							scrollable="false">
+							<p:column>
+								<f:facet name="header">Código</f:facet>
+									<h:outputText value="#{grupo.id_MontGrupo}" />
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Descrição</f:facet>
+									<h:outputText value="#{grupo.grupo}"/>
+							</p:column>	
+							
+							<p:column>
+								<f:facet name="header">Editar</f:facet>
+								<h:commandLink title="editar">
+									<f:ajax execute="@form" render=":cadastro :listagem "/>
+									<h:graphicImage library="imagens" name="edit.png"/>
+									<f:setPropertyActionListener target="#{grupoBean.grupo}" value="#{grupo}"/>
+									
+								</h:commandLink>
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Excluir</f:facet>
+								<p:commandLink onclick="showMsg('#{grupo.grupo}')" >	
+									<h:graphicImage library="imagens" name="excluir2.png"/>
+									<f:ajax execute="@form" render=":cadastro :listagem "/>
+									<f:attribute name="g" value="#{grupo.grupo}"/>									
+									<f:setPropertyActionListener target="#{grupoBean.grupo}" value="#{grupo}"/>																			
+								</p:commandLink>																																				
+							</p:column>	
+						</p:dataTable>
+					</h:form>
+					
+					
+				</h:panelGroup>
+			</h:panelGrid>	
+			
+					
+		</p:panel>
+	</h:panelGrid>
+	<!-- ++++++++++++++++++++++++dialogo de confirmação++++++++++++++++++++++++++ -->
+								<p:confirmDialog message="Confirma a exclusão permanente do grupo" 												
+												showEffect="bounce"
+												hideEffect="explode" 
+												header="Atenção"
+											    severity="info" 
+											    widgetVar="msgdia"											   
+											    >
+									<div style="position: 0 auto;" align="center">										
+										<p id="texto" style="color: red; font:italic; font-size: 15px;" > Confirma a exclusão permanente do grupo selecionado?</p>
+									</div>
+									
+									<p:commandButton value="Sim" 
+									                 update="@all :cadastro :listagem :result"
+												     oncomplete="msgdia.hide()" 
+												     actionListener="#{grupoBean.excluir}" >		     
+									</p:commandButton>											
+									<p:commandButton value="Não" onclick="msgdia.hide()" type="button" />									
+								</p:confirmDialog>
+ </div>
+</ui:composition>
+
+
+</html>

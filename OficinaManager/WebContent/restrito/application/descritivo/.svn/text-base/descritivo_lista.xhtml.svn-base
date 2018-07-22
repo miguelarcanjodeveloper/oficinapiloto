@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:panelGrid columns="1" width="100%">
+		<p:panel 
+		toggleable="true" 
+		toggleSpeed="10" 
+		header="Listagem" 
+		closeSpeed="15"
+		collapsed="false" 
+		style="align:left">
+		<p:growl id="result" />
+			<h:panelGrid  style="margin: 0 auto align:center;" >
+				<h:form id="listaPesquisa">
+					<p:dataTable value="#{descBean.listar}" var="desc" cellspacing="10"
+						rendered="#{!empty descBean.listar}" cellpadding="5"
+						rowIndexVar="index" paginator="true" rows="5"
+						rowsPerPageTemplate="5,10,15,20" pageLinks="5"
+						filteredValue="#{descBean.filteredMont}" scrollable="false">
+						<p:column>
+							<f:facet name="header">Id</f:facet>
+							<h:outputText value="#{desc.id_descritivo}" />
+						</p:column>
+						<p:column filterBy="#{desc.descritivo}">
+							<f:facet name="header">Descritivo</f:facet>
+							<h:outputText value="#{desc.descritivo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">Editar</f:facet>
+							<p:commandLink action="#{descBean.retorno(desc.id_descritivo)}"
+								update=":cadastro">
+								<h:graphicImage title="editar" library="imagens"
+									name="edit_p.png" />
+								<f:setPropertyActionListener target="#{descBean.descritivo}"
+									value="#{desc}" />
+							</p:commandLink>
+						</p:column>
+						<p:column>
+							<f:facet name="header">Excluir</f:facet>
+							<p:commandLink action="#{descBean.retorno(desc.id_descritivo)}"
+								update=":cadastro " oncomplete="showMsg('Confirme a ação.')">
+								<h:graphicImage title="excluir" library="imagens"
+									name="excluir2_p.png" />
+								<f:setPropertyActionListener target="#{descBean.descritivo}"
+									value="#{desc}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:form>				
+			</h:panelGrid>			
+		</p:panel>
+	</h:panelGrid>
+</ui:composition>
+</html>

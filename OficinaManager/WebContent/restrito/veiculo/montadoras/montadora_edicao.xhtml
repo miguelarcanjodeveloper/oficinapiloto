@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages/>
+			<h:inputHidden value="#{montadoraBean.montadora.id_montadora}" />				
+				<h:panelGrid columns="1" width="100%">			
+					<p:panel header="Cadastro de montadora"
+					toggleable="true" toggleSpeed="100">
+						<h:link id="reload">
+							<p:ajax process="@this" update="cadastro"/>
+							<p:tooltip value="Atualiza a página" for="reload"/>
+							<h:graphicImage library="imagens" name="tool.png" alt="reload"/>
+						</h:link>
+						<h:panelGrid columns="5">
+			
+						<h:outputLabel value="Sigla:" for="sigla" />			
+						<h:inputText id="sigla"  label="Sigla" value="#{montadoraBean.montadora.sigla}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe a sigla da montadora." onkeyup="up(this)">
+							<f:validateLength minimum="2" maximum="10" />
+						</h:inputText>
+						
+			
+						<h:outputLabel value="Descrição:" for="descricao" />
+						<h:inputText id="descricao" label="descricao" value="#{montadoraBean.montadora.descricao}" size="20" maxlength="30" 
+							required="true"
+							requiredMessage="Informe uma descrição de montadora ex: Fiat do Brasil." >
+							<f:validateLength minimum="3" maximum="30" /> 
+						</h:inputText>						           			    														
+			
+						<h:form enctype="multipart/form-data" > 
+							<h:panelGrid columns="2">
+    							<p:fileUpload fileUploadListener="#{montadoraBean.handleFileUpload}"     				
+    								process="@this" 
+    								invalidSizeMessage="Imagem muito grande"
+									invalidFileMessage="Tipo de imagem não suportado"
+            						mode="advanced"  
+            						update="messages,im, img"  
+            						auto="true"  
+            						label="Add: Logomarca" cancelLabel="Cancelar" sizeLimit="400000"  
+            						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"    
+            						required="true"
+            						requiredMessage="Insira um logo."        		
+            					/>
+            		            			            		    		    			
+    							<h:graphicImage 
+    								id="img"
+    								url="#{montadoraBean.montadora.imagem.caminho}"    							
+									width="90" height="70" 
+    								alt="Adicione um logo"    			
+    							/>
+    							<h:inputHidden id="im" value="#{montadoraBean.montadora.imagem.id_imagem}" required="true" requiredMessage="Insira uma imagem de logo" />    			
+    							<p:growl id="messages" showDetail="true" />     							
+    						</h:panelGrid>    			
+						</h:form>
+						
+						<h:outputLabel value="Agrupamento:" for="grupo" />									
+						<p:selectOneMenu id="grupo" label="Grupo" value="#{montadoraBean.montadora.grupo}"  >
+							<f:selectItems value="#{grupoBean.grupoList}" var="grupo" itemValue="#{grupo.grupo}"  itemLabel="#{grupo.grupo}" />							
+							<f:converter converterId="grupoCon"/>	
+						</p:selectOneMenu>
+						<h:outputLabel value="Divisão de:" for="divisao" />			
+						<p:selectOneMenu id="divisao" label="Divisão" value="#{montadoraBean.montadora.divisao}"  size="30" >
+							<f:selectItems value="#{divisaoBean.divisaoLista}" var="divisao" itemValue="#{divisao.divisao}" itemLabel="#{divisao.divisao}" />	
+							<f:converter converterId="divisaoCon"/>
+						</p:selectOneMenu>
+						<h:inputHidden/>		
+					<p:commandButton process="@this" update="cadastro" action="#{montadoraBean.novo}" value="Novo" />						 			
+					<p:commandButton process="@form" update="cadastro, :listagem" action="#{montadoraBean.salvar}" value="Salvar" />
+				</h:panelGrid>
+		</p:panel>
+		</h:panelGrid>
+		</h:form>
+			
+	</div>
+</ui:composition>
+</html>

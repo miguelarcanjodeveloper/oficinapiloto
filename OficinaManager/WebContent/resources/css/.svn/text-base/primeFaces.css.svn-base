@@ -1,0 +1,79 @@
+@CHARSET "ISO-8859-1";
+
+
+/* cor de fundo do menu*/
+.ui-megamenu {
+	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	color: white;
+	font-size: 18px;
+}
+
+.ui-menu, .ui-menu .ui-menu-child {
+	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	
+}
+
+.ui-widget-content li {
+	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+}
+
+/*cor do texto do menu*/
+.ui-menuitem-text{
+	
+color: #45464D;
+
+}
+
+.ui-widget-content {
+border: 1px dotted #97989C;/*cor das bordas*/
+color: #45464D;
+}
+
+/* componentes tipo botoes e paineis ex: cadastro de montadoras*/
+.ui-widget-header{
+	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+}
+/*mantem os textos das tabela de panelgrid sempre no topo*/
+.topAligned td{
+    vertical-align: top;
+}
+
+.ui-button .ui-button-text {
+display: block;
+line-height: 1.4;
+color: #45464D;
+background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+}
+
+/* combo box, e listas de paginação muda as cores*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background: #70C3DD -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	border: 1px solid #46B9D6;
+}
+
+#montadora_label {
+ width: 200px;
+}
+.ui-selectonemenu .ui-selectonemenu-label{
+	width: 100px;
+}
+.ui-widget-header {
+	
+/*color: #B10B0B; cor de cabeçãlho e outras partes do menú*/
+color: #45464D;
+}
+/* icones do menu manutenção*/
+.ui-widget-content .ui-icon-casa{
+	background-image: url("/GPA/resources/imagens/principal16.png");
+}
+.ui-widget-content .ui-icon-sair{
+	background-image: url("/GPA/resources/imagens/logout16.png");
+}
+.ui-widget-content .ui-icon-veiculo{
+	background-image: url("/GPA/resources/imagens/camaro_16.png");
+}
+
+.ui-widget-content .ui-icon-manu{
+	background-image: url("/GPA/resources/imagens/13.png");
+}
+

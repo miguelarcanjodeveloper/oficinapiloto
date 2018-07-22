@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec ="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	
+		<h:form id="men">
+			<p:megaMenu autoDisplay="false">
+				<p:menuitem action="home" value="Home" icon="ui-icon-casa" />
+				<p:submenu label="CADASTROS" icon="ui-icon-check">
+					<p:column>
+						<p:submenu label="CADASTRO CLIENTE">
+            				<p:menuitem action="cliente" value="Cadastro Cliente"  />            		
+            			</p:submenu>
+            			<p:submenu label="TESTES">
+            				<p:menuitem action="teste" value="Cadastro Cliente teste"  />
+            				
+                			<p:menuitem value="Relatórios" url="#" />
+            			</p:submenu>
+            			<p:submenu label="Descritivos">
+            				<p:menuitem value="Cadastro/ Descritivo" action="descritivo" />
+                			<p:menuitem value="Relatórios" url="#" />
+            			</p:submenu>
+            		</p:column>
+            		<p:column>
+            			<p:submenu label="Grupo de PEÇAS">
+            				<p:menuitem value="Cadastro de Grupos de peças" action="grupoPeca" />
+                			<p:menuitem value="Relatórios" url="#" />
+            			</p:submenu>
+            			<p:submenu label="Departamentos / PEÇAS">
+            				<p:menuitem value="Cadastro/ Departamento/ peças" action="departamento" />
+                			<p:menuitem value="Relatórios" url="#" />
+                			<p:menuitem action="home" value="Home" icon="ui-icon-casa" />
+            			</p:submenu>
+            		</p:column>            		
+				</p:submenu>
+				<p:submenu label="VEÍCULOS" icon="ui-icon-veiculo">
+					<p:column>
+ 					<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+            			<p:submenu label="Montadora">
+            				<p:menuitem value="Cadastro de Montadoras" action="montadora" />
+                			<p:menuitem value="Relatórios" url="#" />
+            			</p:submenu>
+            			<p:submenu label="Divisões">
+            				<p:menuitem value="Cadastro de divisões" action="divisao" />
+                			<p:menuitem value="Relatórios" url="#" />
+            			</p:submenu>
+            			<p:submenu label="Grupos">
+            				<p:menuitem value="Cadastro de grupos" action="grupo"/>
+            				<p:menuitem value="Relatórios" url="#" />                			            			
+            			</p:submenu>
+					</sec:ifAnyGranted>
+            		</p:column>
+            		<p:column>
+            			<p:submenu label="Modelos de veículos">
+            				<p:menuitem value="Cadastro de Modelos" action="modelo" />
+                			<p:menuitem value="Cadastros de Motores" action="motor" />
+                			<p:menuitem value="Cadastro de Versões" action="versao" />
+                			<p:menuitem action="home" value="Home" icon="ui-icon-casa" />
+            			</p:submenu>
+            		</p:column>
+				</p:submenu>
+				
+					<p:menuitem value="Sair" 
+						onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+						icon="ui-icon-sair" />	
+										
+			</p:megaMenu>
+		
+ 
+		</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages/>
+			<h:inputHidden value="#{divisaoBean.divisao.id_MontDivisao}" />				
+				<h:panelGrid columns="1" width="100%">			
+					<p:panel header="Cadastro de Divisões de montadoras"
+					toggleable="true" toggleSpeed="100">
+						<h:panelGrid columns="5">
+			
+						<h:outputLabel value="Divisão:" for="divisao" />			
+						<h:inputText id="divisao" label="Divisão" value="#{divisaoBean.divisao.divisao}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe uma divisão." onkeyup="up(this)">
+							<f:validateLength minimum="2" maximum="30" />
+						</h:inputText>															           			    													
+								
+					<p:commandButton process="@this" update="cadastro" action="#{divisaoBean.novo}" value="Novo" />						 			
+					<p:commandButton process="@form" update="cadastro, :listagem" action="#{divisaoBean.salvar}" value="Salvar" />
+				</h:panelGrid>
+		</p:panel>
+		</h:panelGrid>
+		</h:form>
+			
+	</div>
+</ui:composition>
+</html>

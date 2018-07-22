@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+<div class="center_content">
+	<h:panelGrid columns="1" width="100%">
+		<p:panel 
+		toggleable="true" 
+		toggleSpeed="10" 
+		header="Listagem de clientes pessoas físicas" 
+		closeSpeed="15"
+		collapsed="false" 
+		style="align:left">
+			<h:panelGrid  style="margin: 0 auto align:center;" >
+				<h:panelGroup style="align:left">
+					<h:form id="listagem">
+						<p:dataTable value="#{clienteBean.cliFLista}" var="cliente" 
+							cellspacing="10" 
+							rendered="#{!empty clienteBean.cliFLista}"
+							cellpadding="5" 
+							style="text-align:left; display:block;" 																				
+							rowIndexVar="index"
+							paginator="true"							
+							rows="10"
+							rowsPerPageTemplate="5,10,15,20"
+							pageLinks="5"
+							scrollable="false">
+							<p:column>
+								<f:facet name="header">Cod cliente</f:facet>
+									<h:outputText value="#{cliente.id.id}" />																		
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Nome</f:facet>									
+									<h:outputText value="#{cliente.nome}"/>
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Ducumento RG:</f:facet>									
+									<h:outputText value="#{cliente.rg}"/>
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Documento CPF</f:facet>									
+									<h:outputText value="#{cliente.cpf}"/>
+							</p:column>	
+							
+							<p:column>
+								<f:facet name="header">Editar</f:facet>
+								<h:commandLink title="editar">
+									
+									<h:graphicImage library="imagens" name="edit.png"/>
+									<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cli}"/>
+								</h:commandLink>
+							</p:column>	
+							<p:column>
+								<f:facet name="header">Excluir</f:facet>
+							<p:commandLink process="@form" update="@form , :cadastro"
+									onclick="if (!confirm('Confirma a exclusão da montadora #{cli.id}?'))
+									return false;">
+									<h:graphicImage library="imagens" name="excluir2.png"/>
+									
+							</p:commandLink>															
+							</p:column>		
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGrid>			
+		</p:panel>
+	</h:panelGrid>
+
+ </div>
+</ui:composition>
+</html>

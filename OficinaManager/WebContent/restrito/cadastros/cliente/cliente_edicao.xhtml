@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition >
+		<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages />
+			<h:inputHidden value="#{clienteBean.cli.id}" />				
+				<h:panelGrid columns="1" width="100%">			
+					<p:panel header="Cadastro de cliente"
+					toggleable="true" toggleSpeed="30">
+						<h:panelGrid columns="4" cellspacing="4" cellpadding="2"  >
+			
+						<h:outputLabel value="Tipo de cliente:"  />	
+						<p:selectOneMenu id="console" value="#{clienteBean.cli.tipo}" style="width:125px">
+							<f:selectItem itemLabel="Pessoa fisica" itemValue="0" />
+            				<f:selectItem itemLabel="Pessoa jurídica" itemValue="1" />
+						</p:selectOneMenu>			
+																		           			    													
+						<h:outputLabel value="Nome completo:"  />		
+						<h:inputText id="nome" label="Nome completo:" value="#{clienteBean.pf.nome}" size="20" maxlength="30" 
+							required="true"
+							requiredMessage="Informe o nome completo do cliente." >
+							<f:validateLength minimum="3" maximum="30" /> 
+						</h:inputText>
+						
+						<h:outputLabel value="RG:"  />	
+						<h:inputText id="rg" label="RG:" value="#{clienteBean.pf.rg}" size="20" maxlength="30" 
+							required="true"
+							requiredMessage="Informe o RG do cliente." >
+							<f:validateLength minimum="3" maximum="30" /> 
+						</h:inputText>
+						
+						<h:outputLabel value="CPF:"  />
+						<h:inputText id="cpf" label="CPF:" value="#{clienteBean.pf.cpf}" size="20" maxlength="30" 
+							required="true"
+							requiredMessage="Informe o cpf do cliente." >
+							<f:validateLength minimum="3" maximum="30" /> 
+						</h:inputText>	
+						<p:commandButton process="@form" update="cadastro" action="#{clienteBean.salvar}" value="Salvar" />
+				</h:panelGrid>
+				
+		</p:panel>
+		</h:panelGrid>
+		</h:form>
+			
+		</div>
+		
+	</ui:composition>
+	
+	
+</html>

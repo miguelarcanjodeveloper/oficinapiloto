@@ -1,0 +1,104 @@
+body, th {
+	padding:25px 0 0 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background: url(#{resource['imagens:fundo4_p.png']});	
+}
+
+th {
+	padding: 3px;
+	min-height: 25px;
+	background: url(#{resource['imagens:fundo_claro.png']}); 
+}
+
+
+img {
+	border:0px;
+}
+
+#container {
+	padding:5px 5px 5px 5px;
+	width: 960px;
+	height: 100%;
+	margin: 0 auto;	
+	background: #B9DFE4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+}
+	
+#titulo {
+	width:450px;
+	float: left;
+	font-size: 25pt;
+	font-variant: small-caps;
+	font-weight: bold;	
+	color: rgb(67, 125, 153);
+	
+}
+
+#logotipo{
+	float: right;
+	padding: 5px 5px 5px 5px;
+}
+
+#barra_menu {
+	min-height: 25px;
+	padding: 3px;
+	clear:both;
+	background: url(#{resource['imagens:fundo_barra_menu.png']}) repeat-x; 
+}
+
+#barra_menu_manutencao {
+	//background:graytext;
+	min-height: 25px;
+	//padding: 3px;
+	clear:both;
+}
+
+#corpo {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
+}
+
+#rodape {
+	height: 100px;
+	margin-top: 5px;
+	padding: 10px;
+	text-align: center;
+	background: url(#{resource['imagens:rodapedd_p.png']}) repeat-x;
+}
+
+/**tela cadastro de modelos dos veículos*/
+#modelo_cadastro{
+	
+}
+#modelo_botoes{
+	float: left;
+}
+.modelo_1{
+	float: left;
+}
+.modelo_imagem{
+	float: left;
+}
+/**----- fim da tela cadastro de modelos dos veículos----------*/
+
+/* alguns botões não estão dentro do mesmo escopo */
+.botoes{
+	background:  #73CFE5 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	border: 
+}
+
+.info {
+	font-weight: bold;
+	color: green;
+}
+
+.warn {
+	font-weight: bold;
+	color: #FFCC00;
+}
+
+.fatal, .error {
+	font-weight: bold;
+	color: red;
+}

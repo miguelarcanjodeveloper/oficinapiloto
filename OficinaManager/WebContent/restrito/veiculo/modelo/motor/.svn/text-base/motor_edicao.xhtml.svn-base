@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages />
+			<h:inputHidden value="#{motorBean.motor.id_motor}" />				
+				<h:panelGrid columns="1" width="100%">			
+					<p:panel header="Cadastro de motores"
+					toggleable="true" toggleSpeed="100">
+						<h:panelGrid columns="6" cellspacing="8">
+							<h:outputLabel value="Montadora: " for="montadora" />
+							<p:selectOneMenu id="montadora" required="true" 
+											 requiredMessage="É obrigatorio escolher uma montadora!" 
+										 	 value="#{motorBean.motor.montadora}">
+								<f:selectItems value="#{motorBean.montadoras}" var="monta" itemValue="#{monta}"  itemLabel="#{monta.sigla}" />
+								<f:converter converterId="montadoraCon"/>
+							</p:selectOneMenu>
+						<h:outputLabel value="Potência:" for="cilindro" />			
+						<h:inputText id="cilindro" label="Potência" value="#{motorBean.motor.torque}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe a potência do Motor: ex 1.3 16V" onkeyup="up(this)">
+							<f:validateLength minimum="2" maximum="30" />
+						</h:inputText>
+						
+						<h:outputLabel value="Familia:" for="familia" />			
+						<h:inputText id="familia" label="Familia" value="#{motorBean.motor.motorNome}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe a familia do Motor: ex Fire" onkeyup="up(this)">
+							<f:validateLength minimum="2" maximum="30" />
+						</h:inputText>															           			    													
+								
+					<p:commandButton process="@this" update="cadastro" action="#{motorBean.novo}" value="Novo" />						 			
+					<p:commandButton process="@form" update="cadastro, :listagem" action="#{motorBean.salvar}" value="Salvar" />
+				</h:panelGrid>
+		</p:panel>
+		</h:panelGrid>
+		</h:form>
+			
+	</div>
+</ui:composition>
+</html>

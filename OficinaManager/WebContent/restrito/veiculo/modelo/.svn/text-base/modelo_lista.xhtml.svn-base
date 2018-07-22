@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+<!-- dialogo para adicionar versões -->
+		<h:form id="addVersao">
+		<p:dialog header="Selecione uma ou mais versões." widgetVar="versaoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dataTable id="checkboxDT" var="car"
+					value="#{modeloBean.versaoList}"
+					selection="#{modeloBean.versaoAdd}" rowKey="#{car.id_versao}"
+					emptyMessage="Esta montadora não possui versões cadastrada!"
+					style="margin-bottom:0"
+					>
+					<f:facet name="header">
+            			Checkbox
+        			</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Id">
+						<h:outputText value="#{car.id_versao}" />
+					</p:column>
+					<p:column headerText="Sigla da versão">
+						<h:outputText value="#{car.versaoSigla}" />
+					</p:column>										
+					<f:facet name="footer">
+						<p:commandButton  process="checkboxDT"
+							update=":cadastro:versaoLista" icon="ui-icon-search" value="Ok"
+							oncomplete="versaoDialog.hide()" >
+							
+							</p:commandButton>
+					</f:facet>
+				</p:dataTable>		
+        	</p:dialog>
+		</h:form>
+		<!-- ///fim do dialogo para adicionar versões/// -->
+		
+		<!-- dialogo para adicionar motores -->
+		<h:form id="addMotor">
+		<p:dialog header="Selecione um ou mais motores." 
+				  widgetVar="motorDialog" 
+				  modal="true" 
+				  showEffect="fade" 
+				  hideEffect="fade" 
+				  resizable="false">
+				<p:dataTable id="tabMotor" var="m"
+					value="#{modeloBean.motorList}"
+					selection="#{modeloBean.motorAdd}" rowKey="#{m.id_motor}"
+					emptyMessage="Esta montadora não possui motores cadastrados!"
+					style="margin-bottom:0"
+					>
+					<f:facet name="header">
+            			Checkbox
+        			</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Id">
+						<h:outputText value="#{m.id_motor}" />
+					</p:column>
+					<p:column headerText="Potência">
+						<h:outputText value="#{m.torque}" />
+					</p:column>
+					<p:column headerText="Família">
+						<h:outputText value="#{m.motorNome}" />
+					</p:column>										
+					<f:facet name="footer">
+						<p:commandButton process="tabMotor"
+							update=":cadastro:motorLista" icon="ui-icon-search" value="Ok"
+							oncomplete="motorDialog.hide()" />
+					</f:facet>
+				</p:dataTable>		
+        	</p:dialog>
+		</h:form>
+		<!-- ///fim do dialogo para adicionar motores/// -->	
+		
+		<!-- lista de pesquisa de modelos -->
+		<h:form id="listaPesquisa">
+		<p:dialog header="Lista de carros encontrados" widgetVar="busca" modal="true">
+			<h:panelGrid columns="1" width="100%">
+				<p:panel 
+					toggleable="true" 
+					toggleSpeed="10" 
+					header="Listagem" 
+					closeSpeed="15"
+					collapsed="false" 
+					style="align:left">
+					<h:panelGrid  style="margin: 0 auto align:center;" >													
+							<p:dataTable value="#{modeloBean.carregarLista}" var="modelo" 
+										cellspacing="10" 
+										rendered="#{!empty modeloBean.carregarLista}"
+										cellpadding="5" 
+										style="text-align:left; display:block;" 																				
+										rowIndexVar="index"
+										paginator="true"										
+										rowKey="#{modelo.id_modelo}"							
+										rows="5"
+										rowsPerPageTemplate="5,10,15,20"
+										pageLinks="5"							
+										scrollable="false"
+										>
+								<f:facet name="header">
+            						Checkbox
+        						</f:facet>								
+								<p:column headerText="Código" >								
+									<h:outputText value="#{modelo.id_modelo}" />
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Modelo</f:facet>
+									<h:outputText value="#{modelo.modelo}"/>
+								</p:column>
+								<p:column>
+									<f:facet name="header">Montadora</f:facet>
+									<h:outputText value="#{modelo.montadora.sigla}"/>
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Editar</f:facet>
+									<p:commandLink  action="#{modeloBean.retorno(modelo.id_modelo)}" update=":cadastro :imagem">
+										<h:graphicImage title="editar" library="imagens" name="edit_p.png"/>
+										<p:ajax 
+											oncomplete="busca.hide()"/>																	
+										<f:setPropertyActionListener target="#{modeloBean.modelo}" value="#{modelo}"/>
+									</p:commandLink>
+								</p:column>	
+								<p:column>
+									<f:facet name="header">Excluir</f:facet>
+									<p:commandLink action="#{modeloBean.retorno(modelo.id_modelo)}" 
+									update=":cadastro :imagem :dialogoExcluir" oncomplete="showMsg('Confirme a ação.')">
+										<h:graphicImage title="excluir" library="imagens" name="excluir2_p.png"/>																											
+										<f:setPropertyActionListener target="#{modeloBean.modelo}" value="#{modelo}"/>
+									</p:commandLink>
+								</p:column>								
+							</p:dataTable>																					
+					</h:panelGrid>															
+				</p:panel>
+			</h:panelGrid>	
+		</p:dialog>
+	</h:form>
+    <!--fim lista de pesquisa de modelos/// -->
+ 
+ 	<!-- dialogo de confirmação de exclusão -->
+ 	<h:form id="dialogoExcluir">
+ 		<p:dialog modal="true"
+ 			  message="Confirma a exclusão permanente do modelo:"
+ 			  widgetVar="msgdia"
+ 			  header="Confirmação"
+ 			  resizable="false">
+ 			  <div style="position: 0 auto;" align="center">										
+				 
+				<p id="texto" style=" font:italic; font-size: 12px;" > 
+				Modelo selecionado?
+				</p>
+ 				<p:outputLabel value="Confirma excluir o modelo #{modeloBean.modelo.modelo}?" style="color: red; font:italic; font-size: 15px;"/>				
+			 	<br/><br/>
+			 	<p:commandButton value="Sim" action="#{modeloBean.excluir}" update=":cadastro :imagem" oncomplete="msgdia.hide(); busca.hide();"/>
+			 	<p:commandButton value="Não" onclick="msgdia.hide();"/>
+			  </div>
+ 		</p:dialog>
+ 	</h:form>
+	<!-- ///fim do dialogo de confirmação de exclusão/// -->	
+		
+		
+	<!-- dialogo para adicionar montadora -->			
+		<h:form id="dialogoMontadora">
+ 			<p:dialog modal="true"
+ 			  message="selecione uma montadora:"
+ 			  widgetVar="diaMont"
+ 			  >
+ 			  <div style="position: 0 auto;" align="center">										
+				<p:dataTable value="#{modeloBean.montadoraList}" var="mont" 
+										cellspacing="10" 
+										rendered="#{!empty modeloBean.montadoraList}"
+										cellpadding="5" 
+										style="text-align:left; display:block;" 																				
+										rowIndexVar="index"
+										paginator="true"										
+										filteredValue="#{modeloBean.filteredMont}"							
+										rows="5"
+										rowsPerPageTemplate="5,10,15,20"
+										pageLinks="5"							
+										scrollable="false"
+										>
+								
+								<p:column headerText="Código" >								
+									<h:outputText value="#{mont.id_montadora}" />
+								</p:column>	
+								<p:column filterBy="#{mont.sigla}">
+									<f:facet name="header">Montadora</f:facet>
+									<h:outputText value="#{mont.sigla}"/>
+								</p:column>								
+								<p:column>
+									<f:facet name="header">Selecionar</f:facet>
+									<p:commandLink  
+									update=":cadastro :imagem" oncomplete="diaMont.hide()" process="@this">
+										<h:graphicImage title="editar" library="imagens" name="add.png"/>																										
+										<f:setPropertyActionListener target="#{modeloBean.modelo.montadora}" value="#{mont}"/>
+									</p:commandLink>
+								</p:column>	
+															
+					</p:dataTable>
+			  	</div>
+ 			</p:dialog>
+ 		</h:form>
+ 		<!-- /// fim do dialogo para adicionar montadora/// -->
+</ui:composition>
+</html>

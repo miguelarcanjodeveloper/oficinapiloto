@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="DAOFactory">
+  <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+  <property name="connection.datasource">java:/comp/env/jdbc/OFICINA_DATABASE</property>
+  <property name="current_session_context_class">thread</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <!-- MAPEANDO CLASSES -->
+  <mapping class="oficina.usuario.Usuario"/>
+  <mapping class="oficina.cliente.Cliente"/>
+  <mapping class="oficina.pessoas.fisica.PessoaF"/>
+  <mapping class="testes.Pessoa"/>
+  <mapping class="testes.Endereco"/>
+  <mapping class="testes.Cliente_teste"/>
+ </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+	
+    <!-- classes de conversões -->
+	   
+    <!-- fim de conversões -->
+    
+    
+	<managed-bean>
+		<managed-bean-name>contextoBean</managed-bean-name>
+		<managed-bean-class>oficina.web.ContextoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<!-- navegação do menu -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/restrito/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>manu</from-outcome>
+			<to-view-id>/templates/manutencao.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>oficina</from-outcome>
+			<to-view-id>/publico/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>teste</from-outcome>
+			<to-view-id>/restrito/testes/teste.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>cliente</from-outcome>
+			<to-view-id>/restrito/cadastros/cliente/cadCliente.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<!-- FIM DE NAVEGAÇÃO DO MENU -->
+	
+	<!-- Configura mensagens para aparecer na tela ou aplicação -->
+	<application>
+	   <resource-bundle>
+    		<base-name>oficina.config.diretorios</base-name>
+    	<var>msg</var>
+   	</resource-bundle>
+	</application>
+
+	<!-- habilita o menu, com vários check-box -->
+	<component>
+		<component-type>org.primefaces.component.SelectOneMenu</component-type>
+		<component-class>org.primefaces.component.selectonemenu.SelectOneMenu</component-class>
+	</component>
+
+</faces-config>

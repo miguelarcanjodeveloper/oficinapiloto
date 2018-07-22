@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/templates/manutencao.xhtml">
+	<ui:define name="titulo">CADASTRO DE CLIENTE <br/> EM TESTE joão </ui:define>	
+	<ui:define name="corpo">
+		MIGUEL ARCANJO MENDES
+		
+	
+	
+		<div class="center_content"> 
+		<h:form id="cadastro">		
+			<h:messages />
+			<h:inputHidden value="#{pessoaTesteBean.pessoa.id_pessoa_f}" />				
+				<h:panelGrid columns="1" width="100%">			
+					<p:panel header="Cadastro teste de cliente"
+					toggleable="true" toggleSpeed="100">
+						<h:panelGrid columns="5">
+			
+						<h:outputLabel value="Nome da pessoa:"  />			
+						<h:inputText id="nome" label="Nome do cliente" value="#{pessoaTesteBean.pessoa.nome}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe um Grupo." >
+							<f:validateLength minimum="2" maximum="30" />
+						</h:inputText>	
+						<h:outputLabel value="Endereço:" />			
+						<h:inputText id="end" label="Endereço:" value="#{pessoaTesteBean.end.logradouro}" size="30"
+			 			maxlength="30" required="true" requiredMessage="Informe um Grupo." >
+							<f:validateLength minimum="2" maximum="30" />
+						</h:inputText>															           			    													
+								
+					
+					<h:commandButton   action="#{pessoaTesteBean.salvar}" value="Salvar" />					 			
+					
+				</h:panelGrid>
+		</p:panel>
+		</h:panelGrid>
+		</h:form>
+			
+		</div>
+		</ui:define>
+	</ui:composition>
+	
+	
+</html>
