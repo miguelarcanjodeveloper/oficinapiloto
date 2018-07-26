@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:composition >
+	<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"  >
 		<div class="center_content"> 
 		<h:form id="cadastro">		
 			<h:messages />
@@ -43,15 +44,14 @@
 							requiredMessage="Informe o cpf do cliente." >
 							<f:validateLength minimum="3" maximum="30" /> 
 						</h:inputText>	
-						<p:commandButton process="@form" update="cadastro" action="#{clienteBean.salvar}" value="Salvar" />
+						<p:commandButton process="@form" oncomplete="dlg2.hide()" update=":listagem" action="#{clienteBean.salvar}" value="Salvar" />
 				</h:panelGrid>
 				
 		</p:panel>
 		</h:panelGrid>
-		</h:form>
-			
+		</h:form>			
 		</div>
-		
+	</p:dialog>	
 	</ui:composition>
 	
 	

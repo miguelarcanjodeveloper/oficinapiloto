@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import oficina.cliente.Cliente;
+
 
 public class PessoaFHBT implements PessoaFDAO {
 private Session session;
@@ -21,8 +23,9 @@ private Session session;
 
 	@Override
 	public void atualizar(PessoaF P) {
-		
+		this.session.clear();
 		this.session.update(P);
+		
 		
 	}
 
@@ -46,8 +49,8 @@ private Session session;
 
 	@Override
 	public PessoaF buscaPorCPF(Integer CPF) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (PessoaF) this.session.get(PessoaF.class,CPF);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,6 +58,12 @@ private Session session;
 	public List<PessoaF> listar() {
 		
 		return this.session.createCriteria(PessoaF.class).list();
+	}
+
+	@Override
+	public Cliente buscarCliente(Integer codigo) {
+		
+		return (Cliente) this.session.get(Cliente.class,codigo);
 	}
 
 	

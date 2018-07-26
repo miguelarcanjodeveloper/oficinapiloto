@@ -46,24 +46,19 @@
 							<p:column>
 								<f:facet name="header">Documento CPF</f:facet>									
 									<h:outputText value="#{cliente.cpf}"/>
-							</p:column>	
-							
+							</p:column>								
 							<p:column>
-								<f:facet name="header">Editar</f:facet>
-								<h:commandLink title="editar">
-									
-									<h:graphicImage library="imagens" name="edit.png"/>
-									<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cli}"/>
-								</h:commandLink>
-							</p:column>	
-							<p:column>
-								<f:facet name="header">Excluir</f:facet>
-							<p:commandLink process="@form" update="@form , :cadastro"
-									onclick="if (!confirm('Confirma a exclusão da montadora #{cli.id}?'))
-									return false;">
-									<h:graphicImage library="imagens" name="excluir2.png"/>
-									
-							</p:commandLink>															
+								<f:facet name="header">Opções</f:facet>
+									<p:menuButton value="Opções">
+        							
+        							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
+        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>
+        								
+        							</p:menuitem>	
+        							<p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
+        							<p:separator />
+        							<p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink"/>
+    								</p:menuButton>															
 							</p:column>		
 						</p:dataTable>
 					</h:form>

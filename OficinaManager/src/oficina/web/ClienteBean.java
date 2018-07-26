@@ -2,8 +2,11 @@ package oficina.web;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 import oficina.cliente.Cliente;
 import oficina.cliente.ClienteRN;
 import oficina.pessoas.fisica.PessoaF;
@@ -18,14 +21,18 @@ public class ClienteBean {
 	List<PessoaF>  cliFlist;
 	
 	
-	public void salvar(){
-		ClienteRN cr = new ClienteRN();
-		cr.salvar(cli);
-		
+	public String salvar(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		ClienteRN cr = new ClienteRN();		
 		PessoaFRN prn = new PessoaFRN();
-		pf.setId(cli);
+		if(prn.chekCPF(pf.getCpf())){
+			FacesMessage faceMessage = new FacesMessage("Já existe um usuario com este CPF");
+			context.addMessage(null, faceMessage);
+			return null;
+		}
+		cr.salvar(cli);		
 		prn.salvar(pf);
-		
+		return "cliente";
 	}
 	
 	public List<PessoaF> getCliFLista() {

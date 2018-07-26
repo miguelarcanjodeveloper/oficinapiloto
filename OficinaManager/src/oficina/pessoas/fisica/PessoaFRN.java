@@ -17,7 +17,8 @@ private PessoaFDAO pessoaDAO;
 		if(codigo==null|| codigo==0){
 					
 			this.pessoaDAO.salvar(pf);			
-		}else{			
+		}else{	
+			pf.setId(this.pessoaDAO.buscarCliente(pf.getId().getId()));
 			this.pessoaDAO.atualizar(pf);
 		}		
 	}
@@ -25,4 +26,17 @@ private PessoaFDAO pessoaDAO;
 	public List<PessoaF> listar(){
 		return this.pessoaDAO.listar();
 	}
+	
+	public boolean chekCPF(Integer CPF){
+		
+		
+		PessoaF f = this.pessoaDAO.buscaPorCPF(CPF);
+		if(f==null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
 }

@@ -2,6 +2,8 @@ package oficina.pessoas.fisica;
 
 import java.util.List;
 
+import oficina.cliente.Cliente;
+
 
 public interface PessoaFDAO {
 	public void salvar(PessoaF P);
@@ -11,5 +13,6 @@ public interface PessoaFDAO {
 	public PessoaF buscaPorNome(String NOME);
 	public PessoaF buscaPorCPF(Integer CPF);
 	public List<PessoaF> listar();
+	public Cliente buscarCliente(Integer codigo);
 
 }
