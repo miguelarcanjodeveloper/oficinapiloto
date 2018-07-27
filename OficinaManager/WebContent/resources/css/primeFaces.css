@@ -49,6 +49,7 @@ background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(2
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
 	background: #70C3DD -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	border: 1px solid #46B9D6;
+	background: rgb(255, 255, 255);
 }
 
 #montadora_label {

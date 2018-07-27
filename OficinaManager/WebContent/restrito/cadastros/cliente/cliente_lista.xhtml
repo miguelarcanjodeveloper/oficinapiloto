@@ -52,12 +52,9 @@
 									<p:menuButton value="Opções">
         							
         							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
-        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>
-        								
+        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>        								
         							</p:menuitem>	
-        							<p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
-        							<p:separator />
-        							<p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink"/>
+        							<p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>        							
     								</p:menuButton>															
 							</p:column>		
 						</p:dataTable>

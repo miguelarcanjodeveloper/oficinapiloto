@@ -91,6 +91,7 @@ a {
     -moz-box-shadow: inset 0px 1px 0px #fff;
     -webkit-box-shadow: inset 0px 1px 0px #fff;
     box-shadow: inset 0px 1px 0px #fff;
+    background: rgb(255, 255, 255);
 }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited
 {
