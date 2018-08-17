@@ -53,11 +53,15 @@
         							
         							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
         								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>        								
+        							</p:menuitem>
+        							<p:menuitem value="OverLayer"  update=":cadastro" onclick="PF('cliOP').show('Miguel');" icon="ui-icon-arrowrefresh-1-w">
+        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>        								
         							</p:menuitem>	
         							<p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>        							
     								</p:menuButton>															
 							</p:column>		
-						</p:dataTable>
+						</p:dataTable>											
+						
 					</h:form>
 				</h:panelGroup>
 			</h:panelGrid>			

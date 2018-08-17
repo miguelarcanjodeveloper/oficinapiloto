@@ -102,3 +102,15 @@ img {
 	font-weight: bold;
 	color: red;
 }
+
+/* tira a borda das grades*/
+.ui-panelgrid {
+border: none !important;" 
+}
+
+.ui-panelgrid td {
+    border-width: 1px;
+    /* border-style: solid; */
+    /* border-color: inherit; */
+    padding: 2px 1px;
+}

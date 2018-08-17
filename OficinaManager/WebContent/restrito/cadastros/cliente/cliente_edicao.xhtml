@@ -8,186 +8,142 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<p:dialog header="Cadastro de cliente" widgetVar="dlg2" modal="true">
+	<p:dialog  header="Cadastro de cliente" widgetVar="dlg2" modal="true" width="820" closable="false">
+	<!-- <p:ajax event="close" resetValues="true" listener="#{clienteBean.onTabClose}" update="cadastro" />  -->
+	
 		<div class="center_content">
 
 			<h:form id="cadastro">
-				<p:tabView orientation="left">
-					<p:tab title="Dados pessoais">
-						<h:messages />
-						<h:inputHidden value="#{clienteBean.cli.id}" />
-						<h:panelGrid columns="1" width="100%">
-							
-								<h:panelGrid columns="4" cellspacing="4" cellpadding="2">
-
-									<h:outputLabel value="Tipo de cliente:" />
-									<p:selectOneMenu id="console" value="#{clienteBean.cli.tipo}"
-										style="width:125px">
-										<f:selectItem itemLabel="Pessoa fisica" itemValue="0" />
-										<f:selectItem itemLabel="Pessoa jurídica" itemValue="1" />
-									</p:selectOneMenu>
-
+				<p:growl id="msg" showDetail="true" />
+				<h:inputHidden value="#{clienteBean.cli.id}" />
+				
+				
+				<p:tabView orientation="top"  cache="true"  id="tab" dynamic="false" style="width:100%;border-width:0;padding:0;" >
+				<p:ajax event="tabChange"  listener="#{clienteBean.onTabChange}" update="@form" />
+				 
+				
+					
+				
+					<p:tab title="Dados pessoais"  id="tab1">
+						
+					<h:panelGrid title="Cliente" border="1" cellpadding="4" cellspacing="2" >
+					<p:panelGrid columns="2"  styleClass="noGridBorder" >								
+								
+																	
+								<p:panelGrid columns="1" style="width:100%;border-width:0;padding:0;">
 									<h:outputLabel value="Nome completo:" />
-									<h:inputText id="nome" label="Nome completo:"
-										value="#{clienteBean.pf.nome}" size="20" maxlength="30"
-										required="true"
-										requiredMessage="Informe o nome completo do cliente.">
-										<f:validateLength minimum="3" maximum="30" />
-									</h:inputText>
-
+									<h:inputText  label="Nome completo:"
+										value="#{clienteBean.pf.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente">
+										</h:inputText>
+									
+								</p:panelGrid>
+								<p:panelGrid columns="1" style="width:100%">
 									<h:outputLabel value="RG:" />
-									<h:inputText id="rg" label="RG:" value="#{clienteBean.pf.rg}"
-										size="20" maxlength="30" required="true"
-										requiredMessage="Informe o RG do cliente.">
-										<f:validateLength minimum="3" maximum="30" />
+									<h:inputText label="RG:" id="r1" value="#{clienteBean.pf.rg}"
+										 required="true"
+										requiredMessage="Informe o RG do cliente." immediate="true">
+										<f:validateLength minimum="3" />
 									</h:inputText>
-
+								</p:panelGrid>
+								<p:panelGrid columns="1" style="width:100%">
 									<h:outputLabel value="CPF:" />
-									<h:inputText id="cpf" label="CPF:"
-										value="#{clienteBean.pf.cpf}" size="20" maxlength="30"
+									<h:inputText  label="CPF:" id="c1"
+										value="#{clienteBean.pf.cpf}"
 										required="true" requiredMessage="Informe o cpf do cliente.">
-										<f:validateLength minimum="3" maximum="30" />
+										<f:validateLength minimum="3"  />
 									</h:inputText>
-									<p:commandButton process="@form" oncomplete="dlg2.hide()"
-										update=":listagem" action="#{clienteBean.salvar}"
-										value="Salvar" />
-								</h:panelGrid>
-
+								</p:panelGrid>	
+							
+							</p:panelGrid>
+						</h:panelGrid>
+						
+						
+					
+						
+						
+					</p:tab>
+					
+					<p:tab title="Contato" id="contato" rendered="true">
+						
+						
+						
+					</p:tab>
+					
+					<p:tab title="Endereço">
+						<h:panelGrid columns="2" >
 							
 						</h:panelGrid>
 					</p:tab>
-					<p:tab title="Contato">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					
+					
+					<p:tab title="Enviar" id="enviar" >
+					<h:panelGrid columns="2" >
+					
+						<h:panelGrid title="Cliente" border="1" cellpadding="8" cellspacing="6" >
+						
+							
+							<p:panelGrid columns="2"  >								
+								
+								<p:panelGrid columns="1" style="width:100%;border-width:1;padding:0;">
+								
+									<h:outputLabel value="Nome completo:" />
+									<h:inputText  label="Nome completo:"
+										value="#{clienteBean.pf2.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente"
+										readonly="true">
+									</h:inputText>
+									
+									
+								</p:panelGrid>
+								<p:panelGrid columns="1" style="width:100%">
+								
+									<h:outputLabel value="RG:" />
+									<h:inputText label="RG:" id="rg" value="#{clienteBean.pf2.rg}"
+										 readonly="true">
+										
+									</h:inputText>
+																		
+								</p:panelGrid>
+								<p:panelGrid columns="1" style="width:100%">
+									
+									<h:outputLabel value="CPF:" />									
+									<h:inputText  label="CPF:" id="CPF"
+										value="#{clienteBean.pf2.cpf}"
+										required="false" 
+										readonly="true">									
+									</h:inputText>
+																										
+								</p:panelGrid>
+							</p:panelGrid>
+							
+							
+								<p:commandLink process="@form"  oncomplete="dlg2.hide()"
+										update=":listagem" action="#{clienteBean.salvar}"
+										label="Enviar" alt="Enviar" title="Enviar">	
+										Enviar																			
+								<p:graphicImage library="imagens" name="enviar.png" />		
+								</p:commandLink>
+								
+							
+					</h:panelGrid>	
+						
+						
 						</h:panelGrid>
+						
+					
 					</p:tab>
-					<p:tab title="Endereço">
-						<h:panelGrid columns="2" cellpadding="10">
-
-						</h:panelGrid>
-					</p:tab>
+					
 				</p:tabView>
-			</h:form>
+												
+				<p:commandLink process="@form"  oncomplete="dlg2.hide()"
+										update=":listagem" action="#{clienteBean.onTabClose}"
+										value="Fechar" >
+										Fechar
+					<p:graphicImage library="imagens" name="sair.png" />
+				
+				</p:commandLink>
+			</h:form>						
 
-		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	<h:form>
-                 
-    <p:growl id="growl" sticky="true" showDetail="true"/>
- 
-    <p:wizard flowListener="#{userWizard.onFlowProcess}">
-        <p:tab id="personal" title="Personal">
-            <p:panel header="Personal Details">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Firstname: *" />
-                    <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
- 
-                    <h:outputText value="Lastname: *" />
-                    <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
- 
-                    <h:outputText value="Age: " />
-                    <p:inputText value="#{userWizard.user.age}" />
- 
-                    <h:outputText value="Skip to last: " />
-                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="address" title="Address">
-            <p:panel header="Address Details">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Street: " />
-                    <p:inputText value="#{userWizard.user.street}" />
- 
-                    <h:outputText value="Postal Code: " />
-                    <p:inputText value="#{userWizard.user.postalCode}" />
- 
-                    <h:outputText value="City: " />
-                    <p:inputText value="#{userWizard.user.city}" />
- 
-                    <h:outputText value="Skip to last: " />
-                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="contact" title="Contact">
-            <p:panel header="Contact Information">
-                <p:messages />
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Email: *" />
-                    <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
- 
-                    <h:outputText value="Phone: " />
-                    <p:inputText value="#{userWizard.user.phone}"/>
- 
-                    <h:outputText value="Additional Info: " />
-                    <p:inputText value="#{userWizard.user.info}"/>
-                </h:panelGrid>
-            </p:panel>
-        </p:tab>
- 
-        <p:tab id="confirm" title="Confirmation">
-            <p:panel header="Confirmation">
-                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                    <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Firstname: " />
-                        <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Lastname: " />
-                        <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Age: " />
-                        <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
-                    </h:panelGrid>
- 
-                    <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Street: " />
-                        <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Postal: " />
-                        <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="City: " />
-                        <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                    </h:panelGrid>
- 
-                    <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Email: " />
-                        <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Phone " />
-                        <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
- 
-                        <h:outputText value="Info: " />
-                        <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
- 
-                        <h:outputText />
-                        <h:outputText />
-                    </h:panelGrid>
-                </h:panelGrid>
- 
-                <p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>
-            </p:panel>
-        </p:tab>
-    </p:wizard>
- 
-</h:form>	
+		</div>		
 	</p:dialog>
 </ui:composition>
 

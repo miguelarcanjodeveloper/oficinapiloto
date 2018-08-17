@@ -24,6 +24,7 @@ color: #45464D;
 
 }
 
+
 .ui-widget-content {
 border: 1px dotted #97989C;/*cor das bordas*/
 color: #45464D;
@@ -46,10 +47,23 @@ background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(2
 }
 
 /* combo box, e listas de paginação muda as cores*/
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	border: 1px solid #666666;
+    background: #aaaaaa;
+    background: #aaaaaa linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
+    background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+    background: #aaaaaa -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
+    color: #497bda;
+    
+}
+
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
 	background: #70C3DD -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-	border: 1px solid #46B9D6;
+	/*border: 1px solid #46B9D6;*/
+	border: 2px solid #0c3e84;
 	background: rgb(255, 255, 255);
+	color: #0f46af;
 }
 
 #montadora_label {
@@ -61,8 +75,14 @@ background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(2
 .ui-widget-header {
 	
 /*color: #B10B0B; cor de cabeçãlho e outras partes do menú*/
-color: #45464D;
+color: #497bda;
 }
+
+.ui-widget-content {
+    border: 1px dotted #97989C;
+    color: #0f46af;
+}
+
 /* icones do menu manutenção*/
 .ui-widget-content .ui-icon-casa{
 	background-image: url("/GPA/resources/imagens/principal16.png");
@@ -78,3 +98,14 @@ color: #45464D;
 	background-image: url("/GPA/resources/imagens/13.png");
 }
 
+.teste .ui-widget-content
+{
+    border: none !important;
+}
+
+.ui-panelgrid td {
+    border-width: 1px;
+    /* border-style: solid; */
+    /* border-color: inherit; */
+    padding: 2px 1px;
+}

@@ -158,7 +158,7 @@ a {
     background: #aaaaaa linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
     background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
     background: #aaaaaa -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0)); /*    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#00000000);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#00000000)"; */
-    color: #ffffff;
+    color: #0f46af;
     text-shadow: 1px 1px 1px #333333;
 }
 
@@ -1249,4 +1249,20 @@ a {
 
 .ui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
+}
+
+.ui-panelgrid {
+border: none !important;" 
+}
+
+.teste .ui-widget-content
+{
+    border: none !important;
+}
+
+.ui-panelgrid td {
+    border-width: 1px;
+    /* border-style: solid; */
+    /* border-color: inherit; */
+    padding: 2px 1px;
 }
