@@ -11,8 +11,8 @@ public interface PessoaFDAO {
 	public void excluir(PessoaF P);
 	public PessoaF carregar(Integer codigo);
 	public PessoaF buscaPorNome(String NOME);
-	public PessoaF buscaPorCPF(Integer CPF);
+	public PessoaF buscaPorCPF(String CPF);
 	public List<PessoaF> listar();
-	public Cliente buscarCliente(Integer codigo);
+	public PessoaF buscarCliente(Cliente codigo);
 
 }

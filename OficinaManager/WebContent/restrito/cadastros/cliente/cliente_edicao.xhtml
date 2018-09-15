@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<p:dialog  header="Cadastro de cliente" widgetVar="dlg2" modal="true" width="820" closable="false">
+	<p:dialog  header="Cadastro de cliente" onShow="tb.select(0);" widgetVar="dlg2" modal="true" width="820" closable="false">
 	<!-- <p:ajax event="close" resetValues="true" listener="#{clienteBean.onTabClose}" update="cadastro" />  -->
 	
 		<div class="center_content">
@@ -18,129 +18,141 @@
 				<h:inputHidden value="#{clienteBean.cli.id}" />
 				
 				
-				<p:tabView orientation="top"  cache="true"  id="tab" dynamic="false" style="width:100%;border-width:0;padding:0;" >
+				<p:tabView orientation="top" widgetVar="tb" activeIndex="" cache="false"  id="tab" dynamic="false" style="width:100%;border-width:0;padding:0;" >
 				<p:ajax event="tabChange"  listener="#{clienteBean.onTabChange}" update="@form" />
 				 
 				
 					
 				
+			<!-- inicio da aba de cadastro -->
 					<p:tab title="Dados pessoais"  id="tab1">
-						
-					<h:panelGrid title="Cliente" border="1" cellpadding="4" cellspacing="2" >
-					<p:panelGrid columns="2"  styleClass="noGridBorder" >								
-								
-																	
-								<p:panelGrid columns="1" style="width:100%;border-width:0;padding:0;">
-									<h:outputLabel value="Nome completo:" />
-									<h:inputText  label="Nome completo:"
-										value="#{clienteBean.pf.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente">
-										</h:inputText>
-									
-								</p:panelGrid>
-								<p:panelGrid columns="1" style="width:100%">
-									<h:outputLabel value="RG:" />
-									<h:inputText label="RG:" id="r1" value="#{clienteBean.pf.rg}"
-										 required="true"
-										requiredMessage="Informe o RG do cliente." immediate="true">
-										<f:validateLength minimum="3" />
-									</h:inputText>
-								</p:panelGrid>
-								<p:panelGrid columns="1" style="width:100%">
-									<h:outputLabel value="CPF:" />
-									<h:inputText  label="CPF:" id="c1"
-										value="#{clienteBean.pf.cpf}"
-										required="true" requiredMessage="Informe o cpf do cliente.">
-										<f:validateLength minimum="3"  />
-									</h:inputText>
-								</p:panelGrid>	
-							
-							</p:panelGrid>
-						</h:panelGrid>
-						
-						
-					
-						
-						
+						<p:messages id="msg_cpf" showDetail="false" closable="true" autoUpdate="false"/>        					    				
+    					<p:separator />	
+    				<h:panelGrid id="grid_main" columns="2">    					
+						<h:panelGrid id="grid" columns="3" cellpadding="5">
+        					<p:outputLabel for="nome" value="Nome completo:" />
+        					<p:inputText id="nome" value="#{clienteBean.cli.pf.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente" />
+        					<p:message for="nome" />
+ 
+        					<p:outputLabel for="rg" value="RG:" />
+        					<p:inputText label="RG:" id="rg" value="#{clienteBean.cli.pf.rg}" required="false"/>									        				
+ 							<p:message for="rg" />
+ 						
+        					<p:outputLabel for="cpf" value="CPF:" />
+        					<p:inputMask id="cpf" mask="999.999.999-99" required="false" value="#{clienteBean.cli.pf.cpf}" 
+        						requiredMessage="Esse CPF já está cadastrado no sistema!" maxlength="14" 
+        						converter="cpfConverter" validator="cpfValidador" > <!-- converter="cpfConverter" validator="cpfValidador" -->
+        						
+        					</p:inputMask>
+        					<p:commandLink update="msg_cpf" action="#{clienteBean.validaCpf}" title="Verificar CPF cadastrado!">
+        						<p:graphicImage library="imagens" name="administrativo16.png" />        					
+        					</p:commandLink>
+    					</h:panelGrid>
+    					<h:panelGrid id="grid2" columns="2" cellpadding="5">
+    						<p:outputLabel for="nas" value="Data de nascimento:" />        					
+        					<p:calendar id="nas" value="#{clienteBean.cli.pf.nascimento}" pattern="dd/MM/yyyy"  
+        					locale="pt" title="Digite a data neste formato 99/99/9999"
+        					mask="99/99/9999" navigator="true" readonlyInput="true">
+        					
+        					</p:calendar>       					            				     				
+        				
+        					<p:outputLabel for="sx" value="Sexo:" />
+        					<p:selectOneMenu id="sx" value="#{clienteBean.cli.pf.sexo}"  style="width: 175px">
+        						<f:selectItem itemLabel="Masculino" itemValue="M" />
+        						<f:selectItem itemLabel="Feminino" itemValue="F" />
+        					</p:selectOneMenu>
+        													        				
+    					</h:panelGrid>
+ 					</h:panelGrid>	
+ 					<p:separator/>    									
 					</p:tab>
+					<!-- fim da aba de cadastro -->
 					
+					<!-- inicio da aba de contato -->
 					<p:tab title="Contato" id="contato" rendered="true">
-						
-						
-						
+						<p:separator />	
+    				<h:panelGrid id="grid_contato" columns="2">    					
+						<h:panelGrid id="grid_c" columns="2" cellpadding="5">
+        					<p:outputLabel  value="Celular:" />
+        					<p:inputMask id="cel" mask="(999)9999-9999" value="#{clienteBean.cli.ct.celular}" converter="telefoneConverter" required="false" />  
+							
+        					<p:outputLabel  value="Fone fixo:" />
+        					<p:inputMask  id="fone" mask="(999)9999-9999" value="#{clienteBean.cli.ct.fone}" converter="telefoneConverter" />									        				 							
+ 						
+        					<p:outputLabel for="email" value="e-mail:" />
+        					<p:inputText id="email" required="false" value="#{clienteBean.cli.ct.email}" size="30"/>
+        					
+        					<p:outputLabel for="site" value="Site:" />
+        					<p:inputText id="site" required="false" value="#{clienteBean.cli.ct.site}" size="30" />
+        					
+    					</h:panelGrid>
+    					<h:panelGrid id="grid_c2" columns="1" cellpadding="5">
+    					
+    						<p:outputLabel for="obs" value="Observaçoes:" />
+        					<p:inputTextarea  id="obs" required="false" value="#{clienteBean.cli.ct.obs}" rows="8" cols="50"/>
+        													        				
+    						</h:panelGrid>
+ 						</h:panelGrid>	
+ 						<p:separator/>
 					</p:tab>
+					<!-- fim da aba de contato -->
 					
+					<!-- inicio da aba endereço -->
 					<p:tab title="Endereço">
 						<h:panelGrid columns="2" >
 							
 						</h:panelGrid>
 					</p:tab>
+					<!-- fim da aba endereço -->
 					
-					
+					<!-- inicio da aba enviar -->
 					<p:tab title="Enviar" id="enviar" >
-					<h:panelGrid columns="2" >
+					<p:messages id="msg_enviar" showDetail="false" closable="true" autoUpdate="false"/>        					    				
+    					<p:separator />	
+					<h:panelGrid columns="1" >
 					
-						<h:panelGrid title="Cliente" border="1" cellpadding="8" cellspacing="6" >
-						
-							
-							<p:panelGrid columns="2"  >								
-								
-								<p:panelGrid columns="1" style="width:100%;border-width:1;padding:0;">
-								
+						<h:panelGrid cellpadding="4" cellspacing="6" columns="2">							
+							<h:panelGrid columns="1"  >								
 									<h:outputLabel value="Nome completo:" />
-									<h:inputText  label="Nome completo:"
-										value="#{clienteBean.pf2.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente"
-										readonly="true">
-									</h:inputText>
-									
-									
-								</p:panelGrid>
-								<p:panelGrid columns="1" style="width:100%">
-								
-									<h:outputLabel value="RG:" />
-									<h:inputText label="RG:" id="rg" value="#{clienteBean.pf2.rg}"
-										 readonly="true">
-										
-									</h:inputText>
+									<h:inputText  label="Nome completo:" value="#{clienteBean.pf2.nome}" required="true" 
+										requiredMessage="Obrigatório um nome para o cliente" size="30" readonly="true"/>
 																		
-								</p:panelGrid>
-								<p:panelGrid columns="1" style="width:100%">
+									<h:outputLabel value="RG:" />
+									<h:inputText label="RG:" id="rg2" value="#{clienteBean.pf2.rg}" readonly="true" immediate="true" />
 									
 									<h:outputLabel value="CPF:" />									
-									<h:inputText  label="CPF:" id="CPF"
-										value="#{clienteBean.pf2.cpf}"
-										required="false" 
-										readonly="true">									
+									<h:inputText  label="CPF:" id="CPF2" value="#{clienteBean.pf2.cpf}" required="false" readonly="true" />	
+									
+									<h:outputLabel value="DATA DE NASCIMENTO:" />									
+									<h:inputText  label="NASCIMENTO:" id="NAS2" value="#{clienteBean.pf2.nascimento}"  required="false" readonly="true" >
+										<f:convertDateTime locale="pt,BR" dateStyle="long" pattern="dd/MM/yyyy" />
 									</h:inputText>
-																										
-								</p:panelGrid>
-							</p:panelGrid>
-							
-							
-								<p:commandLink process="@form"  oncomplete="dlg2.hide()"
-										update=":listagem" action="#{clienteBean.salvar}"
-										label="Enviar" alt="Enviar" title="Enviar">	
-										Enviar																			
-								<p:graphicImage library="imagens" name="enviar.png" />		
+									
+									<h:outputLabel value="Sexo:" />									
+									<h:inputText  label="SEXO:" id="SX2" value="#{clienteBean.pf2.sexo}" required="false" readonly="true" />																			
+									
+								<p:commandLink process="@form" update="msg_enviar" action="#{clienteBean.salvar}" title="Enviar">											
+									<p:graphicImage library="imagens" name="enviar_b.png" />		
 								</p:commandLink>
-								
-							
-					</h:panelGrid>	
-						
-						
-						</h:panelGrid>
+							</h:panelGrid>
+
+						</h:panelGrid>	
+					</h:panelGrid>
+					<p:separator/> 
 						
 					
 					</p:tab>
+					<!-- fim da aba enviar -->
 					
 				</p:tabView>
-												
-				<p:commandLink process="@form"  oncomplete="dlg2.hide()"
-										update=":listagem" action="#{clienteBean.onTabClose}"
-										value="Fechar" >
-										Fechar
-					<p:graphicImage library="imagens" name="sair.png" />
+				<h:panelGrid columns="2" >								
 				
+				<p:commandLink process="@form" update=":listagem " action="#{clienteBean.onTabClose}" oncomplete="dlg2.hide()" title="Fechar">
+										
+					<p:graphicImage library="imagens" name="sair_b.png" />
 				</p:commandLink>
+				
+				</h:panelGrid>
 			</h:form>						
 
 		</div>		

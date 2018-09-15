@@ -20,6 +20,20 @@
 			<h:panelGrid  style="margin: 0 auto align:center;" >
 				<h:panelGroup style="align:left">
 					<h:form id="listagem">
+						<h:panelGrid columns="7" cellspacing="4">
+							<p:outputLabel value="Localizar cliente:"/>
+							<p:inputText id="busca" maxlength="55" size="60" />
+							<p:watermark for="busca" value="Busca pelo nome ou cpf" id="watermark" />
+							<p:graphicImage id="help" library="imagens" name="help-26.png" />
+							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:cpf seguido do número  Ex* cpf999999." position="left"/>
+							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  action="#{clienteBean.novo}" title="Buscar">					
+								<p:graphicImage library="imagens" name="buscar_a.png" />
+							</p:commandLink>
+							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  action="#{clienteBean.novo}" title="Novo">					
+								<p:graphicImage library="imagens" name="novo_b.png" />
+							</p:commandLink>							
+						</h:panelGrid>
+					
 						<p:dataTable value="#{clienteBean.cliFLista}" var="cliente" 
 							cellspacing="10" 
 							rendered="#{!empty clienteBean.cliFLista}"
@@ -33,38 +47,45 @@
 							scrollable="false">
 							<p:column>
 								<f:facet name="header">Cod cliente</f:facet>
-									<h:outputText value="#{cliente.id.id}" />																		
+									<h:outputText value="#{cliente.id}" />																		
 							</p:column>	
 							<p:column>
 								<f:facet name="header">Nome</f:facet>									
-									<h:outputText value="#{cliente.nome}"/>
+									<h:outputText value="#{cliente.pf.nome}"/>
+									<h:inputHidden value="#{cliente.pf.id_pessoa_f}"/>
 							</p:column>	
 							<p:column>
 								<f:facet name="header">Ducumento RG:</f:facet>									
-									<h:outputText value="#{cliente.rg}"/>
+									<h:outputText value="#{cliente.pf.rg}"/>
 							</p:column>	
 							<p:column>
 								<f:facet name="header">Documento CPF</f:facet>									
-									<h:outputText value="#{cliente.cpf}"/>
+									<h:outputText value="#{cliente.pf.cpf}"/>
 							</p:column>								
 							<p:column>
 								<f:facet name="header">Opções</f:facet>
 									<p:menuButton value="Opções">
         							
         							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
-        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>        								
+        								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>        								
         							</p:menuitem>
-        							<p:menuitem value="OverLayer"  update=":cadastro" onclick="PF('cliOP').show('Miguel');" icon="ui-icon-arrowrefresh-1-w">
-        								<f:setPropertyActionListener target="#{clienteBean.pf}" value="#{cliente}"/>        								
-        							</p:menuitem>	
-        							<p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>        							
+        								
+        							<p:menuitem value="Delete"   onclick="PF('confirmVar').show();" icon="ui-icon-close">        							
+        								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>
+        							</p:menuitem>        							
     								</p:menuButton>															
 							</p:column>		
 						</p:dataTable>											
-						
+							<p:confirmDialog id="confirmDialog" message="Tem certeza que deseja excluir esse cliente ?"  
+   									header="Aviso de Exclusão" hideEffect="explode" severity="alert" widgetVar="confirmVar">  
+
+    							<p:commandButton id="confirm" value="Sim" oncomplete="confirmVar.hide()"  actionListener="#{clienteBean.delete()}" update="listagem"/>  
+    							<p:commandButton id="decline" value="Não" onclick="confirmVar.hide();" />  
+
+							</p:confirmDialog>
 					</h:form>
 				</h:panelGroup>
-			</h:panelGrid>			
+			</h:panelGrid>	
 		</p:panel>
 	</h:panelGrid>
 

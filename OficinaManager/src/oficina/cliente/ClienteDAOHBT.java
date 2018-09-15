@@ -21,15 +21,16 @@ public class ClienteDAOHBT implements ClienteDAO {
 
 	@Override
 	public void atualizar(Cliente cliente) {
-		
+		this.session.clear();
 		this.session.update(cliente);
 
 	}
 
 	@Override
 	public void excluir(Cliente cliente) {
-		// TODO Auto-generated method stub
-
+		this.session.clear();
+		this.session.delete(cliente);
+		
 	}
 
 	@Override

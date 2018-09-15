@@ -1,17 +1,13 @@
 package oficina.web;
-
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.FlowEvent;
 import org.primefaces.event.TabChangeEvent;
-import org.primefaces.event.TabCloseEvent;
-
 import oficina.cliente.Cliente;
 import oficina.cliente.ClienteRN;
+import oficina.contato.Contato;
 import oficina.pessoas.fisica.PessoaF;
 import oficina.pessoas.fisica.PessoaFRN;
 
@@ -24,39 +20,82 @@ public class ClienteBean {
 	Cliente cli2 = new Cliente();
 	PessoaF pf = new PessoaF();
 	PessoaF pf2 = new PessoaF();
+	Contato contato = new Contato();
 	List<PessoaF>  cliFlist;
 	
 	
 	
+	public ClienteBean() {
+		super();
+	}
+
 	public String salvar(){
 		
-		System.out.println("passando aqui em salvar inicio");
+		FacesMessage faceMessage;
 		
 		
 		ClienteRN cr = new ClienteRN();		
 		PessoaFRN prn = new PessoaFRN();
-		if(prn.chekCPF(pf.getCpf()) && pf.getId().getId()==null){
-			FacesMessage faceMessage = new FacesMessage("Já existe um usuario com este CPF");			
+		if(prn.chekCPF(pf.getCpf()) && pf.getId_pessoa_f()==null){
+						
+			faceMessage = new FacesMessage("Já existe um usuario com este CPF!");			
 			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
 			
-			return null;
-		}
-		cr.salvar(cli);		
-		prn.salvar(pf);
+			return faceMessage.getDetail();
+		}else{
+			
+		//cli.setPf(getPf());	
+		cr.salvar(cli);	//os demais clientes fisico juridico contato e endereço continua sendo salvo em clienteRN
 		onTabClose();//limpa os dados da aba enviar
-		
-		return "Cliente Salvo";
+		faceMessage = new FacesMessage("Salvo com sucesso!");			
+		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+		return faceMessage.getDetail();
+		}
 	}
 	
-	public List<PessoaF> getCliFLista() {
-		this.cliFlist = null;
-		PessoaFRN pfr = new PessoaFRN();
-				
-		this.cliFlist = pfr.listar();
-						
-		return cliFlist;
+	public void novo(){
+		cli = new Cliente();
+		cli.setTipo(0);		
+		pf = new PessoaF();
+		contato = new Contato();
+		cli.setPf(pf);
+		cli.setCt(contato);
+		onTabClose();
+		
+	}
+	
+	public void delete(){
+		ClienteRN cl = new ClienteRN();
+		
+		cl.deleteCliente(cli);
+	}
+	
+	public List<Cliente> getCliFLista() {
+		
+		ClienteRN crn = new ClienteRN();
+		return crn.listarFisicos();
+		
 	}
 
+	public void validaCpf(){
+		PessoaFRN prn = new PessoaFRN();
+		
+		FacesMessage faceMessage;
+		
+		
+		if(prn.chekCPF(pf.getCpf())){
+			
+			
+			faceMessage = new FacesMessage("Já existe um usuario com este CPF!");			
+			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+			
+		}else{
+			faceMessage = new FacesMessage("CPF não cadastrado.");			
+			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+		}
+		
+	}
+	
 	//gets e sets
 	public Cliente getCli() {
 		return cli;
@@ -106,21 +145,25 @@ public class ClienteBean {
 	
 	
 	public void onTabChange(TabChangeEvent event) {
-        
-        pf2.setCpf(pf.getCpf());
-        pf2.setNome(pf.getNome());
-        pf2.setRg(pf.getRg());
-        
-        
+		
+        pf2.setCpf(cli.getPf().getCpf());
+        pf2.setNome(cli.getPf().getNome());
+        pf2.setRg(cli.getPf().getRg());
+        pf2.setRg(cli.getPf().getRg());
+        pf2.setNascimento(cli.getPf().getNascimento());                       
+        pf2.setSexo(cli.getPf().getSexo());
+        cli.getCt().getCelular();
     }
 	
 	public void onTabClose() {
 		pf2 = new PessoaF();
-		
+			
     }
- 
-   
+	
      
    
 
 }
+
+
+

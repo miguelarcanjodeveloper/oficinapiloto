@@ -2,6 +2,7 @@ package oficina.pessoas.fisica;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import oficina.cliente.Cliente;
@@ -23,15 +24,16 @@ private Session session;
 
 	@Override
 	public void atualizar(PessoaF P) {
-		this.session.clear();
-		this.session.update(P);
+		
+		this.session.merge(P);
 		
 		
 	}
 
 	@Override
 	public void excluir(PessoaF P) {
-		// TODO Auto-generated method stub
+		this.session.clear();
+		this.session.delete(P);
 		
 	}
 
@@ -48,9 +50,15 @@ private Session session;
 	}
 
 	@Override
-	public PessoaF buscaPorCPF(Integer CPF) {
+	public PessoaF buscaPorCPF(String cpf) {
 		
-		return (PessoaF) this.session.get(PessoaF.class,CPF);
+		if(cpf =="")return null;
+		PessoaF p=null;
+		String hql="select f from PessoaF as f where f.cpf = :cpf ";	
+		Query consulta=this.session.createQuery(hql);
+		consulta.setString("cpf", cpf);
+		p=(PessoaF) consulta.uniqueResult();
+		return p;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -61,9 +69,16 @@ private Session session;
 	}
 
 	@Override
-	public Cliente buscarCliente(Integer codigo) {
+	public PessoaF buscarCliente(Cliente codigo) {
 		
-		return (Cliente) this.session.get(Cliente.class,codigo);
+		if(codigo.getId() == null)return null;
+		PessoaF p=null;
+		String hql="select f from PessoaF as f where f.id = :id ";	
+		Query consulta=this.session.createQuery(hql);
+		consulta.setInteger("id", codigo.getId());
+		p=(PessoaF) consulta.uniqueResult();
+		return p;
+					
 	}
 
 	

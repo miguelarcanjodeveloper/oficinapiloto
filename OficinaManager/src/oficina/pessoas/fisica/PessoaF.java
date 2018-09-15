@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -46,25 +45,22 @@ public class PessoaF implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	//@GeneratedValue
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id	
+	@GeneratedValue
 	private Integer id_pessoa_f;
 	private String nome;
 	private String sexo;
 	private String rg;
 	@NaturalId(mutable=true)
-	@Column(name = "cpf", unique = true, nullable = true)
-	private Integer cpf;
+	@Column(name = "cpf", unique = false, nullable = true)
+	private String cpf;
 	private Date nascimento;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Cliente id;
 	
 	
-	/***
-	 * get and set
-	 * @return
-	 */
+	
+	
 	public Integer getId_pessoa_f() {
 		return id_pessoa_f;
 	}
@@ -89,24 +85,23 @@ public class PessoaF implements Serializable{
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public Date getNascimento() {
 		return nascimento;
 	}
-	
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
+	}
 	public Cliente getId() {
 		return id;
 	}
 	public void setId(Cliente id) {
 		this.id = id;
-	}
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -170,5 +165,7 @@ public class PessoaF implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 	
 }

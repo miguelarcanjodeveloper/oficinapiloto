@@ -18,7 +18,7 @@
 						<p:menuitem action="home" value="Home" icon="ui-icon-casa" />						
 						<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
 							<p:menuitem action="/admin/principal" value="Administrativo" icon="ui-icon-check" />
-							<p:menuitem action="manu" value="Manutenção" icon="ui-icon-manu"/>
+							<p:menuitem action="manu" value="Cadastros" icon="ui-icon-manu"/>
 						</sec:ifAnyGranted>	
 						<p:menuitem value="Sair" 						
 								onclick="document.location='#{request.contextPath}/j_spring_security_logout'"

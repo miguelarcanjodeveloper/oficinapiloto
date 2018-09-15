@@ -2,12 +2,12 @@ package oficina.util;
 
 import oficina.cliente.ClienteDAO;
 import oficina.cliente.ClienteDAOHBT;
+import oficina.contato.ContatoDAO;
+import oficina.contato.ContatoDAOHBT;
 import oficina.pessoas.fisica.PessoaFDAO;
 import oficina.pessoas.fisica.PessoaFHBT;
 import oficina.usuario.UsuarioDAO;
 import oficina.usuario.UsuarioDAOHibernate;
-import testes.CadastroTeste;
-import testes.PessoaHBT;
 
 /**
  * @author Miguel Arcanjo.
@@ -46,25 +46,18 @@ public class DAOFactory {
 		return pessoaFDAO;
 	}
 	
-	
-	
-	/*
-	 * classes de testes para endereços
-	 * em pasta testes
+	/***
+	 * Contato
+	 * @return
 	 */
-	public static CadastroTeste criaClinteTeste(){
+	
+	public static ContatoDAO criaContatoDAO(){
 
-		CadastroTeste cad = new CadastroTeste();
-		cad.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
-		return cad;
+		ContatoDAOHBT contato = new ContatoDAOHBT();
+		contato.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
+		return contato;
 	}
 	
-	public static PessoaHBT criaPessoaTeste(){
-
-		PessoaHBT cad = new PessoaHBT();
-		cad.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
-		return cad;
-	}
 	
 	
 	

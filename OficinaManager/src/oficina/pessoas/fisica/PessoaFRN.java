@@ -2,6 +2,7 @@ package oficina.pessoas.fisica;
 
 import java.util.List;
 
+import oficina.cliente.Cliente;
 import oficina.util.DAOFactory;
 
 public class PessoaFRN {
@@ -11,31 +12,48 @@ private PessoaFDAO pessoaDAO;
 		this.pessoaDAO = DAOFactory.criaPessoaFDAO();
 	}
 	
-	public void salvar(PessoaF pf){
-		Integer codigo = pf.getId_pessoa_f();
+	
+	public void salvar(Cliente pf){
+		Integer codigo = pf.getPf().getId_pessoa_f();
+		
 		
 		if(codigo==null|| codigo==0){
 					
-			this.pessoaDAO.salvar(pf);			
-		}else{	
-			pf.setId(this.pessoaDAO.buscarCliente(pf.getId().getId()));
-			this.pessoaDAO.atualizar(pf);
+			this.pessoaDAO.salvar(pf.getPf());		
+			
+		}else{				
+			
+			this.pessoaDAO.atualizar(pf.getPf());
 		}		
+	}
+	
+	public void deletePF(Cliente c){
+		pessoaDAO.excluir(c.getPf());
 	}
 	
 	public List<PessoaF> listar(){
 		return this.pessoaDAO.listar();
 	}
 	
-	public boolean chekCPF(Integer CPF){
+	public boolean chekCPF(String CPF){
 		
 		
 		PessoaF f = this.pessoaDAO.buscaPorCPF(CPF);
+		
+		
+		
 		if(f==null){
-			return true;
-		}else{
+			
 			return false;
+		}else{
+			
+			return true;
 		}
+		
+	}
+	
+	public PessoaF buscarPorCliente(Cliente cli){
+		return this.pessoaDAO.buscarCliente(cli);
 		
 	}
 	

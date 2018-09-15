@@ -11,8 +11,7 @@
   <mapping class="oficina.usuario.Usuario"/>
   <mapping class="oficina.cliente.Cliente"/>
   <mapping class="oficina.pessoas.fisica.PessoaF"/>
-  <mapping class="testes.Pessoa"/>
-  <mapping class="testes.Endereco"/>
-  <mapping class="testes.Cliente_teste"/>
+  <mapping class="oficina.contato.Contato"/>
+  
  </session-factory>
 </hibernate-configuration>

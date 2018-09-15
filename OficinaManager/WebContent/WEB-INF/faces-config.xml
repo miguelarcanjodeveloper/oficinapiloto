@@ -7,7 +7,7 @@
     version="2.0">
 	
     <!-- classes de conversões -->
-	   
+	    
     <!-- fim de conversões -->
     
     
@@ -55,9 +55,13 @@
 	<!-- Configura mensagens para aparecer na tela ou aplicação -->
 	<application>
 	   <resource-bundle>
-    		<base-name>oficina.config.diretorios</base-name>
+    		<base-name>mensagens</base-name>
     	<var>msg</var>
    	</resource-bundle>
+   	<message-bundle>oficina.config.diretorios</message-bundle>
+		<locale-config>
+		<default-locale>pt_BR</default-locale>
+		</locale-config>
 	</application>
 
 	<!-- habilita o menu, com vários check-box -->
