@@ -12,6 +12,7 @@
   <mapping class="oficina.cliente.Cliente"/>
   <mapping class="oficina.pessoas.fisica.PessoaF"/>
   <mapping class="oficina.contato.Contato"/>
+  <mapping class="oficina.contato.Endereco"/>
   
  </session-factory>
 </hibernate-configuration>

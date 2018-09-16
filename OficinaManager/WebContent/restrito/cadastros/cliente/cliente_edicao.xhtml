@@ -99,9 +99,64 @@
 					
 					<!-- inicio da aba endereço -->
 					<p:tab title="Endereço">
-						<h:panelGrid columns="2" >
+						<p:separator />	
+    				<h:panelGrid id="grid_endereco" columns="2">    					
+						<h:panelGrid id="grid_e" columns="2" cellpadding="5">
+        					<p:outputLabel  value="RUA:" for="rua" />
+        					<p:inputText id="rua"  value="#{clienteBean.cli.ed.rua}" required="false" />  
 							
-						</h:panelGrid>
+        					<p:outputLabel  value="Numero:" for="num" />
+        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}"  />									        				 							
+ 						
+        					<p:outputLabel for="cep" value="CEP:" />
+        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" converter="intConverter"/>
+        					
+        					<p:outputLabel for="bairro" value="BAIRRO:" />
+        					<p:inputText id="bairro" required="false" value="#{clienteBean.cli.ed.bairro}" size="30" />
+        					
+        					<p:outputLabel for="cidade" value="CIDADE:" />
+        					<p:inputText id="cidade" required="false" value="#{clienteBean.cli.ed.cidade}" size="30" />
+        					
+        					<p:outputLabel for="uf" value="UF:" />        					
+        					<p:selectOneMenu value="#{clienteBean.cli.ed.uf}" id="uf">
+        						<f:selectItem itemLabel="Acre" itemValue="AC" />
+        						<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+        						<f:selectItem itemLabel="Amapá" itemValue="AP" />
+        						<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+        						<f:selectItem itemLabel="Bahia" itemValue="BA" />
+        						<f:selectItem itemLabel="Ceará" itemValue="CE" />
+        						<f:selectItem itemLabel="Dist Federal" itemValue="DF" />
+        						<f:selectItem itemLabel="Espirito Santo" itemValue="ES" />
+        						<f:selectItem itemLabel="Goiás" itemValue="GO" />
+        						<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+        						<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+        						<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+        						<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+        						<f:selectItem itemLabel="Pará" itemValue="PA" />
+        						<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+        						<f:selectItem itemLabel="Paraná" itemValue="PR" />
+        						<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+        						<f:selectItem itemLabel="Piauí" itemValue="PI" />
+        						<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+        						<f:selectItem itemLabel="Rio Gr do norte" itemValue="RN" />
+        						<f:selectItem itemLabel="Rio Gr do sul" itemValue="RS" />
+        						<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+        						<f:selectItem itemLabel="Roraima" itemValue="RR" />
+        						<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+        						<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+        						<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+        						<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+        					</p:selectOneMenu>
+  			
+    					</h:panelGrid>
+    					<h:panelGrid id="grid_ede2" columns="1" cellpadding="5">
+    					
+    						<p:outputLabel for="refer" value="Observaçoes:" />
+        					<p:inputTextarea  id="refer" required="false" value="#{clienteBean.cli.ed.refer}" rows="8" cols="50"/>
+        													        				
+    						</h:panelGrid>
+ 						</h:panelGrid>	
+ 						<p:separator/>
 					</p:tab>
 					<!-- fim da aba endereço -->
 					
@@ -111,7 +166,7 @@
     					<p:separator />	
 					<h:panelGrid columns="1" >
 					
-						<h:panelGrid cellpadding="4" cellspacing="6" columns="2">							
+						<h:panelGrid cellpadding="4" cellspacing="6" columns="3">							
 							<h:panelGrid columns="1"  >								
 									<h:outputLabel value="Nome completo:" />
 									<h:inputText  label="Nome completo:" value="#{clienteBean.pf2.nome}" required="true" 
@@ -131,11 +186,58 @@
 									<h:outputLabel value="Sexo:" />									
 									<h:inputText  label="SEXO:" id="SX2" value="#{clienteBean.pf2.sexo}" required="false" readonly="true" />																			
 									
-								<p:commandLink process="@form" update="msg_enviar" action="#{clienteBean.salvar}" title="Enviar">											
-									<p:graphicImage library="imagens" name="enviar_b.png" />		
-								</p:commandLink>
+								<h:outputLabel value="--------------------"/>
+								<h:outputLabel value="--------------------"/>
+								<h:outputLabel value="--------------------"/>
 							</h:panelGrid>
 
+							<h:panelGrid columns="1"  >								
+									<h:outputLabel value="CELULAR:" />
+									<h:inputText  label="CELULAR:" value="#{clienteBean.cli2.ct.celular}"  readonly="true"/>
+																		
+									<h:outputLabel value="FONE FIXO:" />
+									<h:inputText label="FONE FIXO:" id="FONE_E" value="#{clienteBean.cli2.ct.fone}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="e-mail:" />
+									<h:inputText label="e-mail:" id="e" value="#{clienteBean.cli2.ct.fone}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="SITE:" />
+									<h:inputText label="site22:" id="site22" value="#{clienteBean.cli2.ct.site}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="--------------------"/>
+									<h:outputLabel value="--------------------"/>
+									<h:outputLabel value="--------------------"/>
+									<h:outputLabel value="--------------------"/>
+									<h:outputLabel value="--------------------"/>
+									
+									
+							</h:panelGrid>	
+							
+							<h:panelGrid columns="1"  >								
+									<h:outputLabel value="RUA" />
+									<h:inputText   value="#{clienteBean.cli2.ed.rua}"  readonly="true"/>
+																		
+									<h:outputLabel value="NÚMERO:" />
+									<h:inputText  value="#{clienteBean.cli2.ed.numero}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="BAIRRO:" />
+									<h:inputText label="BAIRRO"  value="#{clienteBean.cli2.ed.bairro}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="CEP:" />
+									<h:inputText   value="#{clienteBean.cli2.ed.cep}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="CIDADE:" />
+									<h:inputText   value="#{clienteBean.cli2.ed.cidade}" readonly="true" immediate="true" />
+									
+									<h:outputLabel value="ESTADO:" />
+									<h:inputText  value="#{clienteBean.cli2.ed.uf}" readonly="true" immediate="true" />
+									
+									<p:commandLink process="@form" update="msg_enviar" action="#{clienteBean.salvar}" title="Enviar">											
+										<p:graphicImage library="imagens" name="enviar_b.png" />		
+									</p:commandLink>
+									
+									
+							</h:panelGrid>	
 						</h:panelGrid>	
 					</h:panelGrid>
 					<p:separator/> 

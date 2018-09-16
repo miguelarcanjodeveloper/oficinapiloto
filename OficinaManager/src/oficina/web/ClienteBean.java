@@ -8,6 +8,7 @@ import org.primefaces.event.TabChangeEvent;
 import oficina.cliente.Cliente;
 import oficina.cliente.ClienteRN;
 import oficina.contato.Contato;
+import oficina.contato.Endereco;
 import oficina.pessoas.fisica.PessoaF;
 import oficina.pessoas.fisica.PessoaFRN;
 
@@ -21,6 +22,7 @@ public class ClienteBean {
 	PessoaF pf = new PessoaF();
 	PessoaF pf2 = new PessoaF();
 	Contato contato = new Contato();
+	Endereco endereco = new Endereco();
 	List<PessoaF>  cliFlist;
 	
 	
@@ -58,8 +60,10 @@ public class ClienteBean {
 		cli.setTipo(0);		
 		pf = new PessoaF();
 		contato = new Contato();
+		endereco = new Endereco();
 		cli.setPf(pf);
 		cli.setCt(contato);
+		cli.setEd(endereco);
 		onTabClose();
 		
 	}
@@ -152,7 +156,7 @@ public class ClienteBean {
         pf2.setRg(cli.getPf().getRg());
         pf2.setNascimento(cli.getPf().getNascimento());                       
         pf2.setSexo(cli.getPf().getSexo());
-        cli.getCt().getCelular();
+        cli2=cli;
     }
 	
 	public void onTabClose() {

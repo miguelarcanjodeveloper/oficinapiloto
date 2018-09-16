@@ -4,6 +4,8 @@ import oficina.cliente.ClienteDAO;
 import oficina.cliente.ClienteDAOHBT;
 import oficina.contato.ContatoDAO;
 import oficina.contato.ContatoDAOHBT;
+import oficina.contato.EnderecoDAO;
+import oficina.contato.EnderecoDAOHBT;
 import oficina.pessoas.fisica.PessoaFDAO;
 import oficina.pessoas.fisica.PessoaFHBT;
 import oficina.usuario.UsuarioDAO;
@@ -56,6 +58,18 @@ public class DAOFactory {
 		ContatoDAOHBT contato = new ContatoDAOHBT();
 		contato.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
 		return contato;
+	}
+	
+	/***
+	 * Endereço
+	 * @return
+	 */
+	
+	public static EnderecoDAO criaEnderecoDAO(){
+
+		EnderecoDAOHBT end = new EnderecoDAOHBT();
+		end.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
+		return end;
 	}
 	
 	
