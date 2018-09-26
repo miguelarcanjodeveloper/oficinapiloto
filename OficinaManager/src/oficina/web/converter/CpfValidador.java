@@ -17,8 +17,6 @@ public class CpfValidador implements Validator{
          if (!validaCPF(String.valueOf(valorTela))) {
               
               
-              
-
             	  FacesMessage message = new FacesMessage();
             	  message.setSeverity(FacesMessage.SEVERITY_ERROR);
             	  message.setSummary("CPF Inválido.");

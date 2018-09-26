@@ -22,7 +22,7 @@ public class Endereco implements Serializable{
 	private Integer id;
 	private String rua;
 	private String numero;
-	private int cep;
+	private String cep;
 	private String bairro;
 	private String cidade;
 	private String refer;
@@ -47,10 +47,10 @@ public class Endereco implements Serializable{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public int getCep() {
+	public String getCep() {
 		return cep;
 	}
-	public void setCep(int cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 	public String getBairro() {
@@ -92,7 +92,7 @@ public class Endereco implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
-		result = prime * result + cep;
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
 		result = prime * result + ((cliente_id == null) ? 0 : cliente_id.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -116,7 +116,10 @@ public class Endereco implements Serializable{
 				return false;
 		} else if (!bairro.equals(other.bairro))
 			return false;
-		if (cep != other.cep)
+		if (cep == null) {
+			if (other.cep != null)
+				return false;
+		} else if (!cep.equals(other.cep))
 			return false;
 		if (cidade == null) {
 			if (other.cidade != null)
@@ -155,5 +158,6 @@ public class Endereco implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 }

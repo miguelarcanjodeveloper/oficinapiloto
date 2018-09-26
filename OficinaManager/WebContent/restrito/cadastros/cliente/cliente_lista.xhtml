@@ -22,7 +22,7 @@
 					<h:form id="listagem">
 						<h:panelGrid columns="7" cellspacing="4">
 							<p:outputLabel value="Localizar cliente:"/>
-							<p:inputText id="busca" maxlength="55" size="60" />
+							<p:inputText id="busca" maxlength="55" size="60" value="#{clienteBean.buscarCliente}"/>
 							<p:watermark for="busca" value="Busca pelo nome ou cpf" id="watermark" />
 							<p:graphicImage id="help" library="imagens" name="help-26.png" />
 							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:cpf seguido do número  Ex* cpf999999." position="left"/>
@@ -34,9 +34,9 @@
 							</p:commandLink>							
 						</h:panelGrid>
 					
+						
 						<p:dataTable value="#{clienteBean.cliFLista}" var="cliente" 
 							cellspacing="10" 
-							rendered="#{!empty clienteBean.cliFLista}"
 							cellpadding="5" 
 							style="text-align:left; display:block;" 																				
 							rowIndexVar="index"

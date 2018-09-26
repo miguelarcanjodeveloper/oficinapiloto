@@ -99,18 +99,23 @@
 					
 					<!-- inicio da aba endereço -->
 					<p:tab title="Endereço">
+						<p:messages id="msg_cep" showDetail="false" closable="true" autoUpdate="false"/> 
 						<p:separator />	
+        					<p:commandLink update=":cadastro"  action="#{clienteBean.buscaCep}" title="Buscar">					
+								<p:graphicImage library="imagens" name="buscar_a.png" />
+							</p:commandLink>
     				<h:panelGrid id="grid_endereco" columns="2">    					
 						<h:panelGrid id="grid_e" columns="2" cellpadding="5">
+        					<p:outputLabel for="cep" value="CEP:" />
+        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" />
+        					
+        					
         					<p:outputLabel  value="RUA:" for="rua" />
         					<p:inputText id="rua"  value="#{clienteBean.cli.ed.rua}" required="false" />  
 							
         					<p:outputLabel  value="Numero:" for="num" />
-        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}"  />									        				 							
- 						
-        					<p:outputLabel for="cep" value="CEP:" />
-        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" converter="intConverter"/>
-        					
+        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}"  />									        				 							 					 						
+ 						        					
         					<p:outputLabel for="bairro" value="BAIRRO:" />
         					<p:inputText id="bairro" required="false" value="#{clienteBean.cli.ed.bairro}" size="30" />
         					

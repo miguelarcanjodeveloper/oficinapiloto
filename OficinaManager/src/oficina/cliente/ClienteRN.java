@@ -3,6 +3,8 @@ package oficina.cliente;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.sql.SelectExpression;
+
 import com.sun.security.ntlm.Client;
 
 import oficina.contato.ContatoRN;
@@ -58,13 +60,45 @@ public class ClienteRN {
 	}
 	
 	/***
-	 * dentro da lista de cliente existe as pessoas fisicas, pj e endereços
-	 * contato. que serão manipulados o preenchimento dela aqui
+	 * A pesquisa aqui é de carater multiplo
+	 * conforme as tre primeiras letras da busca
 	 * @return
 	 */
 	public List<Cliente> listarFisicos() {
 		List<Cliente> cli = this.clienteDAO.listar();
-		//List<Cliente> cli2 =  new ArrayList<>();
+		String busca = "cpf01453403922";
+		String sel = busca.substring(0,3).toLowerCase();//seleciona os tres primeiros
+		busca = busca.substring(3);//seleciona apos o terceiro
+		
+		
+		switch (sel) {
+		case "cpf":
+			
+			break;
+		case "cep":	
+			
+			break;
+		case "111"://fone fixo
+			
+			break;
+		case "222"://celular
+			
+			break;
+		case "333"://bairro
+			
+			break;
+		case "444"://cidade
+			
+			break;
+		case "555"://rua
+			
+			break;
+		case "000"://ultimo nome
+	
+			break;
+		default://se nao atende nenhuma busca pelo nome
+			break;
+		}
 		
 		for (Cliente cliente : cli) {
 			cliente.setPf(this.PFRN.buscarPorCliente(cliente));

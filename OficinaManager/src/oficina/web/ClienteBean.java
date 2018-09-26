@@ -11,6 +11,7 @@ import oficina.contato.Contato;
 import oficina.contato.Endereco;
 import oficina.pessoas.fisica.PessoaF;
 import oficina.pessoas.fisica.PessoaFRN;
+import oficina.util.BuscaCep;
 
 
 @ManagedBean(name="clienteBean")
@@ -24,12 +25,14 @@ public class ClienteBean {
 	Contato contato = new Contato();
 	Endereco endereco = new Endereco();
 	List<PessoaF>  cliFlist;
-	
+	String buscarCliente;
 	
 	
 	public ClienteBean() {
 		super();
 	}
+
+
 
 	public String salvar(){
 		
@@ -100,6 +103,8 @@ public class ClienteBean {
 		
 	}
 	
+	
+	
 	//gets e sets
 	public Cliente getCli() {
 		return cli;
@@ -147,6 +152,10 @@ public class ClienteBean {
 	
    
 	
+	public String getBuscarCliente() {
+		return buscarCliente;
+	}
+	
 	
 	public void onTabChange(TabChangeEvent event) {
 		
@@ -164,7 +173,29 @@ public class ClienteBean {
 			
     }
 	
-     
+   public void buscaCep(){
+   
+	   BuscaCep b = new BuscaCep();	  	   
+	   
+	   Endereco edc = b.buscarCep(cli.getEd().getCep());
+	   
+	   FacesMessage faceMessage;
+	   if(edc==null){
+	   faceMessage = new FacesMessage("CEP não encontrado!");	
+	   faceMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+	   }else{
+		   
+		   cli.getEd().setBairro(edc.getBairro());
+		   cli.getEd().setRua(edc.getRua());
+		   cli.getEd().setCidade(edc.getCidade());
+		   cli.getEd().setUf(edc.getUf());
+		   
+	   }
+	   
+	   
+	   
+     }
    
 
 }
