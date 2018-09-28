@@ -20,12 +20,25 @@
 			<h:panelGrid  style="margin: 0 auto align:center;" >
 				<h:panelGroup style="align:left">
 					<h:form id="listagem">
-						<h:panelGrid columns="7" cellspacing="4">
+						<h:panelGrid columns="8" cellspacing="4">
 							<p:outputLabel value="Localizar cliente:"/>
+							<p:selectOneMenu value="#{clienteBean.pesquisaTipo}" id="pt">
+								<f:selectItem itemLabel="Primeiro nome" itemValue="pnome" />
+								<f:selectItem itemLabel="Último nome" itemValue="unome" />
+								<f:selectItem itemLabel="CPF" itemValue="CPF" />
+								<f:selectItem itemLabel="CNPJ" itemValue="CNPJ" />
+								<f:selectItem itemLabel="Telefone" itemValue="fone" />
+								<f:selectItem itemLabel="Celular" itemValue="cel" />
+								<f:selectItem itemLabel="Bairro" itemValue="bairro" />
+								<f:selectItem itemLabel="Cidade" itemValue="cidade" />
+								<f:selectItem itemLabel="Rua" itemValue="rua" />
+								
+							</p:selectOneMenu>
 							<p:inputText id="busca" maxlength="55" size="60" value="#{clienteBean.buscarCliente}"/>
 							<p:watermark for="busca" value="Busca pelo nome ou cpf" id="watermark" />
 							<p:graphicImage id="help" library="imagens" name="help-26.png" />
-							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:cpf seguido do número  Ex* cpf999999." position="left"/>
+							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:somente o cpf sem pontos ou virgula
+							 Ex* 999999." position="left"/>
 							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  action="#{clienteBean.novo}" title="Buscar">					
 								<p:graphicImage library="imagens" name="buscar_a.png" />
 							</p:commandLink>
@@ -44,7 +57,8 @@
 							rows="10"
 							rowsPerPageTemplate="5,10,15,20"
 							pageLinks="5"
-							scrollable="false">
+							scrollable="false"
+							id="dados">
 							<p:column>
 								<f:facet name="header">Cod cliente</f:facet>
 									<h:outputText value="#{cliente.id}" />																		
@@ -69,7 +83,10 @@
         							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
         								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>        								
         							</p:menuitem>
+        							<p:menuitem value="Imprimir" title="Imprimir dados do cliente"   icon="ui-icon-print">
         								
+        								      								
+        							</p:menuitem>        								
         							<p:menuitem value="Delete"   onclick="PF('confirmVar').show();" icon="ui-icon-close">        							
         								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>
         							</p:menuitem>        							

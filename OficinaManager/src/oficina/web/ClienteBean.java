@@ -26,6 +26,7 @@ public class ClienteBean {
 	Endereco endereco = new Endereco();
 	List<PessoaF>  cliFlist;
 	String buscarCliente;
+	private String pesquisaTipo;
 	
 	
 	public ClienteBean() {
@@ -83,6 +84,12 @@ public class ClienteBean {
 		return crn.listarFisicos();
 		
 	}
+
+	public void setBuscarCliente(String buscarCliente) {
+		this.buscarCliente = buscarCliente;
+	}
+
+
 
 	public void validaCpf(){
 		PessoaFRN prn = new PessoaFRN();
@@ -157,6 +164,18 @@ public class ClienteBean {
 	}
 	
 	
+	public String getPesquisaTipo() {
+		return pesquisaTipo;
+	}
+
+
+
+	public void setPesquisaTipo(String pesquisaTipo) {
+		this.pesquisaTipo = pesquisaTipo;
+	}
+
+
+
 	public void onTabChange(TabChangeEvent event) {
 		
         pf2.setCpf(cli.getPf().getCpf());
