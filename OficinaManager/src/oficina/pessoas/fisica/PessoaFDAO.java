@@ -10,7 +10,7 @@ public interface PessoaFDAO {
 	public void atualizar(PessoaF P);
 	public void excluir(PessoaF P);
 	public PessoaF carregar(Integer codigo);
-	public PessoaF buscaPorNome(String NOME);
+	public PessoaF buscaAvancada(String tipo,String busca);//busca avaçada permite realizar varias buscas com um so metodo
 	public PessoaF buscaPorCPF(String CPF);
 	public List<PessoaF> listar();
 	public PessoaF buscarCliente(Cliente codigo);

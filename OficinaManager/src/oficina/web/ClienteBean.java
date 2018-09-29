@@ -79,9 +79,11 @@ public class ClienteBean {
 	}
 	
 	public List<Cliente> getCliFLista() {
-		
+		System.out.println("Tipo em clienteBean:"+getPesquisaTipo());
+		setPesquisaTipo("pnome");
+		setBuscarCliente("m");
 		ClienteRN crn = new ClienteRN();
-		return crn.listarFisicos();
+		return crn.listarFisicos(getPesquisaTipo(),getBuscarCliente());
 		
 	}
 
