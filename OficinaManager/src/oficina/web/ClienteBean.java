@@ -24,13 +24,16 @@ public class ClienteBean {
 	PessoaF pf2 = new PessoaF();
 	Contato contato = new Contato();
 	Endereco endereco = new Endereco();
-	List<PessoaF>  cliFlist;
+	//List<PessoaF>  cliFlist;
+	List<Cliente> cliFlist;
 	String buscarCliente;
 	private String pesquisaTipo;
 	
 	
 	public ClienteBean() {
 		super();
+		setBuscarCliente("");
+		setPesquisaTipo("");
 	}
 
 
@@ -78,12 +81,20 @@ public class ClienteBean {
 		cl.deleteCliente(cli);
 	}
 	
-	public List<Cliente> getCliFLista() {
-		System.out.println("Tipo em clienteBean:"+getPesquisaTipo());
-		setPesquisaTipo("pnome");
-		setBuscarCliente("m");
+	public void bscliFisico(){
+		
 		ClienteRN crn = new ClienteRN();
-		return crn.listarFisicos(getPesquisaTipo(),getBuscarCliente());
+		cliFlist = crn.listarFisicos(getPesquisaTipo(),getBuscarCliente());
+		
+		
+	}
+	
+	public List<Cliente> getCliFLista() {
+		
+		
+		
+		
+		return cliFlist;
 		
 	}
 
@@ -151,12 +162,8 @@ public class ClienteBean {
 		this.pf2 = pf2;
 	}
 
-	public List<PessoaF> getCliFList() {
+	public List<Cliente> getCliFList() {
 		return cliFlist;
-	}
-
-	public void setCliFList(List<PessoaF> clienteList) {
-		this.cliFlist = clienteList;
 	}
 	
    

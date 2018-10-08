@@ -21,6 +21,7 @@
 <h:body>
 
 <div id="container">
+
 	<div id="titulo">
 		<ui:insert name="titulo">
 			Oficina Manager <br />
@@ -39,9 +40,14 @@
 	</div>	
  	
  	<div id="corpo">
- 		<ui:insert name="corpo"/>
+		<div id="menu_vertical">
+			<ui:insert name="menu_vertical"/>
+		</div>
+		<div id="corpo_dir">
+ 			<ui:insert name="corpo_dir"/>
+		</div>
  	</div>
-	
+ 	<div id="clear" style="clear: both;"></div>
 	<div id="rodape">
 		<ui:insert name="rodape">
 			<ui:include src="/publico/rodape.xhtml"></ui:include>

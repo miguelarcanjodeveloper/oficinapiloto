@@ -1,14 +1,16 @@
 body, th {
-	padding:25px 0 0 0;
+	padding:25px 15px 5px 5px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	background: url(#{resource['imagens:fundo4_p.png']});	
+	background-image: url("../resources/imagens/faixa.png");
+	background-repeat: repeat-x;
+	
 }
 
 th {
 	padding: 3px;
 	min-height: 25px;
-	background: url(#{resource['imagens:fundo_claro.png']}); 
+	
 }
 
 
@@ -18,10 +20,10 @@ img {
 
 #container {
 	padding:5px 5px 5px 5px;
-	width: 960px;
-	height: 100%;
-	margin: 0 auto;	
-	background: #B9DFE4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	width: 100%;
+	background-image: url(#{resource['imagens:faixa.png']});
+	background-repeat: repeat-x;
+	background: #e3e3e3;
 }
 	
 #titulo {
@@ -30,7 +32,7 @@ img {
 	font-size: 25pt;
 	font-variant: small-caps;
 	font-weight: bold;	
-	color: rgb(67, 125, 153);
+	color: rgb(58, 115, 45);
 	
 }
 
@@ -47,24 +49,35 @@ img {
 }
 
 #barra_menu_manutencao {
-	//background:graytext;
+	
 	min-height: 25px;
-	//padding: 3px;
+	padding: 3px;
 	clear:both;
 }
 
-#corpo {
+#corpo_dir {
+	width: 80%;
+	float: left;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	position: relative;
 	
 }
 
+#menu_vertical {
+		width: 20%;
+		margin: 0 auto; 
+		padding: 0;
+		float: left;
+		position: relative;
+		}
+		
 #rodape {
-	height: 100px;
+	height: 20px;
 	margin-top: 5px;
 	padding: 10px;
 	text-align: center;
-	background: url(#{resource['imagens:rodapedd_p.png']}) repeat-x;
+	background: url(#{resource['imagens:rodape_oficina.png']}) repeat-x;
 }
 
 /**tela cadastro de modelos dos veículos*/
@@ -84,7 +97,7 @@ img {
 
 /* alguns botões não estão dentro do mesmo escopo */
 .botoes{
-	background:  #73CFE5 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background:  #5f9a52 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	border: 
 }
 

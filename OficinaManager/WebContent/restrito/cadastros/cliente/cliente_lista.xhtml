@@ -27,23 +27,30 @@
 								<f:selectItem itemLabel="Último nome" itemValue="unome" />
 								<f:selectItem itemLabel="CPF" itemValue="CPF" />
 								<f:selectItem itemLabel="CNPJ" itemValue="CNPJ" />
-								<f:selectItem itemLabel="Telefone" itemValue="fone" />
+								<f:selectItem itemLabel="Telefone" itemValue="FONE" />
 								<f:selectItem itemLabel="Celular" itemValue="cel" />
 								<f:selectItem itemLabel="Bairro" itemValue="bairro" />
 								<f:selectItem itemLabel="Cidade" itemValue="cidade" />
 								<f:selectItem itemLabel="Rua" itemValue="rua" />
 								
 							</p:selectOneMenu>
-							<p:inputText id="busca" maxlength="55" size="60" value="#{clienteBean.buscarCliente}"/>
+							<p:inputText id="busca" maxlength="25" size="30" value="#{clienteBean.buscarCliente}"/>
 							<p:watermark for="busca" value="Busca pelo nome ou cpf" id="watermark" />
 							<p:graphicImage id="help" library="imagens" name="help-26.png" />
 							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:somente o cpf sem pontos ou virgula
-							 Ex* 999999." position="left"/>
-							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  action="#{clienteBean.novo}" title="Buscar">					
-								<p:graphicImage library="imagens" name="buscar_a.png" />
+							 Ex* 999999." position="left"/>							
+							 
+							<p:commandLink process="listagem" 
+							onmouseover="document.getElementById('listagem:buscar').src='/OficinaManager/javax.faces.resource/buscar_o.png.jsf?ln=imagens';"
+							onmouseout="document.getElementById('listagem:buscar').src='/OficinaManager/javax.faces.resource/buscar.png.jsf?ln=imagens';"
+							action="#{clienteBean.bscliFisico}" update=":listagem,dados"  title="Buscar" >					
+								<p:graphicImage id="buscar" library="imagens" name="buscar.png" />
 							</p:commandLink>
-							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  action="#{clienteBean.novo}" title="Novo">					
-								<p:graphicImage library="imagens" name="novo_b.png" />
+							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  
+							onmouseover="document.getElementById('listagem:novo').src='/OficinaManager/javax.faces.resource/novo_o.png.jsf?ln=imagens';"
+							onmouseout="document.getElementById('listagem:novo').src='/OficinaManager/javax.faces.resource/novo.png.jsf?ln=imagens';"
+							action="#{clienteBean.novo}" title="Novo">					
+								<p:graphicImage library="imagens" id="novo" name="novo.png" onmouseover="document.getElementById('novo').name='novo_o.png';"/>
 							</p:commandLink>							
 						</h:panelGrid>
 					
@@ -59,7 +66,7 @@
 							pageLinks="5"
 							scrollable="false"
 							id="dados"
-							rendered="false">
+							rendered="true">
 							<p:column>
 								<f:facet name="header">Cod cliente</f:facet>
 									<h:outputText value="#{cliente.id}" />																		

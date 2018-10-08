@@ -6,12 +6,24 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import oficina.contato.Contato;
 import oficina.contato.Endereco;
 import oficina.pessoas.fisica.PessoaF;
 
 public class ClienteDAOHBT implements ClienteDAO {
 
 	private Session session;
+	private java.awt.List list;
+	private List<Cliente> cli=new ArrayList<>();
+	private Cliente cliente=null;
+	private PessoaF pessoaF=null;
+	private Endereco endereco=null;
+	private List<Endereco> enderecoList=null;
+	private Contato contato=null;
+	private List<Contato> contatoList=null;
+	private List<PessoaF> pe=null;
+	private String hql;
+	private Query consulta;
 	
 	public void setSession(Session session) {
 		this.session = session;
@@ -58,72 +70,93 @@ public class ClienteDAOHBT implements ClienteDAO {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cliente> buscaAvancada(String tipo,String busca) {
 		
-		System.out.println("Tipo:"+tipo);
-		System.out.println("Busca:"+busca);
+		
 		
 		if(busca==""&&tipo=="")return null;
 		
 		switch (tipo) {
 		case "pnome":
 			
-			List<Cliente> cli=new ArrayList<>();
-			Cliente cliente=null;
-			List<PessoaF> pe=null;
-			String hql="select f,cli,ed,ct from PessoaF as f,  Cliente as cli, Endereco as ed, Contato as ct "
-					+ "where f.nome like :pnome and cli.id = f.id.id and ed.cliente_id = f.id.id "
-					+ "and ct.cliente_id = f.id.id";	
-			Query consulta=this.session.createQuery(hql);
+			
+			hql="select f from PessoaF f where nome like :pnome";
+		    consulta=this.session.createQuery(hql);
 			consulta.setString("pnome", busca +"%");
-			cli = consulta.list(Cliente.class);
+			pe = consulta.list();
 			
-			/***
-			
-			for (PessoaF pessoaF : pe) {
-				String hcli="select c from Cliente as c where c.id = :id ";	
-				Query consulta2=this.session.createQuery(hcli);
-				consulta2.setInteger("id", pessoaF.getId().getId());
-				cliente= (Cliente) consulta.uniqueResult();
-				cliente.setPf(pessoaF);
-				cli.add(cliente);
-			}
-			
-			 * 
-			 */
-			System.out.println("**********imprimindo a lista de clientes***********");
-			for (Cliente clie :cli ) {
-				System.out.println("Nome:"+clie.getPf().getNome());
-				System.out.println("Rua:"+clie.getEd().getRua());
-				System.out.println("Fone:"+clie.getCt().getCelular());
-				System.out.println("--------------------------------------------------");
-			}
+			carregaPorPf(pe);
 			
 			return cli;
 			
 			
 		case "unome":	
 			
-			break;
+			hql="select f from PessoaF f where nome like :pnome";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("pnome", "%"+busca);
+			pe = consulta.list();
+			carregaPorPf(pe);
+			
+			return cli;
+			
 		case "CPF":
 			
-			break;
+			hql="select f from PessoaF f where cpf = :cpf";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("cpf", busca);
+			pe = consulta.list();
+			carregaPorPf(pe);
+			
+			return cli;
+			
 		case "FONE":
 			
-			break;
+			hql="select f from Contato f where fone = :fone";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("fone", busca);
+			contatoList = consulta.list();
+			carregaPorCt(contatoList);
+			return cli;
+			
 		case "cel":
 			
-			break;
+			hql="select f from Contato f where celular = :fone";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("fone", busca);
+			contatoList = consulta.list();
+			carregaPorCt(contatoList);
+			return cli;
+			
 		case "bairro":
 			
-			break;
+			hql="select f from Endereco f where bairro like :b";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("b",busca+"%");
+			enderecoList = consulta.list();
+			carregaPorEd(enderecoList);			
+			return cli;
+			
 		case "cidade":
 			
-			break;
+			hql="select f from Endereco f where cidade = :b";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("b", busca);
+			enderecoList = consulta.list();
+			carregaPorEd(enderecoList);			
+			return cli;
+			
 		case "rua":
-	
-			break;
+			
+			hql="select f from Endereco f where rua like :b";
+			consulta=this.session.createQuery(hql);
+			consulta.setString("b", busca+"%");
+			enderecoList = consulta.list();
+			carregaPorEd(enderecoList);			
+			return cli;
+			
 		default://se nao atende nenhuma busca pelo nome
 			break;
 		}
@@ -136,5 +169,86 @@ public class ClienteDAOHBT implements ClienteDAO {
 		
 		return this.session.createCriteria(Cliente.class).list();
 	}
+	
+private void carregaPorPf(List<PessoaF> p){
+		
+		for (PessoaF clie :p ) {
+			
+			hql="select c from Cliente c where c.id = :id";
+			consulta = this.session.createQuery(hql);
+			consulta.setInteger("id", clie.getId().getId());
+			cliente = (Cliente) consulta.uniqueResult();
+			cliente.setPf(clie);
+							
+			hql="select e from Endereco e where e.cliente_id.id = :id";
+			consulta = this.session.createQuery(hql);
+			consulta.setInteger("id", clie.getId().getId());
+			endereco = (Endereco)consulta.uniqueResult();
+			cliente.setEd(endereco);
+			
+			hql="select e from Contato e where e.cliente_id.id = :id";
+			consulta = this.session.createQuery(hql);
+			consulta.setInteger("id", clie.getId().getId());
+			contato = (Contato)consulta.uniqueResult();
+			cliente.setCt(contato);
+			
+			cli.add(cliente);
+		}
+		
+	}
+
+private void carregaPorCt(List<Contato> c){
+	
+	for (Contato con :c ) {
+		
+		hql="select c from Cliente c where c.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		cliente = (Cliente) consulta.uniqueResult();
+		cliente.setCt(con);
+						
+		hql="select e from Endereco e where e.cliente_id.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		endereco = (Endereco)consulta.uniqueResult();
+		cliente.setEd(endereco);
+		
+		hql="select e from PessoaF e where e.id.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		pessoaF = (PessoaF)consulta.uniqueResult();
+		cliente.setPf(pessoaF);
+		
+		cli.add(cliente);
+	}
+	
+}
+
+private void carregaPorEd(List<Endereco> c){
+	
+	for (Endereco con :c ) {
+		
+		hql="select c from Cliente c where c.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		cliente = (Cliente) consulta.uniqueResult();
+		cliente.setEd(con);
+						
+		hql="select e from Endereco e where e.cliente_id.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		endereco = (Endereco)consulta.uniqueResult();
+		cliente.setEd(endereco);
+		
+		hql="select e from PessoaF e where e.id.id = :id";
+		consulta = this.session.createQuery(hql);
+		consulta.setInteger("id", con.getCliente_id().getId());
+		pessoaF = (PessoaF)consulta.uniqueResult();
+		cliente.setPf(pessoaF);
+		
+		cli.add(cliente);
+	}
+	
+}
 
 }

@@ -3,24 +3,25 @@
 
 /* cor de fundo do menu*/
 .ui-megamenu {
-	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	color: white;
 	font-size: 18px;
 }
 
 .ui-menu, .ui-menu .ui-menu-child {
-	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	
 }
 
 .ui-widget-content li {
-	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+
 }
 
 /*cor do texto do menu*/
 .ui-menuitem-text{
 	
-color: #45464D;
+color: #053a09;
 
 }
 
@@ -32,7 +33,8 @@ color: #45464D;
 
 /* componentes tipo botoes e paineis ex: cadastro de montadoras*/
 .ui-widget-header{
-	background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	color: #0f3e0a;;
 }
 /*mantem os textos das tabela de panelgrid sempre no topo*/
 .topAligned td{
@@ -43,27 +45,27 @@ color: #45464D;
 display: block;
 line-height: 1.4;
 color: #45464D;
-background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 }
 
 /* combo box, e listas de paginação muda as cores*/
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
-	border: 1px solid #666666;
+	border: 2px solid #343534;
     background: #aaaaaa;
     background: #aaaaaa linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
     background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
-    background: #aaaaaa -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0));
-    color: #497bda;
+    background: #d4d4d403 -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(rgba(0,0,0,0)));
+    color: 2px solid #343534;
     
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
 	background: #70C3DD -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	/*border: 1px solid #46B9D6;*/
-	border: 2px solid #0c3e84;
+	border: 2px solid #abb3bd;
 	background: rgb(255, 255, 255);
-	color: #0f46af;
+	color: #151617;
 }
 
 #montadora_label {
@@ -75,27 +77,27 @@ background: #A6D1DD  -webkit-gradient(linear, left top, left bottom, from(rgba(2
 .ui-widget-header {
 	
 /*color: #B10B0B; cor de cabeçãlho e outras partes do menú*/
-color: #497bda;
+color: #0c5f07;
 }
 
 .ui-widget-content {
     border: 1px dotted #97989C;
-    color: #0f46af;
+    color: rgb(12, 41, 3);
 }
 
 /* icones do menu manutenção*/
 .ui-widget-content .ui-icon-casa{
-	background-image: url("/GPA/resources/imagens/principal16.png");
+	background-image: url("/OficinaManager/resources/imagens/principal16.png");
 }
 .ui-widget-content .ui-icon-sair{
-	background-image: url("/GPA/resources/imagens/logout16.png");
+	background-image: url("/OficinaManager/resources/imagens/logout16.png");
 }
 .ui-widget-content .ui-icon-veiculo{
-	background-image: url("/GPA/resources/imagens/camaro_16.png");
+	background-image: url("/OficinaManager/resources/imagens/camaro_16.png");
 }
 
 .ui-widget-content .ui-icon-manu{
-	background-image: url("/GPA/resources/imagens/13.png");
+	background-image: url("/OficinaManager/resources/imagens/13.png");
 }
 
 .teste .ui-widget-content

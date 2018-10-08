@@ -66,7 +66,7 @@ a {
     background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)); /*    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)"; */
     color: #333;
     font-weight: bold;
-    text-shadow: 0px 1px 0px rgba(255,255,255,0.7);
+    
 }
 .ui-widget-header a
 {

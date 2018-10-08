@@ -9,9 +9,12 @@
 	
 	<ui:composition template="/templates/manutencao.xhtml">
 	<ui:define name="titulo">CADASTRO DE CLIENTE <br/>  </ui:define>	
-	<ui:define name="corpo">
+	<ui:define name="corpo_dir">
 		<ui:include src="cliente_lista.xhtml" />
 		<ui:include src="cliente_edicao.xhtml" />
+	</ui:define>
+	<ui:define name="menu_vertical">
+		<ui:include src="/restrito/menu_vertical/menu_cadastro.xhtml"/>
 	</ui:define>
 	</ui:composition>
 	

@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<p:dialog  header="Cadastro de cliente" onShow="tb.select(0);" widgetVar="dlg2" modal="true" width="820" closable="false">
+	<p:dialog  header="Cadastro de cliente" onShow="tb.select(0);" widgetVar="dlg2" modal="true" position="top" width="820" closable="false">
 	<!-- <p:ajax event="close" resetValues="true" listener="#{clienteBean.onTabClose}" update="cadastro" />  -->
 	
 		<div class="center_content">
@@ -29,7 +29,7 @@
 						<p:messages id="msg_cpf" showDetail="false" closable="true" autoUpdate="false"/>        					    				
     					<p:separator />	
     				<h:panelGrid id="grid_main" columns="2">    					
-						<h:panelGrid id="grid" columns="3" cellpadding="5">
+						<h:panelGrid id="grid" columns="3" cellpadding="3" >
         					<p:outputLabel for="nome" value="Nome completo:" />
         					<p:inputText id="nome" value="#{clienteBean.cli.pf.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente" />
         					<p:message for="nome" />
@@ -101,26 +101,35 @@
 					<p:tab title="Endereço">
 						<p:messages id="msg_cep" showDetail="false" closable="true" autoUpdate="false"/> 
 						<p:separator />	
-        					<p:commandLink update=":cadastro"  action="#{clienteBean.buscaCep}" title="Buscar">					
-								<p:graphicImage library="imagens" name="buscar_a.png" />
-							</p:commandLink>
     				<h:panelGrid id="grid_endereco" columns="2">    					
-						<h:panelGrid id="grid_e" columns="2" cellpadding="5">
+						<h:panelGrid id="grid_e" columns="3" cellpadding="5">
         					<p:outputLabel for="cep" value="CEP:" />
-        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" />
+        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" size="30"/>
         					
+        					<p:commandLink update=":cadastro" 
+        						onmouseover="document.getElementById('cadastro:tab:lupa').src='/OficinaManager/resources/imagens/lupa_o.png?pfdrid_c=true';"
+        						onmouseout="document.getElementById('cadastro:tab:lupa').src='/OficinaManager/resources/imagens/lupa.png?pfdrid_c=true';"
+        						action="#{clienteBean.buscaCep}" 
+        						title="Buscar">					
+								<p:graphicImage id="lupa"  url="/resources/imagens/lupa.png"
+								/>
+							</p:commandLink>
         					
         					<p:outputLabel  value="RUA:" for="rua" />
-        					<p:inputText id="rua"  value="#{clienteBean.cli.ed.rua}" required="false" />  
+        					<p:inputText id="rua"  value="#{clienteBean.cli.ed.rua}" required="false" size="30" />  
+							<p:message for="rua"/>
 							
         					<p:outputLabel  value="Numero:" for="num" />
-        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}"  />									        				 							 					 						
+        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}" size="30" />
+        					<p:message for="num"/>									        				 							 					 						
  						        					
         					<p:outputLabel for="bairro" value="BAIRRO:" />
         					<p:inputText id="bairro" required="false" value="#{clienteBean.cli.ed.bairro}" size="30" />
+        					<p:message for="bairro"/>
         					
         					<p:outputLabel for="cidade" value="CIDADE:" />
         					<p:inputText id="cidade" required="false" value="#{clienteBean.cli.ed.cidade}" size="30" />
+        					<p:message for="cidade"/>
         					
         					<p:outputLabel for="uf" value="UF:" />        					
         					<p:selectOneMenu value="#{clienteBean.cli.ed.uf}" id="uf">
@@ -238,7 +247,7 @@
 									<h:inputText  value="#{clienteBean.cli2.ed.uf}" readonly="true" immediate="true" />
 									
 									<p:commandLink process="@form" update="msg_enviar" action="#{clienteBean.salvar}" title="Enviar">											
-										<p:graphicImage library="imagens" name="enviar_b.png" />		
+										<p:graphicImage library="imagens" name="enviar.png" />		
 									</p:commandLink>
 									
 									
@@ -254,9 +263,12 @@
 				</p:tabView>
 				<h:panelGrid columns="2" >								
 				
-				<p:commandLink process="@form" update=":listagem " action="#{clienteBean.onTabClose}" oncomplete="dlg2.hide()" title="Fechar">
+				<p:commandLink process="@form" 
+				onmouseover="document.getElementById('cadastro:sair').src='/OficinaManager/javax.faces.resource/sair_o.png.jsf?ln=imagens';"
+				onmouseout="document.getElementById('cadastro:sair').src='/OficinaManager/javax.faces.resource/sair.png.jsf?ln=imagens';"
+				update=":listagem " action="#{clienteBean.onTabClose}"  oncomplete="dlg2.hide()" title="Fechar">
 										
-					<p:graphicImage library="imagens" name="sair_b.png" />
+					<p:graphicImage library="imagens" id="sair" value="Sair" name="sair.png" />
 				</p:commandLink>
 				
 				</h:panelGrid>
