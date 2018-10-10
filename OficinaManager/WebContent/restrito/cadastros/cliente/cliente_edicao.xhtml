@@ -52,7 +52,7 @@
     						<p:outputLabel for="nas" value="Data de nascimento:" />        					
         					<p:calendar id="nas" value="#{clienteBean.cli.pf.nascimento}" pattern="dd/MM/yyyy"  
         					locale="pt" title="Digite a data neste formato 99/99/9999"
-        					mask="99/99/9999" navigator="true" readonlyInput="true">
+        					mask="99/99/9999" navigator="true" readonlyInput="true" yearRange="c-60:c+20">
         					
         					</p:calendar>       					            				     				
         				
@@ -74,7 +74,7 @@
     				<h:panelGrid id="grid_contato" columns="2">    					
 						<h:panelGrid id="grid_c" columns="2" cellpadding="5">
         					<p:outputLabel  value="Celular:" />
-        					<p:inputMask id="cel" mask="(999)9999-9999" value="#{clienteBean.cli.ct.celular}" converter="telefoneConverter" required="false" />  
+        					<p:inputMask id="cel" mask="(999)99999-9999" value="#{clienteBean.cli.ct.celular}" converter="telefoneConverter" required="false" />  
 							
         					<p:outputLabel  value="Fone fixo:" />
         					<p:inputMask  id="fone" mask="(999)9999-9999" value="#{clienteBean.cli.ct.fone}" converter="telefoneConverter" />									        				 							
@@ -194,7 +194,7 @@
 									
 									<h:outputLabel value="DATA DE NASCIMENTO:" />									
 									<h:inputText  label="NASCIMENTO:" id="NAS2" value="#{clienteBean.pf2.nascimento}"  required="false" readonly="true" >
-										<f:convertDateTime locale="pt,BR" dateStyle="long" pattern="dd/MM/yyyy" />
+										<f:convertDateTime locale="pt_br" dateStyle="long" pattern="dd/MM/yyyy" />
 									</h:inputText>
 									
 									<h:outputLabel value="Sexo:" />									
