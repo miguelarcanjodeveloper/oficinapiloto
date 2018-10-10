@@ -8,26 +8,26 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-<div class="center_content">
+<div class="center_content" >
 	<h:panelGrid columns="1" width="100%" >
 		<p:panel 
-		id="janela"
 		toggleable="true" 
 		toggleSpeed="10" 
-		header="Listagem de clientes pessoas físicas" 
+		header="Listagem de clientes jurídicos" 
 		closeSpeed="15"
-		collapsed="false" 
-		visible="#{clienteBean.panel1}"
-		style="align:left">
-			<h:panelGrid  style="margin: 0 auto align:center;" >
-				<h:panelGroup style="align:left">
-					<h:form id="listagem">
-						<h:panelGrid columns="8" cellspacing="4">
+		collapsed="false"
+		styleClass="listagemj" 
+		id="janela2"
+		visible="#{clienteBean.panel2}"
+		>
+			<h:panelGrid  styleClass="listagemj" >
+				<h:panelGroup styleClass="listagemj">
+					<h:form id="listagem_j">
+						<h:panelGrid columns="8" cellspacing="4" styleClass="listagemj">
 							<p:outputLabel value="Localizar cliente:"/>
-							<p:selectOneMenu value="#{clienteBean.pesquisaTipo}" id="pt">
-								<f:selectItem itemLabel="Primeiro nome" itemValue="pnome" />
-								<f:selectItem itemLabel="Último nome" itemValue="unome" />
-								<f:selectItem itemLabel="CPF" itemValue="CPF" />						
+							<p:selectOneMenu value="#{clienteBean.pesquisaTipo}" id="pt_j" styleClass="listagemj">
+								<f:selectItem itemLabel="Nome Fantasia" itemValue="fantasia" />								
+								<f:selectItem itemLabel="CNPJ" itemValue="cnpj" />						
 								<f:selectItem itemLabel="Telefone" itemValue="FONE" />
 								<f:selectItem itemLabel="Celular" itemValue="cel" />
 								<f:selectItem itemLabel="Bairro" itemValue="bairro" />
@@ -35,27 +35,27 @@
 								<f:selectItem itemLabel="Rua" itemValue="rua" />
 								
 							</p:selectOneMenu>
-							<p:inputText id="busca" maxlength="25" size="30" value="#{clienteBean.buscarCliente}"/>
-							<p:watermark for="busca" value="Busca pelo nome ou cpf" id="watermark" />
-							<p:graphicImage id="help" library="imagens" name="help-26.png" />
-							<p:tooltip id="toolTipFade" for="help" value="Para localizar um cliente pelo CPF digite:somente o cpf sem pontos ou virgula
+							<p:inputText id="busca_j" maxlength="25" size="30" value="#{clienteBean.buscarCliente}"/>
+							<p:watermark for="busca_j" value="Busca pelo nome ou CNPJ" id="watermark_j" />
+							<p:graphicImage id="help_j" library="imagens" name="help-26.png" />
+							<p:tooltip id="toolTipFade_j" for="help_j" value="Para localizar um cliente pelo CNPJ digite:somente o CNPJ sem pontos ou virgula
 							 Ex* 999999." position="left"/>							
 							 
-							<p:commandLink process="listagem" 
-							onmouseover="document.getElementById('listagem:buscar').src='/OficinaManager/javax.faces.resource/buscar_o.png.jsf?ln=imagens';"
-							onmouseout="document.getElementById('listagem:buscar').src='/OficinaManager/javax.faces.resource/buscar.png.jsf?ln=imagens';"
-							action="#{clienteBean.bscliFisico}" update=":listagem,dados"  title="Buscar" >					
-								<p:graphicImage id="buscar" library="imagens" name="buscar.png" />
+							<p:commandLink process="listagem_j" 
+							onmouseover="document.getElementById('listagem_j:buscar_j').src='/OficinaManager/javax.faces.resource/buscar_o.png.jsf?ln=imagens';"
+							onmouseout="document.getElementById('listagem_j:buscar_j').src='/OficinaManager/javax.faces.resource/buscar.png.jsf?ln=imagens';"
+							action="#{clienteBean.bscliFisico}" update=":listagem_j,dados_j"  title="Buscar" >					
+								<p:graphicImage id="buscar_j" library="imagens" name="buscar.png" />
 							</p:commandLink>
 							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  
-							onmouseover="document.getElementById('listagem:novo').src='/OficinaManager/javax.faces.resource/novo_o.png.jsf?ln=imagens';"
-							onmouseout="document.getElementById('listagem:novo').src='/OficinaManager/javax.faces.resource/novo.png.jsf?ln=imagens';"
+							onmouseover="document.getElementById('listagem:novo_j').src='/OficinaManager/javax.faces.resource/novo_o.png.jsf?ln=imagens';"
+							onmouseout="document.getElementById('listagem:novo_j').src='/OficinaManager/javax.faces.resource/novo.png.jsf?ln=imagens';"
 							action="#{clienteBean.novo}" title="Novo">					
-								<p:graphicImage library="imagens" id="novo" name="novo.png" onmouseover="document.getElementById('novo').name='novo_o.png';"/>
+								<p:graphicImage library="imagens" id="novo_j" name="novo.png" onmouseover="document.getElementById('novo_j').name='novo_o.png';"/>
 							</p:commandLink>							
 						</h:panelGrid>
 					
-					<!-- inicio listagem de cliente fisico -->	
+					<!-- inicio listagem de cliente JURIDICO -->	
 						<p:dataTable value="#{clienteBean.cliFLista}" var="cliente" 
 							cellspacing="10" 
 							cellpadding="5" 
@@ -66,7 +66,7 @@
 							rowsPerPageTemplate="5,10,15,20"
 							pageLinks="5"
 							scrollable="false"
-							id="dados"
+							id="dados_j"
 							rendered="true">
 							<p:column>
 								<f:facet name="header">Cod cliente</f:facet>
@@ -87,7 +87,7 @@
 							</p:column>								
 							<p:column>
 								<f:facet name="header">Opções</f:facet>
-									<p:menuButton value="Opções">
+									<p:menuButton value="Opções" styleClass="listagemj">
         							
         							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
         								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>        								
@@ -102,13 +102,13 @@
     								</p:menuButton>															
 							</p:column>		
 						</p:dataTable>											
-					<!-- fim listagem de cliente fisico -->		
+					<!-- fim listagem de cliente JURIDICO -->		
 							
-						<p:confirmDialog id="confirmDialog" message="Tem certeza que deseja excluir esse cliente ?"  
-   									header="Aviso de Exclusão" hideEffect="explode" severity="alert" widgetVar="confirmVar">  
+						<p:confirmDialog id="confirmDialog_j" message="Tem certeza que deseja excluir esse cliente ?"  
+   									header="Aviso de Exclusão" hideEffect="explode" severity="alert" widgetVar="confirmVar_j">  
 
-    						<p:commandButton id="confirm" value="Sim" oncomplete="confirmVar.hide()"  actionListener="#{clienteBean.delete()}" update="listagem"/>  
-    						<p:commandButton id="decline" value="Não" onclick="confirmVar.hide();" />  
+    						<p:commandButton id="confirm_j" value="Sim" oncomplete="confirmVar_j.hide()"  actionListener="#{clienteBean.delete()}" update="listagem_j"/>  
+    						<p:commandButton id="decline_j" value="Não" onclick="confirmVar_j.hide();" />  
 
 						</p:confirmDialog>
 					</h:form>

@@ -9,12 +9,12 @@
 }
 
 .ui-menu, .ui-menu .ui-menu-child {
-	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c7d8c5   -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	
 }
 
 .ui-widget-content li {
-	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c7d8c5   -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 
 }
 
@@ -33,7 +33,7 @@ color: #45464D;
 
 /* componentes tipo botoes e paineis ex: cadastro de montadoras*/
 .ui-widget-header{
-	background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c7d8c5  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	color: #0f3e0a;;
 }
 /*mantem os textos das tabela de panelgrid sempre no topo*/
@@ -45,7 +45,7 @@ color: #45464D;
 display: block;
 line-height: 1.4;
 color: #45464D;
-background: #5f9a52  -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+background: #c7d8c5   -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 }
 
 /* combo box, e listas de paginação muda as cores*/

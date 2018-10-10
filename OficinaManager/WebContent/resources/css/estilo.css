@@ -77,8 +77,32 @@ img {
 	margin-top: 5px;
 	padding: 10px;
 	text-align: center;
-	background: url(#{resource['imagens:rodape_oficina.png']}) repeat-x;
+	background:#c7d8c5 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0))); 
+	
+	/**url(#{resource['imagens:rodape_oficina.png']}) repeat-x;**/
 }
+
+.listagemj .ui-widget-header  {
+	background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+    color: #061f03;
+}
+.listagemj .ui-button .ui-button-text{
+	background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+    color: #061f03;
+    
+}
+
+/** .ui-menu .ui-menu-child li muda a cor do menu principal**/
+.listagemj .ui-widget-content li, .ui-menu li{
+	background: #aaaaaa -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+    color: #061f03;
+    
+}
+
+
+
+
+/**.ui-menu, .ui-menu .ui-menu-child*/
 
 /**tela cadastro de modelos dos veículos*/
 #modelo_cadastro{
@@ -97,7 +121,7 @@ img {
 
 /* alguns botões não estão dentro do mesmo escopo */
 .botoes{
-	background:  #5f9a52 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background:  #c7d8c5 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
 	border: 
 }
 

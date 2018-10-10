@@ -10,8 +10,21 @@
 	<ui:composition template="/templates/manutencao.xhtml">
 	<ui:define name="titulo">CADASTRO DE CLIENTE <br/>  </ui:define>	
 	<ui:define name="corpo_dir">
+	
+	<h:form id="menu">
+<p:panelGrid columns="2" >
+<p:outputLabel value="Cliente tipo"/>
+<p:selectOneRadio value="#{clienteBean.selCli}" >
+            <f:selectItem itemLabel="Fisico" itemValue="fisico" />
+            <f:selectItem itemLabel="Juridico" itemValue="jurico" />  
+            <p:ajax update=":janela,:janela2" event="change"/>          
+</p:selectOneRadio>
+</p:panelGrid>
+</h:form>
 		<ui:include src="cliente_lista.xhtml" />
+		<ui:include src="clienteJ_lista.xhtml" />
 		<ui:include src="cliente_edicao.xhtml" />
+		
 	</ui:define>
 	<ui:define name="menu_vertical">
 		<ui:include src="/restrito/menu_vertical/menu_cadastro.xhtml"/>

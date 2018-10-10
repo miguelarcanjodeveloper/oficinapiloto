@@ -47,7 +47,7 @@ public class UsuarioBean {
 	public String editar(){
 		this.senhaCriptografada = this.usuario.getSenha();	
 		
-		return "/publico/usuario";
+		return "/publico/usuario.jsf";
 	}
 	
 	public String salvar(){

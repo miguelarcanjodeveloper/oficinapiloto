@@ -28,12 +28,16 @@ public class ClienteBean {
 	List<Cliente> cliFlist;
 	String buscarCliente;
 	private String pesquisaTipo;
+	private String selCli="fisico";//seleciona cliente
+	private boolean panel1=true;
+	private boolean panel2=false;
 	
 	
 	public ClienteBean() {
 		super();
 		setBuscarCliente("");
 		setPesquisaTipo("");
+		
 	}
 
 
@@ -126,9 +130,55 @@ public class ClienteBean {
 	
 	
 	//gets e sets
+	
+	
 	public Cliente getCli() {
 		return cli;
 	}
+
+	public boolean isPanel1() {
+		return panel1;
+	}
+
+
+
+	public void setPanel1(boolean panel1) {
+		this.panel1 = panel1;
+	}
+
+
+
+	public boolean isPanel2() {
+		return panel2;
+	}
+
+
+
+	public void setPanel2(boolean panel2) {
+		this.panel2 = panel2;
+	}
+
+
+
+	public String getSelCli() {
+		return selCli;
+	}
+
+
+
+	public void setSelCli(String selCli) {
+		if(selCli.equals("fisico")){
+			setPanel1(true);
+			setPanel2(false);
+		}else{
+			setPanel1(false);
+			setPanel2(true);
+		}
+	
+		this.selCli = selCli;
+	}
+
+
 
 	public void setCli(Cliente cli) {
 		this.cli = cli;
