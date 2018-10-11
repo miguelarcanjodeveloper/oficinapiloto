@@ -51,7 +51,6 @@ public class PessoaF implements Serializable{
 	private String nome;
 	private String sexo;
 	private String rg;
-	@NaturalId(mutable=true)
 	@Column(name = "cpf", unique = false, nullable = true)
 	private String cpf;
 	private Date nascimento;

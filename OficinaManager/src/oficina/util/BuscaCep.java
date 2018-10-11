@@ -41,7 +41,6 @@ public class BuscaCep {
             BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
 
             StringBuilder jsonSb = new StringBuilder();
-            System.out.println("Cidade json: "+br.toString());
 
             br.lines().forEach(l -> jsonSb.append(l.trim()));
             json = jsonSb.toString();
@@ -63,9 +62,7 @@ public class BuscaCep {
             ende.setBairro(bairro);
             ende.setCidade(cidade);
             ende.setRua(lougradouro);
-            ende.setUf(uf);
-            
-            System.out.println("Cidade: "+cidade);
+            ende.setUf(uf);                        
             
            return ende;
             
