@@ -8,59 +8,61 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition>
-	<p:dialog  header="Cadastro de cliente" onShow="tb.select(0);" widgetVar="dlg2" modal="true" position="top" width="820" closable="false">
-	<!-- <p:ajax event="close" resetValues="true" listener="#{clienteBean.onTabClose}" update="cadastro" />  -->
+	<p:dialog  header="Cadastro de cliente jurídico" onShow="tb2.select(0);" widgetVar="dlg3" modal="true" position="top" width="820" closable="false">
+	
 	
 		<div class="center_content">
 
-			<h:form id="cadastro">
-				<p:growl id="msg" showDetail="true" />
+			<h:form id="cadastroJ">
+				<p:growl id="msgJ" showDetail="true" />
 				<h:inputHidden value="#{clienteBean.cli.id}" />
 				
 				
-				<p:tabView orientation="top" widgetVar="tb" activeIndex="" cache="false"  id="tab" dynamic="false" style="width:100%;border-width:0;padding:0;" >
+				<p:tabView orientation="top" widgetVar="tb2" activeIndex="" cache="false"  id="tab2" dynamic="false" style="width:100%;border-width:0;padding:0;" >
 				<p:ajax event="tabChange"  listener="#{clienteBean.onTabChange}" update="@form" />
 				 
 				
 					
 				
 			<!-- inicio da aba de cadastro -->
-					<p:tab title="Dados pessoais"  id="tab1">
-						<p:messages id="msg_cpf" showDetail="false" closable="true" autoUpdate="false"/>        					    				
+					<p:tab title="Dados pessoais"  id="tab3">
+						<p:messages id="msg_cnpj" showDetail="false" closable="true" autoUpdate="false"/>        					    				
     					<p:separator />	
-    				<h:panelGrid id="grid_main" columns="2">    					
-						<h:panelGrid id="grid" columns="3" cellpadding="3" >
-        					<p:outputLabel for="nome" value="Nome completo:" />
-        					<p:inputText id="nome" value="#{clienteBean.cli.pf.nome}" required="true" requiredMessage="Obrigatório um nome para o cliente" />
-        					<p:message for="nome" />
+    				<h:panelGrid id="grid_mainJ" columns="2">    					
+						<h:panelGrid id="gridJ" columns="3" cellpadding="3" >
+        					<p:outputLabel for="razao" value="Razão social:" />
+        					<p:inputText id="razao" value="#{clienteBean.cli.pj.rs}" required="true" requiredMessage="Obrigatório razão social" />
+        					<p:message for="razao" />
  
-        					<p:outputLabel for="rg" value="RG:" />
-        					<p:inputText label="RG:" id="rg" value="#{clienteBean.cli.pf.rg}" required="false"/>									        				
- 							<p:message for="rg" />
+        					<p:outputLabel for="nfantasia" value="Nome fantasia:" />
+        					<p:inputText id="nfantasia" value="#{clienteBean.cli.pj.nomeFantasia}" required="false"/>									        				
+ 							<p:message for="nfantasia" />
  						
-        					<p:outputLabel for="cpf" value="CPF:" />
-        					<p:inputMask id="cpf" mask="999.999.999-99" required="false" value="#{clienteBean.cli.pf.cpf}" 
-        						requiredMessage="Esse CPF já está cadastrado no sistema!" maxlength="14" 
-        						converter="cpfConverter" validator="cpfValidador" > <!-- converter="cpfConverter" validator="cpfValidador" -->
+        					<p:outputLabel for="cnpj" value="CNPJ:" />
+        					<p:inputMask id="cnpj" mask="99.999.999/9999-99" required="true" value="#{clienteBean.cli.pj.cnpj}" 
+        						requiredMessage="Esse CNPJ já está cadastrado no sistema!" maxlength="17" 
+        						converter="cpfConverter" validator="cnpjValidador" > <!-- converter="cpfConverter" validator="cpfValidador" -->
         						
         					</p:inputMask>
-        					<p:commandLink update="msg_cpf" action="#{clienteBean.validaCpf}" title="Verificar CPF cadastrado!">
+        					<p:commandLink update="msg_cnpj" action="#{clienteBean.validaCnpj}" title="Verificar CNPJ cadastrado!">
         						<p:graphicImage library="imagens" name="administrativo16.png" />        					
         					</p:commandLink>
     					</h:panelGrid>
-    					<h:panelGrid id="grid2" columns="2" cellpadding="5">
-    						<p:outputLabel for="nas" value="Data de nascimento:" />        					
-        					<p:calendar id="nas" value="#{clienteBean.cli.pf.nascimento}" pattern="dd/MM/yyyy"  
+    					<h:panelGrid id="grid3" columns="2" cellpadding="5">
+    						<p:outputLabel for="abertura" value="Data de abertura:" />        					
+        					<p:calendar id="abertura" value="#{clienteBean.cli.pj.abertura}" pattern="dd/MM/yyyy"  
         					locale="pt" title="Digite a data neste formato 99/99/9999"
         					mask="99/99/9999" navigator="true" readonlyInput="true" yearRange="c-60:c+20">
         					
         					</p:calendar>       					            				     				
         				
-        					<p:outputLabel for="sx" value="Sexo:" />
-        					<p:selectOneMenu id="sx" value="#{clienteBean.cli.pf.sexo}"  style="width: 175px">
-        						<f:selectItem itemLabel="Masculino" itemValue="M" />
-        						<f:selectItem itemLabel="Feminino" itemValue="F" />
-        					</p:selectOneMenu>
+        					<p:outputLabel for="ie" value="Inscrição estadual:" />
+        					<p:inputText id="ie" value="#{clienteBean.cli.pj.ie}" required="false"/>									        				
+ 							
+ 							
+ 							<p:outputLabel for="im" value="Inscrição municipal:" />
+        					<p:inputText id="im" value="#{clienteBean.cli.pj.im}" required="false"/>									        				
+ 							
         													        				
     					</h:panelGrid>
  					</h:panelGrid>	
@@ -71,25 +73,25 @@
 					<!-- inicio da aba de contato -->
 					<p:tab title="Contato" id="contato" rendered="true">
 						<p:separator />	
-    				<h:panelGrid id="grid_contato" columns="2">    					
-						<h:panelGrid id="grid_c" columns="2" cellpadding="5">
+    				<h:panelGrid id="grid_contatoJ" columns="2">    					
+						<h:panelGrid id="grid_cj" columns="2" cellpadding="5">
         					<p:outputLabel  value="Celular:" />
-        					<p:inputMask id="cel" mask="(999)99999-9999" value="#{clienteBean.cli.ct.celular}" converter="telefoneConverter" required="false" />  
+        					<p:inputMask id="cel2" mask="(999)99999-9999" value="#{clienteBean.cli.ct.celular}" converter="telefoneConverter" required="false" />  
 							
         					<p:outputLabel  value="Fone fixo:" />
-        					<p:inputMask  id="fone" mask="(999)9999-9999" value="#{clienteBean.cli.ct.fone}" converter="telefoneConverter" />									        				 							
+        					<p:inputMask  id="fone2" mask="(999)9999-9999" value="#{clienteBean.cli.ct.fone}" converter="telefoneConverter" />									        				 							
  						
-        					<p:outputLabel for="email" value="e-mail:" />
-        					<p:inputText id="email" required="false" value="#{clienteBean.cli.ct.email}" size="30"/>
+        					<p:outputLabel for="emailj" value="e-mail:" />
+        					<p:inputText id="emailj" required="false" value="#{clienteBean.cli.ct.email}" size="30"/>
         					
-        					<p:outputLabel for="site" value="Site:" />
-        					<p:inputText id="site" required="false" value="#{clienteBean.cli.ct.site}" size="30" />
+        					<p:outputLabel for="sitej" value="Site:" />
+        					<p:inputText id="sitej" required="false" value="#{clienteBean.cli.ct.site}" size="30" />
         					
     					</h:panelGrid>
-    					<h:panelGrid id="grid_c2" columns="1" cellpadding="5">
+    					<h:panelGrid id="grid_c2j" columns="1" cellpadding="5">
     					
-    						<p:outputLabel for="obs" value="Observaçoes:" />
-        					<p:inputTextarea  id="obs" required="false" value="#{clienteBean.cli.ct.obs}" rows="8" cols="50"/>
+    						<p:outputLabel for="obsj" value="Observaçoes:" />
+        					<p:inputTextarea  id="obsj" required="false" value="#{clienteBean.cli.ct.obs}" rows="8" cols="50"/>
         													        				
     						</h:panelGrid>
  						</h:panelGrid>	
@@ -99,40 +101,40 @@
 					
 					<!-- inicio da aba endereço -->
 					<p:tab title="Endereço">
-						<p:messages id="msg_cep" showDetail="false" closable="true" autoUpdate="false"/> 
+						<p:messages id="msg_cepj" showDetail="false" closable="true" autoUpdate="false"/> 
 						<p:separator />	
-    				<h:panelGrid id="grid_endereco" columns="2">    					
-						<h:panelGrid id="grid_e" columns="3" cellpadding="5">
-        					<p:outputLabel for="cep" value="CEP:" />
-        					<p:inputMask id="cep" mask="99999-999" value="#{clienteBean.cli.ed.cep}" size="30"/>
+    				<h:panelGrid id="grid_enderecoj" columns="2">    					
+						<h:panelGrid id="grid_ej" columns="3" cellpadding="5">
+        					<p:outputLabel for="cepj" value="CEP:" />
+        					<p:inputMask id="cepj" mask="99999-999" value="#{clienteBean.cli.ed.cep}" size="30"/>
         					
-        					<p:commandLink update=":cadastro" 
+        					<p:commandLink update=":cadastroJ" 
         						onmouseover="document.getElementById('cadastro:tab:lupa').src='/OficinaManager/resources/imagens/lupa_o.png?pfdrid_c=true';"
         						onmouseout="document.getElementById('cadastro:tab:lupa').src='/OficinaManager/resources/imagens/lupa.png?pfdrid_c=true';"
         						action="#{clienteBean.buscaCep}" 
         						title="Buscar">					
-								<p:graphicImage id="lupa"  url="/resources/imagens/lupa.png"
+								<p:graphicImage id="lupaj"  url="/resources/imagens/lupa.png"
 								/>
 							</p:commandLink>
         					
-        					<p:outputLabel  value="RUA:" for="rua" />
-        					<p:inputText id="rua"  value="#{clienteBean.cli.ed.rua}" required="false" size="30" />  
-							<p:message for="rua"/>
+        					<p:outputLabel  value="RUA:" for="ruaj" />
+        					<p:inputText id="ruaj"  value="#{clienteBean.cli.ed.rua}" required="false" size="30" />  
+							<p:message for="ruaj"/>
 							
-        					<p:outputLabel  value="Numero:" for="num" />
-        					<p:inputText  id="num" value="#{clienteBean.cli.ed.numero}" size="30" />
-        					<p:message for="num"/>									        				 							 					 						
+        					<p:outputLabel  value="Numero:" for="numj" />
+        					<p:inputText  id="numj" value="#{clienteBean.cli.ed.numero}" size="30" />
+        					<p:message for="numj"/>									        				 							 					 						
  						        					
-        					<p:outputLabel for="bairro" value="BAIRRO:" />
-        					<p:inputText id="bairro" required="false" value="#{clienteBean.cli.ed.bairro}" size="30" />
-        					<p:message for="bairro"/>
+        					<p:outputLabel for="bairroj" value="BAIRRO:" />
+        					<p:inputText id="bairroj" required="false" value="#{clienteBean.cli.ed.bairro}" size="30" />
+        					<p:message for="bairroj"/>
         					
-        					<p:outputLabel for="cidade" value="CIDADE:" />
-        					<p:inputText id="cidade" required="false" value="#{clienteBean.cli.ed.cidade}" size="30" />
-        					<p:message for="cidade"/>
+        					<p:outputLabel for="cidadej" value="CIDADE:" />
+        					<p:inputText id="cidadej" required="false" value="#{clienteBean.cli.ed.cidade}" size="30" />
+        					<p:message for="cidadej"/>
         					
-        					<p:outputLabel for="uf" value="UF:" />        					
-        					<p:selectOneMenu value="#{clienteBean.cli.ed.uf}" id="uf">
+        					<p:outputLabel for="ufj" value="UF:" />        					
+        					<p:selectOneMenu value="#{clienteBean.cli.ed.uf}" id="ufj">
         						<f:selectItem itemLabel="Acre" itemValue="AC" />
         						<f:selectItem itemLabel="Alagoas" itemValue="AL" />
         						<f:selectItem itemLabel="Amapá" itemValue="AP" />
@@ -163,10 +165,10 @@
         					</p:selectOneMenu>
   			
     					</h:panelGrid>
-    					<h:panelGrid id="grid_ede2" columns="1" cellpadding="5">
+    					<h:panelGrid id="grid_ede2j" columns="1" cellpadding="5">
     					
-    						<p:outputLabel for="refer" value="Observaçoes:" />
-        					<p:inputTextarea  id="refer" required="false" value="#{clienteBean.cli.ed.refer}" rows="8" cols="50"/>
+    						<p:outputLabel for="referj" value="Observaçoes:" />
+        					<p:inputTextarea  id="referj" required="false" value="#{clienteBean.cli.ed.refer}" rows="8" cols="50"/>
         													        				
     						</h:panelGrid>
  						</h:panelGrid>	
@@ -175,33 +177,35 @@
 					<!-- fim da aba endereço -->
 					
 					<!-- inicio da aba enviar -->
-					<p:tab title="Enviar" id="enviar" >
-					<p:messages id="msg_enviar" showDetail="false" closable="true" autoUpdate="false"/>        					    				
+					<p:tab title="Enviar" id="enviarj" >
+					<p:messages id="msg_enviarj" showDetail="false" closable="true" autoUpdate="false"/>        					    				
     					<p:separator />	
 					<h:panelGrid columns="1" >
 					
 						<h:panelGrid cellpadding="4" cellspacing="6" columns="3">							
 							<h:panelGrid columns="1"  >								
-									<h:outputLabel value="Nome completo:" />
-									<h:inputText  label="Nome completo:" value="#{clienteBean.cli2.pf.nome}" required="true" 
-										requiredMessage="Obrigatório um nome para o cliente" size="30" readonly="true"/>
+									<h:outputLabel value="Razao social:" />
+									<h:inputText  label="Razao social:" value="#{clienteBean.cli2.pj.rs}" required="true" 
+										requiredMessage="Obrigatório razão social" size="30" readonly="true"/>
 																		
-									<h:outputLabel value="RG:" />
-									<h:inputText label="RG:" id="rg2" value="#{clienteBean.cli2.pf.rg}" readonly="true" immediate="true" />
+									<h:outputLabel value="Nome fantasia:" />
+									<h:inputText id="nfsia" value="#{clienteBean.cli2.pj.nomeFantasia}" readonly="true" immediate="true" />
 									
-									<h:outputLabel value="CPF:" />									
-									<h:inputText  label="CPF:" id="CPF2" value="#{clienteBean.cli2.pf.cpf}" required="false" readonly="true" />	
+									<h:outputLabel value="CNPJ:" />									
+									<h:inputText  label="CNPJ:" id="CNPJ2" value="#{clienteBean.cli2.pj.cnpj}" required="true" readonly="true" />	
 									
-									<h:outputLabel value="DATA DE NASCIMENTO:" />									
-									<h:inputText  label="NASCIMENTO:" id="NAS2" value="#{clienteBean.cli2.pf.nascimento}"  required="false" readonly="true" >
+									<h:outputLabel value="DATA DE ABERTURA:" />									
+									<h:inputText  label="ABERTURA:" id="abertura2" value="#{clienteBean.cli2.pj.abertura}"  required="false" readonly="true" >
 										<f:convertDateTime locale="pt,BR" dateStyle="long" pattern="dd/MM/yyyy" />
 									</h:inputText>
 									
-									<h:outputLabel value="Sexo:" />									
-									<h:inputText  label="SEXO:" id="SX2" value="#{clienteBean.cli2.pf.sexo}" required="false" readonly="true" />																			
+									<h:outputLabel value="Inscrição estadual:" />									
+									<h:inputText   id="ie2" value="#{clienteBean.cli2.pj.ie}" required="false" readonly="true" />																			
 									
-								<h:outputLabel value="--------------------"/>
-								<h:outputLabel value="--------------------"/>
+									<h:outputLabel value="Inscrição municipal:" />									
+									<h:inputText   id="im2" value="#{clienteBean.cli2.pj.im}" required="false" readonly="true" />																			
+									
+								
 								<h:outputLabel value="--------------------"/>
 							</h:panelGrid>
 
@@ -213,7 +217,7 @@
 									<h:inputText label="FONE FIXO:" id="FONE_E" value="#{clienteBean.cli2.ct.fone}" readonly="true" immediate="true" />
 									
 									<h:outputLabel value="e-mail:" />
-									<h:inputText label="e-mail:" id="e" value="#{clienteBean.cli2.ct.fone}" readonly="true" immediate="true" />
+									<h:inputText label="e-mail:" id="ej" value="#{clienteBean.cli2.ct.fone}" readonly="true" immediate="true" />
 									
 									<h:outputLabel value="SITE:" />
 									<h:inputText label="site22:" id="site22" value="#{clienteBean.cli2.ct.site}" readonly="true" immediate="true" />
@@ -246,7 +250,7 @@
 									<h:outputLabel value="ESTADO:" />
 									<h:inputText  value="#{clienteBean.cli2.ed.uf}" readonly="true" immediate="true" />
 									
-									<p:commandLink process="@form" update="msg_enviar" action="#{clienteBean.salvar}" title="Enviar">											
+									<p:commandLink process="@form" update="msg_enviarj" action="#{clienteBean.salvarPJ}" title="Enviar">											
 										<p:graphicImage library="imagens" name="enviar.png" />		
 									</p:commandLink>
 									
@@ -266,7 +270,7 @@
 				<p:commandLink process="@form" 
 				onmouseover="document.getElementById('cadastro:sair').src='/OficinaManager/javax.faces.resource/sair_o.png.jsf?ln=imagens';"
 				onmouseout="document.getElementById('cadastro:sair').src='/OficinaManager/javax.faces.resource/sair.png.jsf?ln=imagens';"
-				update=":listagem " action="#{clienteBean.onTabClose}"  oncomplete="dlg2.hide()" title="Fechar">
+				update=":listagem " action="#{clienteBean.onTabClose}"  oncomplete="dlg3.hide()" title="Fechar">
 										
 					<p:graphicImage library="imagens" id="sair" value="Sair" name="sair.png" />
 				</p:commandLink>

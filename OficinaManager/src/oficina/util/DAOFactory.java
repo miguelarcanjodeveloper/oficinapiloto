@@ -8,6 +8,8 @@ import oficina.contato.EnderecoDAO;
 import oficina.contato.EnderecoDAOHBT;
 import oficina.pessoas.fisica.PessoaFDAO;
 import oficina.pessoas.fisica.PessoaFHBT;
+import oficina.pessoas.juridica.PessoaJDAO;
+import oficina.pessoas.juridica.PessoaJHBT;
 import oficina.usuario.UsuarioDAO;
 import oficina.usuario.UsuarioDAOHibernate;
 
@@ -46,6 +48,17 @@ public class DAOFactory {
 		PessoaFHBT pessoaFDAO = new PessoaFHBT();
 		pessoaFDAO.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
 		return pessoaFDAO;
+	}
+	/***
+	 * Pessoa juridica
+	 * @return
+	 */
+	
+	public static PessoaJDAO criaPessoaJDAO(){
+
+		PessoaJHBT pessoaJDAO = new PessoaJHBT();
+		pessoaJDAO.setSession(Hibernateutil.getSessionFactory().getCurrentSession());
+		return pessoaJDAO;
 	}
 	
 	/***

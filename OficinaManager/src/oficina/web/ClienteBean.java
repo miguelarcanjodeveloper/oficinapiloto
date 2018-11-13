@@ -11,6 +11,8 @@ import oficina.contato.Contato;
 import oficina.contato.Endereco;
 import oficina.pessoas.fisica.PessoaF;
 import oficina.pessoas.fisica.PessoaFRN;
+import oficina.pessoas.juridica.PessoaJ;
+import oficina.pessoas.juridica.PessoaJRN;
 import oficina.util.BuscaCep;
 
 
@@ -22,10 +24,13 @@ public class ClienteBean {
 	Cliente cli2 = new Cliente();
 	PessoaF pf = new PessoaF();
 	PessoaF pf2 = new PessoaF();
+	private PessoaJ pj = new PessoaJ();
+	private PessoaJ pj2 = new PessoaJ();
 	Contato contato = new Contato();
 	Endereco endereco = new Endereco();
 	//List<PessoaF>  cliFlist;
-	List<Cliente> cliFlist;
+	private List<Cliente> cliFlist;
+	private List<Cliente> cliJlist;
 	String buscarCliente;
 	private String pesquisaTipo;
 	private String selCli="fisico";//seleciona cliente
@@ -42,7 +47,7 @@ public class ClienteBean {
 
 
 
-	public String salvar(){
+public String salvar(){
 		
 		FacesMessage faceMessage;
 		
@@ -56,8 +61,7 @@ public class ClienteBean {
 			
 			return faceMessage.getDetail();
 		}else{
-			
-		//cli.setPf(getPf());	
+				
 		cr.salvar(cli);	//os demais clientes fisico juridico contato e endereço continua sendo salvo em clienteRN
 		onTabClose();//limpa os dados da aba enviar
 		faceMessage = new FacesMessage("Salvo com sucesso!");			
@@ -65,39 +69,101 @@ public class ClienteBean {
 		return faceMessage.getDetail();
 		}
 	}
+
+public String salvarPJ(){
 	
-	public void novo(){
-		cli = new Cliente();
-		cli.setTipo(0);		
-		pf = new PessoaF();
-		contato = new Contato();
-		endereco = new Endereco();
-		cli.setPf(pf);
-		cli.setCt(contato);
-		cli.setEd(endereco);
-		onTabClose();
+	FacesMessage faceMessage;
+	
+	
+	ClienteRN cr = new ClienteRN();		
+	PessoaJRN pjn = new PessoaJRN();
+	if(pjn.chekCNPJ(pj.getCnpj()) && pj.getId_pessoa_j()==null){
+					
+		faceMessage = new FacesMessage("Já existe um usuario com este CNPJ!");			
+		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
 		
+		return faceMessage.getDetail();
+	}else{
+			
+	cr.salvarJURIDICO(cli);	//os demais clientes fisico juridico contato e endereço continua sendo salvo em clienteRN
+	faceMessage = new FacesMessage("Salvo com sucesso!");			
+	FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+	return faceMessage.getDetail();
 	}
+}
 	
-	public void delete(){
-		ClienteRN cl = new ClienteRN();
-		
-		cl.deleteCliente(cli);
-	}
+public void novo(){
+	cli = new Cliente();
+	cli.setTipo(0);		
+	pf = new PessoaF();
+	contato = new Contato();
+	endereco = new Endereco();
+	cli.setPf(pf);
+	cli.setCt(contato);
+	cli.setEd(endereco);
+	onTabClose();
 	
-	public void bscliFisico(){
-		
-		ClienteRN crn = new ClienteRN();
-		cliFlist = crn.listarFisicos(getPesquisaTipo(),getBuscarCliente());
-		
-		
-	}
+}
+
+public void novoPJ(){
+	cli = new Cliente();
+	cli.setTipo(1);		
+	pj = new PessoaJ();
+	contato = new Contato();
+	endereco = new Endereco();
+	cli.setPj(pj);
+	cli.setCt(contato);
+	cli.setEd(endereco);	
 	
+}
+	
+public void delete(){
+	ClienteRN cl = new ClienteRN();
+	
+	cl.deleteCliente(cli);
+}
+
+public void deletePJ(){
+	ClienteRN cl = new ClienteRN();
+	
+	cl.deleteClienteJURIDICO(cli);
+}
+	
+public void bscliFisico(){
+	
+	ClienteRN crn = new ClienteRN();
+	cliFlist = crn.listarFisicos(getPesquisaTipo(),getBuscarCliente());
+	
+	
+}
+
+public void bscliJuridico(){
+	
+	ClienteRN crn = new ClienteRN();
+	
+	cliJlist = crn.listarPj(getPesquisaTipo(),getBuscarCliente());
+	
+	
+	
+}
+	
+
+
+	public List<Cliente> getCliJlist() {
+	return cliJlist;
+}
+
+
+
+public void setCliJlist(List<Cliente> cliJlist) {
+	this.cliJlist = cliJlist;
+}
+
+
+
 	public List<Cliente> getCliFLista() {
 		
-		
-		
-		
+	
 		return cliFlist;
 		
 	}
@@ -122,6 +188,25 @@ public class ClienteBean {
 			
 		}else{
 			faceMessage = new FacesMessage("CPF não cadastrado.");			
+			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+		}
+		
+	}
+	
+	public void validaCnpj(){
+		
+		PessoaJRN prn = new PessoaJRN();
+		FacesMessage faceMessage;
+		
+		
+		if(prn.chekCNPJ(pj.getCnpj())){
+			
+			
+			faceMessage = new FacesMessage("Já existe um cliente com este CNPJ!");			
+			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+			
+		}else{
+			faceMessage = new FacesMessage("CNPJ não cadastrado.");			
 			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
 		}
 		
@@ -212,6 +297,20 @@ public class ClienteBean {
 		this.pf2 = pf2;
 	}
 
+	
+	
+	public PessoaJ getPj2() {
+		return pj2;
+	}
+
+
+
+	public void setPj2(PessoaJ pj2) {
+		this.pj2 = pj2;
+	}
+
+
+
 	public List<Cliente> getCliFList() {
 		return cliFlist;
 	}
@@ -235,14 +334,8 @@ public class ClienteBean {
 
 
 
-	public void onTabChange(TabChangeEvent event) {
+public void onTabChange(TabChangeEvent event) {
 		
-        pf2.setCpf(cli.getPf().getCpf());
-        pf2.setNome(cli.getPf().getNome());
-        pf2.setRg(cli.getPf().getRg());
-        pf2.setRg(cli.getPf().getRg());
-        pf2.setNascimento(cli.getPf().getNascimento());                       
-        pf2.setSexo(cli.getPf().getSexo());
         cli2=cli;
     }
 	

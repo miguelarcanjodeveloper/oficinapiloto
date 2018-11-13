@@ -11,6 +11,7 @@
   <mapping class="oficina.usuario.Usuario"/>
   <mapping class="oficina.cliente.Cliente"/>
   <mapping class="oficina.pessoas.fisica.PessoaF"/>
+  <mapping class="oficina.pessoas.juridica.PessoaJ"/>
   <mapping class="oficina.contato.Contato"/>
   <mapping class="oficina.contato.Endereco"/>
   

@@ -1,17 +1,10 @@
 package oficina.cliente;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.sql.SelectExpression;
-
-import com.sun.security.ntlm.Client;
-
 import oficina.contato.ContatoRN;
-import oficina.contato.Endereco;
 import oficina.contato.EnderecoRN;
-import oficina.pessoas.fisica.PessoaFDAO;
 import oficina.pessoas.fisica.PessoaFRN;
+import oficina.pessoas.juridica.PessoaJRN;
 import oficina.util.DAOFactory;
 
 public class ClienteRN {
@@ -19,6 +12,7 @@ public class ClienteRN {
 	private ClienteDAO clienteDAO;
 	
 	PessoaFRN PFRN = new PessoaFRN();
+	PessoaJRN PJRN = new PessoaJRN();
 	ContatoRN crn = new ContatoRN();
 	EnderecoRN end = new EnderecoRN();
 
@@ -33,7 +27,6 @@ public class ClienteRN {
 					
 			this.clienteDAO.salvar(cli);
 			
-			if (cli.getTipo()==0){//se for 0 então é cliente fisico
 				cli.getPf().setId(cli);// seta o id_cliente para o cliente fisico
 				cli.getCt().setCliente_id(cli);//seta o id_cliente para o contato
 				cli.getEd().setCliente_id(cli);
@@ -41,13 +34,32 @@ public class ClienteRN {
 				crn.salvar(cli);//salva o contato
 				end.salvar(cli);//salva endereço
 				
-			}else{
-				
-			}
+			
 		}else{	
 			//Neste caso so atualiza não atribui outro ID CLIENTE
 			crn.salvar(cli);
 			PFRN.salvar(cli);
+			end.salvar(cli);
+		}		
+	}
+	
+	public void salvarJURIDICO(Cliente cli){
+		Integer codigo = cli.getId();
+		
+		if(codigo==null|| codigo==0){
+					
+			this.clienteDAO.salvar(cli);
+			
+			cli.getPj().setId_cliente(cli);// seta o id_cliente para o cliente juridico
+			cli.getCt().setCliente_id(cli);//seta o id_cliente para o contato
+			cli.getEd().setCliente_id(cli);
+			PJRN.salvar(cli);//salva o cliente fisico				
+			crn.salvar(cli);//salva o contato
+			end.salvar(cli);//salva endereço
+		}else{	
+			//Neste caso so atualiza não atribui outro ID CLIENTE
+			crn.salvar(cli);
+			PJRN.salvar(cli);
 			end.salvar(cli);
 		}		
 	}
@@ -59,34 +71,22 @@ public class ClienteRN {
 		
 	}
 	
+	public void deleteClienteJURIDICO(Cliente c){
+		if(c.getPj()!=null)PJRN.deletePJ(c);		
+		if(c.getCt()!=null)crn.deleteContato(c);
+		if(c.getEd()!=null)end.deleteContato(c);
+		
+	}
+	
 	
 	public List<Cliente> listarFisicos(String tipo,String pesquisa) {
-		List<Cliente> cli = this.clienteDAO.buscaAvancada(tipo, pesquisa);
-		
-		/***
-		for (Cliente cliente : cli) {
-			cliente.setPf(this.PFRN.buscarPorCliente(cliente));
-			cliente.setCt(crn.buscaPorCliente(cliente));
-			cliente.setEd(end.buscaPorCliente(cliente));
-			if(cliente.getPf()!=null && cliente.getTipo()==1)
-			cli.remove(cliente);
-		}
-		 * 
-		 */
+		List<Cliente> cli = this.clienteDAO.buscaAvancadaF(tipo, pesquisa);		
 		return cli;
 	}
 	
-	public List<Cliente> listarPj() {
-		List<Cliente> cli = this.clienteDAO.listar();
-		List<Cliente> cli2 =  new ArrayList<>();
-		
-		for (Cliente cliente : cli) {
-			cliente.setPf(this.PFRN.buscarPorCliente(cliente));
-			if(cliente.getPf()!=null && cliente.getTipo()==1)//se houver o cliente e for do tipo pj juridico
-			cli2.add(cliente);
-		}
-		
-		return cli2;
+	public List<Cliente> listarPj(String tipo,String pesquisa) {
+		List<Cliente> cli = this.clienteDAO.buscaAvancadaJ(tipo, pesquisa);		
+		return cli;
 	}
 	
 }

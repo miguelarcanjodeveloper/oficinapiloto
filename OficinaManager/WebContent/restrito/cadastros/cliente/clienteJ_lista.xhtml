@@ -44,19 +44,19 @@
 							<p:commandLink process="listagem_j" 
 							onmouseover="document.getElementById('listagem_j:buscar_j').src='/OficinaManager/javax.faces.resource/buscar_o.png.jsf?ln=imagens';"
 							onmouseout="document.getElementById('listagem_j:buscar_j').src='/OficinaManager/javax.faces.resource/buscar.png.jsf?ln=imagens';"
-							action="#{clienteBean.bscliFisico}" update=":listagem_j,dados_j"  title="Buscar" >					
+							action="#{clienteBean.bscliJuridico}" update=":listagem_j,dados_j"  title="Buscar" >					
 								<p:graphicImage id="buscar_j" library="imagens" name="buscar.png" />
 							</p:commandLink>
-							<p:commandLink onclick="PF('dlg2').show();" update=":cadastro"  
-							onmouseover="document.getElementById('listagem:novo_j').src='/OficinaManager/javax.faces.resource/novo_o.png.jsf?ln=imagens';"
-							onmouseout="document.getElementById('listagem:novo_j').src='/OficinaManager/javax.faces.resource/novo.png.jsf?ln=imagens';"
-							action="#{clienteBean.novo}" title="Novo">					
-								<p:graphicImage library="imagens" id="novo_j" name="novo.png" onmouseover="document.getElementById('novo_j').name='novo_o.png';"/>
+							<p:commandLink onclick="PF('dlg3').show();" update=":cadastroJ"  
+							onmouseover="document.getElementById('listagem_j:novo_j').src='/OficinaManager/javax.faces.resource/novo_o.png.jsf?ln=imagens';"
+							onmouseout="document.getElementById('listagem_j:novo_j').src='/OficinaManager/javax.faces.resource/novo.png.jsf?ln=imagens';"
+							action="#{clienteBean.novoPJ}" title="Novo">					
+								<p:graphicImage library="imagens" id="novo_j" name="novo.png" />
 							</p:commandLink>							
 						</h:panelGrid>
 					
 					<!-- inicio listagem de cliente JURIDICO -->	
-						<p:dataTable value="#{clienteBean.cliFLista}" var="cliente" 
+						<p:dataTable value="#{clienteBean.cliJlist}" var="cliente" 
 							cellspacing="10" 
 							cellpadding="5" 
 							style="text-align:left; display:block;" 																				
@@ -73,23 +73,19 @@
 									<h:outputText value="#{cliente.id}" />																		
 							</p:column>	
 							<p:column>
-								<f:facet name="header">Nome</f:facet>									
-									<h:outputText value="#{cliente.pf.nome}"/>
-									<h:inputHidden value="#{cliente.pf.id_pessoa_f}"/>
+								<f:facet name="header">Nome Fantasia</f:facet>									
+									<h:outputText value="#{cliente.pj.nomeFantasia}"/>
+									<h:inputHidden value="#{cliente.pj.id_pessoa_j}"/>
 							</p:column>	
 							<p:column>
-								<f:facet name="header">Ducumento RG:</f:facet>									
-									<h:outputText value="#{cliente.pf.rg}"/>
-							</p:column>	
-							<p:column>
-								<f:facet name="header">Documento CPF</f:facet>									
-									<h:outputText value="#{cliente.pf.cpf}"/>
+								<f:facet name="header">CNPJ:</f:facet>									
+									<h:outputText value="#{cliente.pj.cnpj}"/>
 							</p:column>								
 							<p:column>
 								<f:facet name="header">Opções</f:facet>
 									<p:menuButton value="Opções" styleClass="listagemj">
         							
-        							<p:menuitem value="Editar"  update=":cadastro" onclick="PF('dlg2').show();" icon="ui-icon-arrowrefresh-1-w">
+        							<p:menuitem value="Editar"  update=":cadastroJ" onclick="PF('dlg3').show();" icon="ui-icon-arrowrefresh-1-w">
         								<f:setPropertyActionListener target="#{clienteBean.cli}" value="#{cliente}"/>        								
         							</p:menuitem>
         							<p:menuitem value="Imprimir" title="Imprimir dados do cliente"   icon="ui-icon-print">

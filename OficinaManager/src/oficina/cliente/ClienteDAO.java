@@ -8,7 +8,8 @@ public interface ClienteDAO {
 	public void atualizar(Cliente usuario);
 	public void excluir(Cliente usuario);
 	public Cliente carregar(Integer codigo);
-	public List<Cliente> buscaAvancada(String tipo,String busca);
+	public List<Cliente> buscaAvancadaF(String tipo,String busca);
+	public List<Cliente> buscaAvancadaJ(String tipo,String busca);
 	public List<Cliente> listar();
 	
 }
